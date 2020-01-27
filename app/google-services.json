@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "53599085250",
+    "firebase_url": "https://wml11-266418.firebaseio.com",
+    "project_id": "wml11-266418",
+    "storage_bucket": "wml11-266418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53599085250:android:6f034ce24a0d79e1e6915b",
+        "android_client_info": {
+          "package_name": "com.elbaz.eliran.washmylaundry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53599085250-6brojaicmkfqp1e46tba9p1f4nlgm9ri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.elbaz.eliran.washmylaundry",
+            "certificate_hash": "7885dc0d5b2af5de10fe7307e5825381cf613b97"
+          }
+        },
+        {
+          "client_id": "53599085250-8gtersccee9jc0i94ddomt51ep9t5m0b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABd5h4g320R2UxURBdcQndRYpghhIIoOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53599085250-8gtersccee9jc0i94ddomt51ep9t5m0b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
