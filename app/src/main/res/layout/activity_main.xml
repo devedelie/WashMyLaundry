@@ -1,18 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/main_activity_coordinator_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".controllers.activities.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!-- MAIN CONTAINER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/ic_background_1280x1920">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- IMAGE VIEW LOGO -->
+        <ImageView
+            android:layout_width="270dp"
+            android:layout_height="170dp"
+            android:background="@drawable/background_logo"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginStart="@dimen/default_large_margin" />
+
+        <!-- TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/secondary_logo_text"
+            android:textSize="@dimen/default_text_size"
+
+            android:layout_margin="@dimen/default_margin"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_text"
+            android:layout_gravity="center"
+            android:layout_margin="10dip"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <!-- BUTTONS CONTAINER -->
+        <LinearLayout
+            android:id="@+id/all_login_buttons_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/default_large_margin">
+
+            <!-- BUTTON Email -->
+            <Button
+                android:id="@+id/main_activity_button_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/login_email"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:background="@drawable/button_radius_email_color"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                android:drawableStart="@drawable/ic_email_white_icon"/>
+
+            <!-- BUTTON Gmail -->
+            <Button
+                android:id="@+id/main_activity_button_gmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/login_gmail"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:background="@drawable/button_radius_primary_color"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                android:drawableStart="@drawable/ic_google_icon"/>
+
+            <!-- BUTTON Facebook -->
+            <Button
+                android:id="@+id/main_activity_button_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="@string/login_facebook"
+                android:textColor="#fff"
+                android:textSize="@dimen/default_text_size"
+                android:background="@drawable/button_radius_accent_color"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                android:drawableStart="@drawable/ic_facebook_icon" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
