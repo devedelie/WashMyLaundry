@@ -8,13 +8,16 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
+import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,14 +28,16 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks{
     // Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 100;
     private static final String PERMS_FINE = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -41,6 +46,7 @@ public class MainActivity extends BaseActivity {
     public static final Integer PERMISSIONS_REQUEST_ENABLE_GPS = 9002;
 
     @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.washer_switch) Switch washerSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +62,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: isLogged? " +isCurrentUserLogged() + "  isNetworkAvailable? "+ isNetworkAvailable() + "  hasLocationPermission? " + mLocationPermissionGranted);
+        Log.d(TAG, "onResume: isLogged? " + isCurrentUserLogged() + "  isNetworkAvailable? "+ isNetworkAvailable() + "  hasLocationPermission? " + mLocationPermissionGranted);
         // Verify Network connectivity
         if(!isNetworkAvailable()){
             displayMobileDataSettingsDialog(this, this);}
@@ -118,6 +124,87 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        mLocationPermissionGranted = true;
+    }
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        mLocationPermissionGranted = false;
+        askPermission();
+    }
+
+    //-----------------End Of User's Permissions -------------------------
+
+    // --------------------
+    // ACTIONS
+    // --------------------
+
+    @OnClick(R.id.main_activity_button_email)
+    public void onClickEmailLoginButton() { this.startSignInActivityWithEmail(); }
+
+    @OnClick(R.id.main_activity_button_gmail)
+    public void onClickGmailLoginButton() { this.startSignInActivityWithGmail(); }
+
+    @OnClick(R.id.main_activity_button_facebook)
+    public void onClickFacebookLoginButton() { this.startSignInActivityWithFacebook(); }
+
+    // --------------------
+    // NAVIGATION
+    // --------------------
+
+    // Launch Sign-In Activity with Email- Firebase UI
+    private void startSignInActivityWithEmail(){
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.LoginTheme)
+                        .setAvailableProviders(
+                                Arrays.asList(
+                                        new AuthUI.IdpConfig.EmailBuilder().build()))
+                        .setIsSmartLockEnabled(false, true)
+                        .setLogo(R.drawable.ic_logo)
+                        .setIsSmartLockEnabled(false) //Disable SmartLock to enable Espresso testing on UI**
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+    // Launch Sign-In Activity with Gmail- Firebase UI
+    private void startSignInActivityWithGmail(){
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.LoginTheme)
+                        .setAvailableProviders(
+                                Arrays.asList(
+                                        new AuthUI.IdpConfig.GoogleBuilder().build()))
+                        .setIsSmartLockEnabled(false, true)
+                        .setLogo(R.drawable.ic_logo)
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+    // Launch Sign-In Activity with Facebook- Firebase UI
+    private void startSignInActivityWithFacebook(){
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.LoginTheme)
+                        .setAvailableProviders(
+                                Arrays.asList(
+                                        new AuthUI.IdpConfig.FacebookBuilder().build()))
+                        .setIsSmartLockEnabled(false, true)
+                        .setLogo(R.drawable.ic_logo)
+                        .build(),
+                RC_SIGN_IN);
+    }
+
     // --------------------
     // UTILS
     // --------------------
@@ -136,8 +223,9 @@ public class MainActivity extends BaseActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                this.createUserInFirestore();
-                showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
+                    this.createUserInFirestore();
+                    showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
+
             } else { // ERRORS
                 if (response == null) {
                     showSnackBar(this.coordinatorLayout, getString(R.string.error_authentication_canceled));
@@ -191,8 +279,9 @@ public class MainActivity extends BaseActivity {
                                     String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
                                     String username = getCurrentUser().getDisplayName();
                                     String uid = getCurrentUser().getUid();
+                                    boolean isProvider = washerSwitch.isChecked();
 
-                                    UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(onFailureListener());
+                                    UserHelper.createUser(uid, username, urlPicture, isProvider).addOnFailureListener(onFailureListener());
                                 }else {
                                     Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
                                 }
@@ -201,4 +290,6 @@ public class MainActivity extends BaseActivity {
                     });
         }
     }
+
+
 }
