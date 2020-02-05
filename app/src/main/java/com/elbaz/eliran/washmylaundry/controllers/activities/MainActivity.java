@@ -9,18 +9,22 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -44,6 +48,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private static final int RC_PERMISSION_CODE = 100;
     public static Boolean mLocationPermissionGranted = false;
     public static final Integer PERMISSIONS_REQUEST_ENABLE_GPS = 9002;
+    public static boolean washerSwitchMode;
 
     @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.washer_switch) Switch washerSwitch;
@@ -68,7 +73,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             displayMobileDataSettingsDialog(this, this);}
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){
-            startSplashScreenActivity();
+            loginModeSwitcher();
         }
     }
 
@@ -223,7 +228,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                    this.createUserInFirestore();
+                    this.loginModeSwitcher();
                     showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
 
             } else { // ERRORS
@@ -261,8 +266,16 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     // REST REQUEST
     // --------------------
 
+    private void loginModeSwitcher(){
+        if(washerSwitch.isChecked()){
+            loginOrcreateProviderInFirestore();
+        }else {
+            loginOrCreateUserInFirestore();
+        }
+    }
+
     //  Http request that create user in firestore
-    private void createUserInFirestore(){
+    private void loginOrCreateUserInFirestore(){
 
         if (this.getCurrentUser() != null){
             // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
@@ -275,20 +288,73 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
                                 // Put Documents in a DocumentSnapshot List
                                 List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
                                 if(mListOfDocuments.size()<=0){
-                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore");
                                     String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
                                     String username = getCurrentUser().getDisplayName();
                                     String uid = getCurrentUser().getUid();
                                     boolean isProvider = washerSwitch.isChecked();
-
-                                    UserHelper.createUser(uid, username, urlPicture, isProvider).addOnFailureListener(onFailureListener());
+                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
+                                    UserHelper.createUser(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            startSplashScreenActivity(); // Call SplashScreen only when object was created in Firestore
+                                        }
+                                    }).addOnFailureListener(onFailureListener());
                                 }else {
                                     Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
+                                    startSplashScreenActivity();
                                 }
                             }
                         }
                     });
         }
+    }
+
+    //  Http request that create provider in firestore
+    private void loginOrcreateProviderInFirestore(){
+
+        if (this.getCurrentUser() != null){
+            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
+            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Put Documents in a DocumentSnapshot List
+                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
+                                if(mListOfDocuments.size()<=0){
+                                    String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
+                                    String providerName = getCurrentUser().getDisplayName();
+                                    String pid = getCurrentUser().getUid();
+                                    boolean isProvider = washerSwitch.isChecked();
+                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + providerName + " " + pid + " " + isProvider);
+                                    ProviderHelper.createProvider(pid, providerName, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            startSplashScreenActivity();
+                                        }
+                                    }).addOnFailureListener(onFailureListener());
+                                }else {
+                                    Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
+                                    startSplashScreenActivity();
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+    // --------------------
+    // ERROR HANDLER
+    // --------------------
+
+    protected OnFailureListener onFailureListener(){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+            }
+        };
     }
 
 
