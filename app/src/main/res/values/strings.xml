@@ -11,11 +11,15 @@
     <string name="login_gmail">Login with Google</string>
     <string name="login_facebook">Login with Facebook</string>
     <string name="secondary_logo_text">Find a nearby service provider</string>
-    <string name="welcome_text">Welcome! Please connect</string>
+    <string name="welcome_text">Welcome! Please select:</string>
     <string name="popup_title_permission_location_access">This application needs permissions of location to function correctly.</string>
     <string name="popup_title_permission_gps_access">This application requires to enabled GPS, do you want to enable it?</string>
     <string name="popup_title_permission_gps_enable_btn">Enable</string>
     <string name="need_to_authorise_location_services">In order to access, please authorise location services for this application.</string>
     <string name="connection_succeed">Signed-in</string>
+
+    <!-- SplashScreen -->
+    <string name="no_location_found">Error locating the device</string>
+    <string name="map_loading_text">Waiting for your current location</string>
 
 </resources>

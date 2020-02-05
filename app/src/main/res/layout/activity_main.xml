@@ -17,7 +17,7 @@
 
         <!-- IMAGE VIEW LOGO -->
         <ImageView
-            android:layout_width="270dp"
+            android:layout_width="290dp"
             android:layout_height="170dp"
             android:background="@drawable/background_logo"
             android:layout_marginEnd="@dimen/default_large_margin"
@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:text="@string/secondary_logo_text"
             android:textSize="@dimen/default_text_size"
-
             android:layout_margin="@dimen/default_margin"
             android:textColor="@color/colorPrimaryDark"/>
 
@@ -41,6 +40,62 @@
             android:layout_gravity="center"
             android:layout_margin="10dip"
             android:textColor="@color/colorPrimaryDark"/>
+
+        <!-- I AM Selection Container-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:weightSum="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="I need a wash"
+                android:layout_gravity="center"
+                android:layout_weight="0.33"
+                android:clickable="false"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/i_need_a_wash"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="I need a wash"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginEnd="15dp"/>-->
+
+            <Switch
+                android:id="@+id/washer_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:switchMinWidth="55dp"
+                android:switchPadding="15sp"
+                android:layout_gravity="center"
+                android:trackTint="@color/cardview_dark_background"
+                android:thumbTint="@color/colorAccent"
+                android:layout_weight="0.33"/>
+
+<!--            <TextView-->
+<!--                android:id="@+id/i_am_washer"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="I am a provider"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="15dp"/>-->
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="I am a provider"
+                android:layout_gravity="center"
+                android:layout_weight="0.33"
+                android:clickable="false"/>
+        </LinearLayout>
 
         <!-- BUTTONS CONTAINER -->
         <LinearLayout

@@ -26,4 +26,9 @@
         <item name="android:textColorHint">@android:color/white</item>
     </style>
 
+    <!-- Style SplashScreen -->
+    <style name="AppTheme.ProgressBarAccentColor">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>
