@@ -13,7 +13,7 @@ public class User {
     private String username;
     @Nullable
     private String urlPicture, userAddress;
-    private boolean isProvider=false, isProviderAvailable;
+    private boolean isProvider;
     private int userZipCode;
     private LatLng userCoordinates;
 
@@ -26,7 +26,6 @@ public class User {
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
         this.userAddress = "";
-        this.isProviderAvailable = false;
         this.userZipCode = 0;
         this.userCoordinates = null;
     }
@@ -44,18 +43,14 @@ public class User {
 
     public void setUrlPicture(@Nullable String urlPicture) { this.urlPicture = urlPicture; }
 
-    public boolean isProvider() { return isProvider; }
+    public boolean getIsProvider() { return isProvider; }
 
-    public void setProvider(boolean provider) { isProvider = provider; }
+    public void setIsProvider(boolean provider) { isProvider = provider; }
 
     @Nullable
     public String getUserAddress() { return userAddress; }
 
     public void setUserAddress(@Nullable String userAddress) { this.userAddress = userAddress; }
-
-    public boolean isProviderAvailable() { return isProviderAvailable; }
-
-    public void setProviderAvailable(boolean providerAvailable) { isProviderAvailable = providerAvailable; }
 
     public int getUserZipCode() { return userZipCode; }
 
