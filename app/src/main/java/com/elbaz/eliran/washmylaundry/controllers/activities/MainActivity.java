@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +19,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
-import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -52,13 +54,26 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
 
     @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.washer_switch) Switch washerSwitch;
+    @BindView(R.id.i_need_a_wash_text) TextView iNeedWashText;
+    @BindView(R.id.i_am_provider_text) TextView iAmProviderText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        iNeedWashText.setTypeface(null, Typeface.BOLD); // Default Switch text boldness
         // Verify all permissions and setups
         this.verifyPlacesSDK();
         this.isGpsEnabled();
+        this.configureSwitch();
+    }
+
+    private void configureSwitch() {
+        washerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!isChecked){ iNeedWashText.setTypeface(null, Typeface.BOLD); iAmProviderText.setTypeface(null, Typeface.NORMAL);}
+                else{ iAmProviderText.setTypeface(null, Typeface.BOLD); iNeedWashText.setTypeface(null, Typeface.NORMAL); }
+            }
+        });
     }
 
     @Override
@@ -73,7 +88,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
             displayMobileDataSettingsDialog(this, this);}
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){
-            loginModeSwitcher();
+            loginOrCreateUserInFirestore();
         }
     }
 
@@ -228,7 +243,7 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                    this.loginModeSwitcher();
+                    this.loginOrCreateUserInFirestore();
                     showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
 
             } else { // ERRORS
@@ -266,14 +281,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     // REST REQUEST
     // --------------------
 
-    private void loginModeSwitcher(){
-        if(washerSwitch.isChecked()){
-            loginOrcreateProviderInFirestore();
-        }else {
-            loginOrCreateUserInFirestore();
-        }
-    }
-
     //  Http request that create user in firestore
     private void loginOrCreateUserInFirestore(){
 
@@ -309,40 +316,34 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
         }
     }
 
-    //  Http request that create provider in firestore
-    private void loginOrcreateProviderInFirestore(){
-
-        if (this.getCurrentUser() != null){
-            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
-            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                // Put Documents in a DocumentSnapshot List
-                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
-                                if(mListOfDocuments.size()<=0){
-                                    String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
-                                    String providerName = getCurrentUser().getDisplayName();
-                                    String pid = getCurrentUser().getUid();
-                                    boolean isProvider = washerSwitch.isChecked();
-                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + providerName + " " + pid + " " + isProvider);
-                                    ProviderHelper.createProvider(pid, providerName, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            startSplashScreenActivity();
-                                        }
-                                    }).addOnFailureListener(onFailureListener());
-                                }else {
-                                    Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
-                                    startSplashScreenActivity();
-                                }
-                            }
-                        }
-                    });
-        }
-    }
+//    //  Http request that create provider in firestore
+//    private void createProviderInFirestore(){
+//
+//        if (this.getCurrentUser() != null){
+//            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
+//            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                // Put Documents in a DocumentSnapshot List
+//                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
+//                                if(mListOfDocuments.size()<=0){
+//                                    String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
+//                                    String providerName = getCurrentUser().getDisplayName();
+//                                    String pid = getCurrentUser().getUid();
+//                                    boolean isProvider = washerSwitch.isChecked();
+//                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + providerName + " " + pid + " " + isProvider);
+//                                    ProviderHelper.createProvider(pid, providerName, urlPicture, isProvider).addOnFailureListener(onFailureListener());
+//                                }else {
+//                                    Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
+//                                }
+//                            }
+//                        }
+//                    });
+//        }
+//    }
 
     // --------------------
     // ERROR HANDLER

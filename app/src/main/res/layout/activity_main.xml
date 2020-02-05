@@ -51,50 +51,54 @@
             android:layout_marginTop="30dp"
             android:weightSum="1">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="I need a wash"
-                android:layout_gravity="center"
-                android:layout_weight="0.33"
-                android:clickable="false"/>
-
-<!--            <TextView-->
-<!--                android:id="@+id/i_need_a_wash"-->
+<!--            <Button-->
+<!--                android:id="@+id/i_need_wash_button"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
 <!--                android:text="I need a wash"-->
 <!--                android:layout_gravity="center"-->
-<!--                android:layout_marginEnd="15dp"/>-->
+<!--                android:layout_weight="0.33"-->
+<!--                android:clickable="false"/>-->
+
+            <TextView
+                android:id="@+id/i_need_a_wash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I NEED A WASH"
+                android:textColor="@color/colorPrimaryText"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"/>
 
             <Switch
                 android:id="@+id/washer_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:switchMinWidth="55dp"
+                android:switchMinWidth="75dp"
                 android:switchPadding="15sp"
                 android:layout_gravity="center"
                 android:trackTint="@color/cardview_dark_background"
                 android:thumbTint="@color/colorAccent"
                 android:layout_weight="0.33"/>
 
-<!--            <TextView-->
-<!--                android:id="@+id/i_am_washer"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="I am a provider"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginStart="15dp"/>-->
-
-            <Button
+            <TextView
+                android:id="@+id/i_am_provider_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:text="I am a provider"
+                android:text="I AM A PROVIDER"
+                android:textColor="@color/colorPrimaryText"
                 android:layout_gravity="center"
-                android:layout_weight="0.33"
-                android:clickable="false"/>
+                android:layout_marginStart="15dp"/>
+
+<!--            <Button-->
+<!--                android:id="@+id/i_am_provider_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="?android:attr/selectableItemBackground"-->
+<!--                android:text="I am a provider"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_weight="0.33"-->
+<!--                android:clickable="false"/>-->
         </LinearLayout>
 
         <!-- BUTTONS CONTAINER -->
