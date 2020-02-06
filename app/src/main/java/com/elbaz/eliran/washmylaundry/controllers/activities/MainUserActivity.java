@@ -20,6 +20,7 @@ import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,6 +32,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
 
         configureDrawerLayoutAndNavigationView();
     }
