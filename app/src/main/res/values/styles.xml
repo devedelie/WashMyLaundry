@@ -31,4 +31,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--Toolbar style (white icons solution)-->
+    <style name="AppTheme.Toolbar" parent="AppTheme">
+        <!--This line changes the color of text in Toolbar-->
+        <item name="android:textColorPrimary">@color/gmail_btn_color</item>
+        <!--This line changes the color of icons in toolbar (back, overflow menu icons)-->
+        <item name="android:textColorSecondary">@color/colorTextIcons</item>
+    </style>
+
 </resources>

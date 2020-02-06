@@ -4,6 +4,11 @@
     <!-- Base Activity-->
     <string name="error_unknown_error">An unknown error has occurred</string>
 
+    <!-- Drawer-->
+    <string name="drawer_category_your_lunch">YOUR ORDERS</string>
+    <string name="drawer_category_settings">SETTINGS</string>
+    <string name="drawer_category_logout">LOGOUT</string>
+
     <!-- MainActivity -->
     <string name="error_authentication_canceled">Sign-in attempt was canceled!</string>
     <string name="error_no_internet">No Internet access! The device is offline.</string>
@@ -21,5 +26,10 @@
     <!-- SplashScreen -->
     <string name="no_location_found">Error locating the device</string>
     <string name="map_loading_text">Waiting for your current location</string>
+
+    <!--Used in navigation drawer-->
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
 
 </resources>
