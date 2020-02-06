@@ -9,14 +9,13 @@ import javax.annotation.Nullable;
  */
 public class User {
 
-    private String uid;
-    private String username;
-    @Nullable
-    private String urlPicture, userAddress;
-    private boolean isProvider;
-    private int userZipCode;
-    private LatLng userCoordinates;
 
+    private String uid, username, userAddress, district;
+    @Nullable
+    private String urlPicture;
+    private boolean isProvider, isAvailable;
+    private int userZipCode, phoneNumber, maxWeightKg;
+    private LatLng userCoordinates;
 
     public User(){ }
 
@@ -25,9 +24,6 @@ public class User {
         this.username = username;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
-        this.userAddress = "";
-        this.userZipCode = 0;
-        this.userCoordinates = null;
     }
 
     public String getUid() { return uid; }
@@ -47,7 +43,6 @@ public class User {
 
     public void setIsProvider(boolean provider) { isProvider = provider; }
 
-    @Nullable
     public String getUserAddress() { return userAddress; }
 
     public void setUserAddress(@Nullable String userAddress) { this.userAddress = userAddress; }
@@ -59,4 +54,20 @@ public class User {
     public LatLng getUserCoordinates() { return userCoordinates; }
 
     public void setUserCoordinates(LatLng userCoordinates) { this.userCoordinates = userCoordinates; }
+
+    public String getDistrict() { return district; }
+
+    public void setDistrict(@Nullable String district) { this.district = district; }
+
+    public boolean getIsAvailable() { return isAvailable; }
+
+    public void setIsAvailable(boolean available) { isAvailable = available; }
+
+    public int getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public int getMaxWeightKg() { return maxWeightKg; }
+
+    public void setMaxWeightKg(int maxWeightKg) { this.maxWeightKg = maxWeightKg; }
 }
