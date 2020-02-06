@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Import of TopBar-->
+    <include
+        layout="@layout/bottom_sheet_back_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <!-- Address-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_address"
+        android:layout_marginTop="10dp"
+        style="@style/TextFieldTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Address"
+        app:helperText="*Required"
+        app:helperTextEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_address_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@id/user_machine"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Phone-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_phone"
+        android:layout_marginTop="10dp"
+        style="@style/TextFieldTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Phone"
+        app:helperText="*Required"
+        app:helperTextEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_phone_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@id/user_machine"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Machine type-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_machine"
+        android:layout_marginTop="10dp"
+        style="@style/TextFieldTheme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:hint="Machine Type and Model"
+        app:helperText="*Required"
+        app:helperTextEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user_machine_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>
