@@ -50,7 +50,6 @@ public class MainActivity extends BaseActivity implements EasyPermissions.Permis
     private static final int RC_PERMISSION_CODE = 100;
     public static Boolean mLocationPermissionGranted = false;
     public static final Integer PERMISSIONS_REQUEST_ENABLE_GPS = 9002;
-    public static boolean washerSwitchMode;
 
     @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.washer_switch) Switch washerSwitch;

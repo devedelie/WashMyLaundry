@@ -34,13 +34,12 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getDeviceLocation();
     }
 
