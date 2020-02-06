@@ -17,9 +17,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,6 +34,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
 
         configureDrawerLayoutAndNavigationView();
 
@@ -58,7 +62,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         TextView userEmail = headerView.findViewById(R.id.navigation_header_email);
         ImageView userImage = headerView.findViewById(R.id.navigation_header_image);
         // set user name and email
-
         userName.setText(this.getCurrentUser().getDisplayName());
         userEmail.setText(this.getCurrentUser().getEmail());
         // Set Image
@@ -98,6 +101,11 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         }
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @OnClick(R.id.edit_provider_icon)
+    public void onEditClick(){
+        EditProviderBottomSheet.newInstance().show(getSupportFragmentManager(), "editProvider");
     }
 
 

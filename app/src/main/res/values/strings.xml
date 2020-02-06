@@ -32,4 +32,7 @@
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
     <string name="title_activity_maps" translatable="false">Map</string>
 
+    <!-- BottomSheet -->
+    <string name="edit_bs_title">Edit Profile</string>
+
 </resources>
