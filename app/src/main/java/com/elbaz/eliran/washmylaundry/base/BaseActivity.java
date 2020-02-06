@@ -15,9 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.elbaz.eliran.washmylaundry.controllers.activities.MainActivity;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.controllers.activities.MainActivity;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,6 +31,8 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 27-Jan-20.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    private static final int SIGN_OUT_TASK = 10;
+
     // --------------------
     // LIFE CYCLE
     // --------------------
@@ -38,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.setContentView(this.getFragmentLayout());
         ButterKnife.bind(this); //Configure Butterknife
-        Log.d(TAG, "onCreate launch times... ");
+        Log.d(TAG, "onCreate BaseActivity launched... ");
     }
 
     public abstract int getFragmentLayout();
@@ -51,6 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Nullable
     protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+
 
     // --------------------
     // ERROR HANDLER
@@ -94,6 +99,38 @@ public abstract class BaseActivity extends AppCompatActivity {
         builder.show();
 
         return builder.create();
+    }
+
+    // -----------------
+    // LOGOUT ACTION
+    // -----------------
+
+    public void signOutUserFromFirebase(){
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
+    }
+
+    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
+        return new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                switch (origin){
+                    case SIGN_OUT_TASK:
+                        clearActivityBackStack();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+    }
+
+    private void clearActivityBackStack(){
+        finish();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
     }
 }
 
