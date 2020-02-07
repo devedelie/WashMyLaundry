@@ -43,7 +43,6 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
     public static Location deviceLocation; // Used for distance calculation on other fragments.
     private String deviceLocationVariable;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private boolean currentUserMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +65,7 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){
             getDeviceLocation();
-        }else if (!isCurrentUserLogged()){
+        }else if (!isCurrentUserLogged() && mLocationPermissionGranted){
             intentActivity(MainActivity.class); // Go to Login screen if logged Off
         }
 
@@ -146,18 +145,6 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
     }
 
     //-----------------End Of User's Permissions -------------------------
-
-
-//    // Launching SplashScreen Activity
-//    private void startSplashScreenActivity(){
-//        if (mLocationPermissionGranted){
-//            Intent intent = new Intent(this, SplashScreen.class);
-//            startActivity(intent);
-//        }else {
-//            showSnackBar(this.coordinatorLayout, getString(R.string.need_to_authorise_location_services));
-//        }
-//    }
-
 
     // Get Device location
     private void getDeviceLocation(){
