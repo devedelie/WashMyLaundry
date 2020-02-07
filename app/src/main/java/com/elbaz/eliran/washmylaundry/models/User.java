@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 public class User {
 
 
-    private String uid, username, userAddress, district;
+    private String uid, username, userAddress, district, machineType;
     @Nullable
     private String urlPicture;
     private boolean isProvider, isAvailable;
@@ -70,4 +70,8 @@ public class User {
     public int getMaxWeightKg() { return maxWeightKg; }
 
     public void setMaxWeightKg(int maxWeightKg) { this.maxWeightKg = maxWeightKg; }
+
+    public String getMachineType() { return machineType; }
+
+    public void setMachineType(String machineType) { this.machineType = machineType; }
 }
