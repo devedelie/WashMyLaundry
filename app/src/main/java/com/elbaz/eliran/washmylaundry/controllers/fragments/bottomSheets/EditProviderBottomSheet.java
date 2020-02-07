@@ -101,7 +101,7 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
 
     private void launchAutocompleteSearchBar(){
         if (!Places.isInitialized()) {
-            Places.initialize(getActivity().getApplicationContext(), BuildConfig.GOOGLE_API_KEY, Locale.US);
+            Places.initialize(getActivity().getApplicationContext(), BuildConfig.GOOGLE_API_KEY, Locale.FRANCE);
         }
         // Bias results to Paris region (use 'bounds' variable in below filter)
         RectangularBounds bounds = RectangularBounds.newInstance(
