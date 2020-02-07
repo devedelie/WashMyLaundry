@@ -18,17 +18,44 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".controllers.activities.ProviderLoginActivity"/>
-        <activity android:name=".controllers.activities.MainActivity"/>
-        <activity android:name=".controllers.activities.MainProviderActivity" />
-        <activity android:name=".controllers.activities.MainUserActivity" />
-        <activity android:name=".controllers.activities.SplashScreen">
+        <!-- SplashScreen-->
+        <activity
+            android:name=".controllers.activities.SplashScreen"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <!-- MainActivity-->
+        <activity
+            android:name=".controllers.activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+        </activity>
+
+        <!-- ProviderLoginActivity-->
+        <activity
+            android:name=".controllers.activities.ProviderLoginActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+        </activity>
+
+        <!-- MainProviderActivity-->
+        <activity
+            android:name=".controllers.activities.MainProviderActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+        </activity>
+
+        <!-- MainUserActivity-->
+        <activity
+            android:name=".controllers.activities.MainUserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
         </activity>
 
 
