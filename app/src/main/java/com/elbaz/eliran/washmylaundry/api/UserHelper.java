@@ -29,9 +29,34 @@ public class UserHelper {
                 .set(userToCreate); // Setting object for Document
     }
 
-    // --- GET (Read) ---
+    // --- GET ---
 
     public static Task<DocumentSnapshot> getUser(String uid){
         return UserHelper.getUsersCollection().document(uid).get();
+    }
+
+
+    // --- SET ---
+
+    public static Task<Void> updateUserAddress(String uid, String address){
+        return UserHelper.getUsersCollection().document(uid).update("userAddress", address);
+    }
+
+    public static Task<Void> updateUserZipCode(String uid, int zipCode){
+        return UserHelper.getUsersCollection().document(uid).update("userZipCode", zipCode);
+    }
+
+    public static Task<Void> updateUserPhone(String uid, int phone){
+        return UserHelper.getUsersCollection().document(uid).update("phoneNumber", phone);
+    }
+
+
+
+    // -- PROVIDERS Methods only-------------------------------------------------------
+
+    // --- SET ---
+
+    public static Task<Void> updateUserMachineType(String uid, String machineType){
+        return UserHelper.getUsersCollection().document(uid).update("machineType", machineType);
     }
 }

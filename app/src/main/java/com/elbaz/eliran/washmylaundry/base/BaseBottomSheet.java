@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.elbaz.eliran.washmylaundry.R;
@@ -23,6 +24,8 @@ import com.elbaz.eliran.washmylaundry.controllers.activities.MainActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.ButterKnife;
 
@@ -56,6 +59,11 @@ public abstract class BaseBottomSheet extends BottomSheetDialogFragment {
     // --------------------
     // UTILS
     // --------------------
+
+    protected Boolean isCurrentUserLogged(){ return (this.getCurrentUser() != null); }
+
+    @Nullable
+    protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
 
     //-----------------------
     // Configure BottomSheet

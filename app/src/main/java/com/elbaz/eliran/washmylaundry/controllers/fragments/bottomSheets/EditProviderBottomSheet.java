@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
@@ -98,6 +99,9 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     public void onBackButtonClick(){
         dismiss();
     }
+
+    @OnClick(R.id.edit_provider_address_v_button)
+    public void onAddressSaveButton(){ if(addressEditText!=null)UserHelper.updateUserAddress(getCurrentUser().getUid(), addressEditText.getText().toString()); }
 
     private void launchAutocompleteSearchBar(){
         if (!Places.isInitialized()) {
