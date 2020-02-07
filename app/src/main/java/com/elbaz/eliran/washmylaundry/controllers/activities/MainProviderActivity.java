@@ -12,12 +12,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
+import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
@@ -30,6 +33,13 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.main_provider_activity_drawerLayout) DrawerLayout drawerLayout;
     @BindView(R.id.drawer_main_provider_activity) NavigationView navigationView;
+    @BindView(R.id.id_details_username_text) TextView usernameText;
+    @BindView(R.id.id_details_email_text) TextView emailText;
+    @BindView(R.id.id_details_phone_text) TextView phoneText;
+    @BindView(R.id.id_details_address_text) TextView addressText;
+    @BindView(R.id.id_details_status_text) TextView statusText;
+
+    private ProviderViewModel mProviderViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +47,15 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         ButterKnife.bind(this);
 
         configureDrawerLayoutAndNavigationView();
-
+        configureViewModel();
     }
+
+    private void configureViewModel() {
+        mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
+        mProviderViewModel.init(); // To retrieve the data from the repository
+        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
+    }
+
 
     @Override
     public int getFragmentLayout() {
@@ -106,6 +123,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @OnClick(R.id.edit_provider_icon)
     public void onEditClick(){
         EditProviderBottomSheet.newInstance().show(getSupportFragmentManager(), "editProvider");
+    }
+
+    //-------------------
+    // UI
+    //-------------------
+
+    private void updateUiWithData(User user) {
+        addressText.setText(user.getUserAddress());
     }
 
     //    private void configureSwitch() {

@@ -1,0 +1,40 @@
+package com.elbaz.eliran.washmylaundry.viewmodel;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.repositories.ProviderDataRepository;
+
+/**
+ * Created by Eliran Elbaz on 07-Feb-20.
+ */
+public class ProviderViewModel extends ViewModel {
+
+    // REPOSITORIES
+    private ProviderDataRepository mProviderDataRepository;
+    // Data
+    private MutableLiveData<User> mUserMutableLiveData;
+
+    public void init(){
+        if(mUserMutableLiveData != null){
+            return;
+        }
+        mProviderDataRepository = ProviderDataRepository.getInstance();
+        mUserMutableLiveData = mProviderDataRepository.getCurrentProviderData();
+    }
+
+    public LiveData<User> getCurrentProviderData(){
+        return mUserMutableLiveData;
+    }
+
+
+//    @NonNull
+//    public LiveData<User> mCurrentProviderData;
+
+//    public ProviderViewModel(ProviderDataRepository providerDataRepository) {
+//        mProviderDataRepository = providerDataRepository;
+//
+//    }
+}
