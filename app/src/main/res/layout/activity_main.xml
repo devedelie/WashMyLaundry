@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/main_activity_coordinator_layout"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/main_activity_coordinator_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -41,46 +42,46 @@
             android:layout_margin="10dip"
             android:textColor="@color/colorPrimaryDark"/>
 
-        <!-- I AM Selection Container-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:weightSum="1">
+<!--        &lt;!&ndash; I AM Selection Container&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_horizontal"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:weightSum="1">-->
 
-            <TextView
-                android:id="@+id/i_need_a_wash_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I NEED A WASH"
-                android:textColor="@color/colorPrimaryText"
-                android:layout_gravity="center"
-                android:layout_marginEnd="15dp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/i_need_a_wash_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="I NEED A WASH"-->
+<!--                android:textColor="@color/colorPrimaryText"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginEnd="15dp"/>-->
 
-            <Switch
-                android:id="@+id/washer_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:switchMinWidth="75dp"
-                android:switchPadding="15sp"
-                android:layout_gravity="center"
-                android:trackTint="@color/cardview_dark_background"
-                android:thumbTint="@color/colorAccent"
-                android:layout_weight="0.33"/>
+<!--            <Switch-->
+<!--                android:id="@+id/washer_switch"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:switchMinWidth="75dp"-->
+<!--                android:switchPadding="15sp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:trackTint="@color/cardview_dark_background"-->
+<!--                android:thumbTint="@color/colorAccent"-->
+<!--                android:layout_weight="0.33"/>-->
 
-            <TextView
-                android:id="@+id/i_am_provider_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="I AM A PROVIDER"
-                android:textColor="@color/colorPrimaryText"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/i_am_provider_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="I AM A PROVIDER"-->
+<!--                android:textColor="@color/colorPrimaryText"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="15dp"/>-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <!-- BUTTONS CONTAINER -->
         <LinearLayout
@@ -184,10 +185,25 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-
-
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/provider_login_btn_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="10dp"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Provider? Login Here"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"/>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
