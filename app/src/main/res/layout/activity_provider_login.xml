@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/provider_login_coordinator_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controllers.activities.ProviderLoginActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- MAIN CONTAINER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/ic_background_1280x1920">
+
+        <!-- IMAGE VIEW LOGO -->
+        <ImageView
+            android:layout_width="290dp"
+            android:layout_height="170dp"
+            android:background="@drawable/background_logo"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginStart="@dimen/default_large_margin" />
+
+        <!-- TITLE -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provider_login_title"
+            android:textSize="35sp"
+            android:layout_margin="@dimen/default_margin"
+            android:textColor="@color/colorPrimaryDark"/>
+
+
+
+        <!-- BUTTONS CONTAINER -->
+        <LinearLayout
+            android:id="@+id/provider_login_all_login_buttons_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/default_large_margin">
+
+            <!-- BUTTON Email -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/provider_login_button_email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                app:cardBackgroundColor="@color/email_btn_color">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_email_white_icon"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_email"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/default_text_size"
+                        android:theme="@style/ButtonTheme"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="50dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- BUTTON Gmail -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/provider_login_button_gmail"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                app:cardBackgroundColor="@color/gmail_btn_color">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_google_icon"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_gmail"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/default_text_size"
+                        android:theme="@style/ButtonTheme"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="50dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- BUTTON Facebook -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/provider_login_button_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="15dp"
+                android:layout_marginBottom="@dimen/default_buttons_margin_bottom"
+                app:cardBackgroundColor="@color/facebook_btn_color">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_facebook_icon"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_facebook"
+                        android:textColor="#fff"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/default_text_size"
+                        android:theme="@style/ButtonTheme"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="50dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/user_login_btn_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="10dp"
+        android:padding="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Need a Wash? Login Here"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"/>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

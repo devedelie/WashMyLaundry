@@ -29,37 +29,37 @@ import butterknife.OnClick;
 
 import static android.content.ContentValues.TAG;
 
-public class MainActivity extends BaseActivity{
-    @BindView(R.id.main_activity_coordinator_layout) CoordinatorLayout coordinatorLayout;
+public class ProviderLoginActivity extends BaseActivity {
+    @BindView(R.id.provider_login_coordinator_layout) CoordinatorLayout coordinatorLayout;
     // Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 100;
 
     @Override
-    public int getFragmentLayout() { return R.layout.activity_main; }
+    public int getFragmentLayout() { return R.layout.activity_provider_login; }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (isCurrentUserLogged()){ // (onResume is being called also when Firebase Auth-UI is being closed)
-            loginOrCreateUserInFirestore();
+            loginOrCreateProviderInFirestore();
         }
     }
 
-    // --------------------
+// --------------------
     // ACTIONS
     // --------------------
 
-    @OnClick(R.id.main_activity_button_email)
+    @OnClick(R.id.provider_login_button_email)
     public void onClickEmailLoginButton() { this.startSignInActivityWithEmail(); }
 
-    @OnClick(R.id.main_activity_button_gmail)
+    @OnClick(R.id.provider_login_button_gmail)
     public void onClickGmailLoginButton() { this.startSignInActivityWithGmail(); }
 
-    @OnClick(R.id.main_activity_button_facebook)
+    @OnClick(R.id.provider_login_button_facebook)
     public void onClickFacebookLoginButton() { this.startSignInActivityWithFacebook(); }
 
-    @OnClick(R.id.provider_login_btn_container)
-    public void onClickProviderLogin() { this.intentActivity(ProviderLoginActivity.class); finish(); }
+    @OnClick(R.id.user_login_btn_container)
+    public void onClickProviderLogin() { this.intentActivity(MainActivity.class); finish(); }
 
     // --------------------
     // NAVIGATION
@@ -129,8 +129,8 @@ public class MainActivity extends BaseActivity{
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                    this.loginOrCreateUserInFirestore();
-                    showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
+                this.loginOrCreateProviderInFirestore();
+                showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
 
             } else { // ERRORS
                 if (response == null) {
@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity{
     // --------------------
 
     //  Http request that create user in firestore
-    private void loginOrCreateUserInFirestore(){
+    private void loginOrCreateProviderInFirestore(){
 
         if (this.getCurrentUser() != null){
             // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
@@ -180,7 +180,7 @@ public class MainActivity extends BaseActivity{
                                     String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
                                     String username = getCurrentUser().getDisplayName();
                                     String uid = getCurrentUser().getUid();
-                                    boolean isProvider = false; // User Login Screen = false
+                                    boolean isProvider = true; // Provider Login Screen = true
                                     Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
                                     UserHelper.createUser(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -197,6 +197,35 @@ public class MainActivity extends BaseActivity{
                     });
         }
     }
+
+//    //  Http request that create provider in firestore
+//    private void createProviderInFirestore(){
+//
+//        if (this.getCurrentUser() != null){
+//            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
+//            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
+//                    .get()
+//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                // Put Documents in a DocumentSnapshot List
+//                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
+//                                if(mListOfDocuments.size()<=0){
+//                                    String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
+//                                    String providerName = getCurrentUser().getDisplayName();
+//                                    String pid = getCurrentUser().getUid();
+//                                    boolean isProvider = true;
+//                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + providerName + " " + pid + " " + isProvider);
+//                                    ProviderHelper.createProvider(pid, providerName, urlPicture, isProvider).addOnFailureListener(onFailureListener());
+//                                }else {
+//                                    Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
+//                                }
+//                            }
+//                        }
+//                    });
+//        }
+//    }
 
     // --------------------
     // ERROR HANDLER

@@ -1,13 +1,19 @@
 package com.elbaz.eliran.washmylaundry.controllers.activities;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
@@ -17,13 +23,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.content.ContentValues.TAG;
 
-public class SplashScreen extends BaseActivity {
+public class SplashScreen extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+    private static final String PERMS_FINE = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final int RC_PERMISSION_CODE = 100;
+    public static Boolean mLocationPermissionGranted = false;
+    public static final Integer PERMISSIONS_REQUEST_ENABLE_GPS = 9002;
 
     public static Location deviceLocation; // Used for distance calculation on other fragments.
     private String deviceLocationVariable;
@@ -34,19 +49,115 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
+        // Verify all permissions and setups
+        this.verifyPlacesSDK();
+        this.isGpsEnabled();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        getDeviceLocation();
+
+        // Verify Network connectivity
+        if(!isNetworkAvailable()){
+            displayMobileDataSettingsDialog(this, this);}
+        // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
+        else if (isCurrentUserLogged() && mLocationPermissionGranted){
+            getDeviceLocation();
+        }else if (!isCurrentUserLogged()){
+            intentActivity(MainActivity.class); // Go to Login screen if logged Off
+        }
+
     }
 
     @Override
     public int getFragmentLayout() {
         return R.layout.activity_splash_screen;
     }
+
+    //----------------------------
+    // Permissions & device setup
+    //----------------------------
+
+    public void verifyPlacesSDK(){
+        // Verify OR Initialize "Places SDK" on the device
+        if (!Places.isInitialized()) {
+            // Initialize Places.
+            Places.initialize(getApplicationContext(), BuildConfig.GOOGLE_API_KEY);
+            // Create a new Places client instance.
+            PlacesClient placesClient = Places.createClient(this);
+        }
+    }
+
+    public void isGpsEnabled(){
+        final LocationManager manager = (LocationManager) this.getSystemService( Context.LOCATION_SERVICE );
+
+        if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+            buildAlertMessageNoGps();
+        }else {
+            askPermission();
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.popup_title_permission_gps_access))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.popup_title_permission_gps_enable_btn), new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivityForResult(enableGpsIntent, PERMISSIONS_REQUEST_ENABLE_GPS);
+                        askPermission();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    /**
+     * Method to ask the user for location authorization (with EasyPermissions support)
+     */
+    private void askPermission() {
+        if (!EasyPermissions.hasPermissions(this, PERMS_FINE )) {
+            EasyPermissions.requestPermissions(this, getString(R.string.popup_title_permission_location_access), RC_PERMISSION_CODE, PERMS_FINE);
+            return;
+        }else{
+            mLocationPermissionGranted = true;
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        mLocationPermissionGranted = true;
+    }
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        mLocationPermissionGranted = false;
+        askPermission();
+    }
+
+    //-----------------End Of User's Permissions -------------------------
+
+
+//    // Launching SplashScreen Activity
+//    private void startSplashScreenActivity(){
+//        if (mLocationPermissionGranted){
+//            Intent intent = new Intent(this, SplashScreen.class);
+//            startActivity(intent);
+//        }else {
+//            showSnackBar(this.coordinatorLayout, getString(R.string.need_to_authorise_location_services));
+//        }
+//    }
+
 
     // Get Device location
     private void getDeviceLocation(){

@@ -108,34 +108,16 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         EditProviderBottomSheet.newInstance().show(getSupportFragmentManager(), "editProvider");
     }
 
+    //    private void configureSwitch() {
+//        washerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if(!isChecked){ iNeedWashText.setTypeface(null, Typeface.BOLD); iAmProviderText.setTypeface(null, Typeface.NORMAL);}
+//                else{ iAmProviderText.setTypeface(null, Typeface.BOLD); iNeedWashText.setTypeface(null, Typeface.NORMAL); }
+//            }
+//        });
+//    }
+
 
 }
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        // Verify all permissions and setups
-//        this.verifyPlacesSDK();
-//        this.isGpsEnabled();
-//        this.verifyAndLogin();
-//    }
-//
-//    @Override
-//    public int getFragmentLayout() { return R.layout.activity_main; }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        Log.d(TAG, "onResume: isLogged? " + isCurrentUserLogged() + "  isNetworkAvailable? "+ isNetworkAvailable() + "  hasLocationPermission? " + mLocationPermissionGranted);
-//        verifyAndLogin(); // call the method from onResume, after closing Firebase AuthUI
-//    }
-//
-//    private void verifyAndLogin(){
-//        // Verify Network connectivity
-//        if(!isNetworkAvailable()){
-//            displayMobileDataSettingsDialog(this, this);}
-//        // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
-//        else if (isCurrentUserLogged() && mLocationPermissionGranted){
-//            loginModeSwitcher();
-//        }
-//    }
+
