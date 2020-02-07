@@ -16,6 +16,10 @@ public class Provider {
     private int providerZipCode;
     private LatLng providerCoordinates;
 
+    //*******************************************
+    // To be used in the future, on 2 apps version
+    //*******************************************
+
     public Provider(){ }
 
     public Provider(String pid, String providerName, @Nullable String urlPicture, boolean isProvider) {

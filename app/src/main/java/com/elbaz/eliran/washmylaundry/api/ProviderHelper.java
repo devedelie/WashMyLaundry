@@ -12,6 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ProviderHelper {
     private static final String COLLECTION_NAME = "providers";
 
+    //*******************************************
+    // To be used in the future, on 2 apps version
+    //*******************************************
+
     // --- COLLECTION REFERENCE ---
 
     public static CollectionReference getProvidersCollection(){
