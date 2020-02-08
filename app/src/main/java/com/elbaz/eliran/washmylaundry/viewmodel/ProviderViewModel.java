@@ -14,8 +14,6 @@ public class ProviderViewModel extends ViewModel {
 
     // REPOSITORIES
     private ProviderDataRepository mProviderDataRepository;
-    // Data
-    private MutableLiveData<User> mUserMutableLiveData;
 
     public void init(){
         if(mUserMutableLiveData != null){
@@ -25,9 +23,20 @@ public class ProviderViewModel extends ViewModel {
         mUserMutableLiveData = mProviderDataRepository.getCurrentProviderData();
     }
 
+    // Data
+    private MutableLiveData<User> mUserMutableLiveData;
+
     public LiveData<User> getCurrentProviderData(){
-        return mUserMutableLiveData;
+        return mProviderDataRepository.getCurrentProviderData();
     }
+
+    public void setCurrentProviderData(User user){
+//        this.mUserMutableLiveData.setValue(user);
+        mProviderDataRepository.setCurrentProviderData(user);
+    }
+
+
+
 
 
 //    @NonNull

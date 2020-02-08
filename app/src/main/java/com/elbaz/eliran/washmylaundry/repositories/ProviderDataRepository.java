@@ -6,13 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
-import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import static android.content.ContentValues.TAG;
 
@@ -24,7 +21,6 @@ public class ProviderDataRepository {
     private static ProviderDataRepository sInstance;
 
     private MutableLiveData<User> mProviderData = new MutableLiveData<>();
-    private User mUser = new User();
 
     // Singleton
     public static ProviderDataRepository getInstance(){
@@ -37,27 +33,32 @@ public class ProviderDataRepository {
 
     // --- GET ---
 
-    public MutableLiveData<User> getCurrentProviderData(){
-        // Rest Request - fetch data from Firestore and set in MutableLiveData
-        UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                User currentUser = documentSnapshot.toObject(User.class);
-                if(currentUser!=null) mUser = currentUser;
-//                callback.onCallback(currentUser);
-                Log.d(TAG, "onSuccess: xxxTest1" + mUser.getUserAddress());
-            }
-        }).addOnFailureListener(onFailureListener());
+//    public MutableLiveData<User> getCurrentProviderData(){
+//        // Rest Request - fetch data from Firestore and set in MutableLiveData
+//        UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                User currentUser = documentSnapshot.toObject(User.class);
+//                if(currentUser!=null) mUser = currentUser;
+////                callback.onCallback(currentUser);
+//                Log.d(TAG, "onSuccess: xxxTest1" + mUser.getUserAddress());
+//            }
+//        }).addOnFailureListener(onFailureListener());
+//
+//        mProviderData.setValue(mUser);
+//        Log.d(TAG, "onSuccess: xxxTest2");
+//        return mProviderData;
+//    }
 
-        mProviderData.setValue(mUser);
-        Log.d(TAG, "onSuccess: xxxTest2");
+    //    public interface FirebaseDataCallback {
+//        void onCallback(User user);
+//    }
+
+
+    public MutableLiveData<User> getCurrentProviderData(){
         return mProviderData;
     }
 
-
-//    public interface FirebaseDataCallback {
-//        void onCallback(User user);
-//    }
 
 
     // --- SET ---
