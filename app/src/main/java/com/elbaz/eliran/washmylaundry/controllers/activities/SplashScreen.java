@@ -12,12 +12,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -43,12 +45,15 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
     public static Location deviceLocation; // Used for distance calculation on other fragments.
     private String deviceLocationVariable;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    private CurrentUserViewModel mCurrentUserViewModel;
+    public static String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
+        configureViewModel();
         // Verify all permissions and setups
         this.verifyPlacesSDK();
         this.isGpsEnabled();
@@ -64,12 +69,28 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
             displayMobileDataSettingsDialog(this, this);}
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){
-            getDeviceLocation();
+            mCurrentUserViewModel.setCurrentUserId(); // To set currentUserID in ViewModel - Then Continue
+            getDeviceLocation(); // Get Device location
         }else if (!isCurrentUserLogged() && mLocationPermissionGranted){
             intentActivity(MainActivity.class); // Go to Login screen if logged Off
         }
 
     }
+
+    //----------------------------
+    // CONFIGURATION
+    //----------------------------
+
+    private void configureViewModel() {
+        mCurrentUserViewModel = new ViewModelProvider(this).get(CurrentUserViewModel.class);
+        mCurrentUserViewModel.init();
+        mCurrentUserViewModel.getCurrentUserId().observe(this, this::updateCurrentUserId);
+    }
+
+    private void updateCurrentUserId(String currentUserId) {
+        this.currentUserId = currentUserId;
+    }
+
 
     @Override
     public int getFragmentLayout() {
@@ -173,6 +194,11 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
         }
     }
 
+
+
+    // --------------------
+    // REST REQUEST
+    // --------------------
 
     private void checkUserMode() { // Provider OR User ?
         UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

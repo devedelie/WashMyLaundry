@@ -28,6 +28,7 @@ import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -81,6 +82,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         configureViewModel();
     }
 
+
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
         mProviderViewModel.init(); // To retrieve the data from the repository
@@ -133,7 +135,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
                 else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
-                UserHelper.updateProviderAvailabilityStatus(getCurrentUser().getUid(), isChecked);
+                UserHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
             }
         });
     }
@@ -142,7 +144,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // Cloud Firestore Listeners
     //--------------------------
     private void userDataFirestoreListener(){
-        final DocumentReference docRef = UserHelper.getUserDocument(this.getCurrentUser().getUid());
+        final DocumentReference docRef = UserHelper.getUserDocument(CurrentUserDataRepository.currentUserID);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -212,7 +214,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // --------------------
 
     private void updateProviderMaxWeight(int maxWeight){
-        UserHelper.updateProviderWeightPerService(getCurrentUser().getUid(), maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        UserHelper.updateProviderWeightPerService(CurrentUserDataRepository.currentUserID, maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Max Weight Saved");
@@ -221,7 +223,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     }
 
     private void updateProviderPrice(int pricePerKg){
-        UserHelper.updateProviderPricePerKg(getCurrentUser().getUid(), pricePerKg).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        UserHelper.updateProviderPricePerKg(CurrentUserDataRepository.currentUserID, pricePerKg).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Price Saved");
