@@ -182,6 +182,7 @@ public class ProviderLoginActivity extends BaseActivity {
                                     String uid = getCurrentUser().getUid();
                                     boolean isProvider = true; // Provider Login Screen = true
                                     Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
+                                    // Create a Provider document (inside Users collection)
                                     UserHelper.createUser(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -236,6 +237,7 @@ public class ProviderLoginActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onFailure: ProviderLoginActivity Firebase fail");
             }
         };
     }
