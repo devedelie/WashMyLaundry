@@ -59,7 +59,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.provider_availability_img) ImageView statusIndicator;
     @BindView(R.id.provider_status_switch) Switch statusSwitch;
     @BindView(R.id.provider_delivery_switch) Switch deliverySwitch;
-    @BindView(R.id.provider_ironing_switch) Switch IroningSwitch;
+    @BindView(R.id.provider_ironing_switch) Switch ironingSwitch;
     @BindView(R.id.provider_max_weight_picker_text) EditText maxWeightEditText;
     @BindView(R.id.provider_price_picker_text) EditText priceEditText;
     // Data
@@ -128,6 +128,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     }
 
         private void configureSwitches() {
+        // ----- Availability Switch -------//
         // Configure views before Listener
             if(statusSwitch.isChecked()){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
             else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
@@ -138,6 +139,26 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 UserHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
             }
         });
+            // ----- Delivery Switch -------//
+            if(deliverySwitch.isChecked()){ deliveryOnOffText.setText(getString(R.string.provider_delivery_on));}
+            else{ deliveryOnOffText.setText(getString(R.string.provider_delivery_off)); }
+            deliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(deliverySwitch.isChecked()){ deliveryOnOffText.setText(getString(R.string.provider_delivery_on));}
+                    else{ deliveryOnOffText.setText(getString(R.string.provider_delivery_off)); }
+                    UserHelper.updateProviderDeliveryStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                }
+            });
+            // ----- Ironing Switch -------//
+            if(ironingSwitch.isChecked()){ ironingOnOffText.setText(getString(R.string.provider_ironing_on));}
+            else{ ironingOnOffText.setText(getString(R.string.provider_ironing_off)); }
+            ironingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(ironingSwitch.isChecked()){ ironingOnOffText.setText(getString(R.string.provider_ironing_on));}
+                    else{ ironingOnOffText.setText(getString(R.string.provider_ironing_off)); }
+                    UserHelper.updateProviderIroningStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                }
+            });
     }
 
     //--------------------------

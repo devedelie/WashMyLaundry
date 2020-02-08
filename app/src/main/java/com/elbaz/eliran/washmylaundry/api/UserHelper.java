@@ -76,6 +76,14 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("isAvailable", status);
     }
 
+    public static Task<Void> updateProviderDeliveryStatus(String uid, boolean status){
+        return UserHelper.getUsersCollection().document(uid).update("isDelivering", status);
+    }
+
+    public static Task<Void> updateProviderIroningStatus(String uid, boolean status){
+        return UserHelper.getUsersCollection().document(uid).update("isIroning", status);
+    }
+
     public static Task<Void> updateProviderMachineType(String uid, String machineType){
         return UserHelper.getUsersCollection().document(uid).update("machineType", machineType);
     }

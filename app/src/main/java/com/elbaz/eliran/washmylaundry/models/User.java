@@ -13,7 +13,7 @@ public class User {
     private String uid, username, userAddress, district, machineType;
     @Nullable
     private String urlPicture;
-    private boolean isProvider, isAvailable;
+    private boolean isProvider, isAvailable, isDelivering, isIroning;
     private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
     private LatLng userCoordinates;
 
@@ -80,4 +80,12 @@ public class User {
     public int getPricePerKg() { return pricePerKg; }
 
     public void setPricePerKg(int pricePerKg) { this.pricePerKg = pricePerKg; }
+
+    public boolean getIsDelivering() { return isDelivering; }
+
+    public void setIsDelivering(boolean delivering) { isDelivering = delivering; }
+
+    public boolean getIsIroning() { return isIroning; }
+
+    public void setIsIroning(boolean ironing) { isIroning = ironing; }
 }
