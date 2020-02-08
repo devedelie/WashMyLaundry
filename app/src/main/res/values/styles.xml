@@ -49,4 +49,10 @@
         <item name="android:textColorPrimary">@android:color/holo_red_dark</item>
     </style>
 
+    <!-- NumberPicker -->
+    <style name="NumberPickerTheme" parent="@android:style/Widget.Material.NumberPicker">
+        <item name="colorControlNormal ">#33691e</item>
+        <item name="android:background">#b3e5fc</item>
+    </style>
+
 </resources>

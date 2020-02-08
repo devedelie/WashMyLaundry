@@ -21,8 +21,9 @@
             android:weightSum="10">
 
             <ImageView
+                android:id="@+id/id_details_profile_image"
                 android:layout_width="0dp"
-                android:layout_height="65dp"
+                android:layout_height="85dp"
                 android:src="@drawable/ic_anon_user_48dp"
                 android:layout_weight="2"/>
             <!-- Users details layout -->
@@ -73,8 +74,8 @@
                         android:text="Status: " />
                     <ImageView
                         android:id="@+id/provider_availability_img"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
                         android:layout_marginStart="5dp"/>
                 </LinearLayout>
 

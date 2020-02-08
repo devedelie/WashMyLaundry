@@ -37,4 +37,18 @@
     <!-- BottomSheet -->
     <string name="edit_bs_title">Edit Profile</string>
 
+    <!-- MainProviderActivity-->
+    <string name="provider_phone_not_available">Phone: N/A</string>
+    <string name="provider_address_not_available">Address: N/A</string>
+    <string name="provider_status_available">Available</string>
+    <string name="provider_status_not_available">Not-Available</string>
+    <string name="provider_price_rate_dialog">Your Service Rate:</string>
+    <string name="provider_max_weight_dialog">Max Weight Per Service:</string>
+    <string name="provider_availability_on">Available</string>
+    <string name="provider_availability_off">Not Available</string>
+    <string name="provider_delivery_on">Delivering</string>
+    <string name="provider_delivery_off">Not Delivering</string>
+    <string name="provider_ironing_on">ON</string>
+    <string name="provider_ironing_off">OFF</string>
+
 </resources>

@@ -62,7 +62,7 @@
                         android:orientation="horizontal"
                         android:weightSum="10">
                         <TextView
-                            android:id="@+id/provider_availability_text"
+                            android:id="@+id/provider_availability_status_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -72,7 +72,7 @@
                             android:text="Status: "
                             android:layout_weight="3"/>
                         <TextView
-                            android:id="@+id/provider_availability_text2"
+                            android:id="@+id/provider_availability_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -122,10 +122,10 @@
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/places_autocomplete_prediction_primary_text"
-                            android:text="Deliveries: "
+                            android:text="Deliveries status: "
                             android:layout_weight="3"/>
                         <TextView
-                            android:id="@+id/provider_delivery_text2"
+                            android:id="@+id/provider_delivery_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -168,17 +168,17 @@
                         android:layout_marginEnd="10dp"
                         android:weightSum="10">
                         <TextView
-                            android:id="@+id/provider_dryer_option_text"
+                            android:id="@+id/provider_ironing_option_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/places_autocomplete_prediction_primary_text"
-                            android:text="Ironing: "
+                            android:text="Ironing service: "
                             android:layout_weight="3"/>
                         <TextView
-                            android:id="@+id/provider_dryer_text2"
+                            android:id="@+id/provider_ironing_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
@@ -188,7 +188,7 @@
                             android:text="I do Ironing / I don't"
                             android:layout_weight="4"/>
                         <Switch
-                            android:id="@+id/provider_dryer_switch"
+                            android:id="@+id/provider_ironing_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:switchMinWidth="45dp"
@@ -227,17 +227,15 @@
                         android:textStyle="bold"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/places_autocomplete_prediction_primary_text"
-                        android:text="Up to 5 Kg/per service"
-                        android:layout_weight="5"/>
-                    <SeekBar
-                        android:id="@+id/provider_max_kg_seekBar"
-                        style="@style/Widget.AppCompat.SeekBar.Discrete"
+                        android:text="Max Weight (Kg/per service)"
+                        android:layout_weight="9"/>
+                    <EditText
+                        android:id="@+id/provider_max_weight_picker_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:max="15"
-                        android:progress="5"
-                        android:layout_weight="5"
-                        android:layout_gravity="bottom"/>
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:focusable="false"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -267,17 +265,15 @@
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
                             android:textColor="@color/places_autocomplete_prediction_primary_text"
-                            android:text="10 EUR/per Kg"
-                            android:layout_weight="5"/>
-                        <SeekBar
-                            android:id="@+id/provider_price_seekBar"
-                            style="@style/Widget.AppCompat.SeekBar.Discrete"
+                            android:text="Rate Value (EUR/Kg)"
+                            android:layout_weight="9"/>
+                        <EditText
+                            android:id="@+id/provider_price_picker_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:max="15"
-                            android:progress="5"
-                            android:layout_weight="5"
-                            android:layout_gravity="bottom"/>
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:focusable="false"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -287,6 +283,7 @@
                     android:layout_marginStart="5dp"
                     android:text="Upcoming Orders"
                     android:layout_marginBottom="5dp"/>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/providers_scheduled_orders_recycler_view"
