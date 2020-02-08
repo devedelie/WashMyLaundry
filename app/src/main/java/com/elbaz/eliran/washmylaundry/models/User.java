@@ -14,7 +14,7 @@ public class User {
     @Nullable
     private String urlPicture;
     private boolean isProvider, isAvailable;
-    private int userZipCode, phoneNumber, maxWeightKg;
+    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
     private LatLng userCoordinates;
 
     public User(){ }
@@ -24,6 +24,8 @@ public class User {
         this.username = username;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
+        this.maxWeightKg = 7;
+        this.pricePerKg = 5;
     }
 
     public String getUid() { return uid; }
@@ -74,4 +76,8 @@ public class User {
     public String getMachineType() { return machineType; }
 
     public void setMachineType(String machineType) { this.machineType = machineType; }
+
+    public int getPricePerKg() { return pricePerKg; }
+
+    public void setPricePerKg(int pricePerKg) { this.pricePerKg = pricePerKg; }
 }

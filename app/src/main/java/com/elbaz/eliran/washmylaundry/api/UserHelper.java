@@ -3,6 +3,7 @@ package com.elbaz.eliran.washmylaundry.api;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -35,8 +36,19 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).get();
     }
 
-
+    public static DocumentReference getUserDocument(String uid){
+        return UserHelper.getUsersCollection().document(uid);
+    }
     // --- SET ---
+
+//    // To delete of not in use
+//    public static Task<DocumentReference> updateUserDocument(String uid, User updatedUser){  /// TEST ///**************
+//
+//        return UserHelper.getUsersCollection()
+//                .document(uid)
+//                .collection(COLLECTION_NAME)
+//                .add(updatedUser);
+//    }
 
     public static Task<Void> updateUserAddress(String uid, String address){
         return UserHelper.getUsersCollection().document(uid).update("userAddress", address);
@@ -50,13 +62,29 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("phoneNumber", phone);
     }
 
+    public static Task<Void> updateUserCoordinates(String uid, String userCoordinates){
+        return UserHelper.getUsersCollection().document(uid).update("userCoordinates", userCoordinates);
+    }
+
 
 
     // -- PROVIDERS Methods only-------------------------------------------------------
 
     // --- SET ---
 
-    public static Task<Void> updateUserMachineType(String uid, String machineType){
+    public static Task<Void> updateProviderAvailabilityStatus(String uid, boolean status){
+        return UserHelper.getUsersCollection().document(uid).update("isAvailable", status);
+    }
+
+    public static Task<Void> updateProviderMachineType(String uid, String machineType){
         return UserHelper.getUsersCollection().document(uid).update("machineType", machineType);
+    }
+
+    public static Task<Void> updateProviderWeightPerService(String uid, int maxWeightPerService){
+        return UserHelper.getUsersCollection().document(uid).update("maxWeightKg", maxWeightPerService);
+    }
+
+    public static Task<Void> updateProviderPricePerKg(String uid, int pricePerKg){
+        return UserHelper.getUsersCollection().document(uid).update("pricePerKg", pricePerKg);
     }
 }
