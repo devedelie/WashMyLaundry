@@ -36,6 +36,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -227,7 +228,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     @OnClick(R.id.edit_provider_icon)
     public void onEditClick(){
-        EditProviderBottomSheet.newInstance().show(getSupportFragmentManager(), "editProvider");
+        EditProviderBottomSheet.newInstance("userObject", new Gson().toJson(mUser)).show(getSupportFragmentManager(), "editProvider");
     }
 
     // --------------------
@@ -261,7 +262,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         if (this.getCurrentUser().getPhotoUrl() != null) {
             Glide.with(this)
                     .load(this.getCurrentUser().getPhotoUrl())
-                    .apply(RequestOptions.circleCropTransform())
+                    .apply(RequestOptions.centerCropTransform())
                     .into(providerImage);
         }
         usernameText.setText(user.getUsername());
@@ -273,8 +274,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         if(user.getUserAddress() == null){addressText.setText(R.string.provider_address_not_available);}
         else{addressText.setText(user.getUserAddress());}
         // Status //
-        if(user.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green);}
-        else{statusText.setText(R.string.provider_status_not_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_red);}
+        if(user.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green); statusSwitch.setChecked(true);}
+        else{statusText.setText(R.string.provider_status_not_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_red); statusSwitch.setChecked(false);}
+        // Delivery //
+        if(user.getIsDelivering()) {deliveryOnOffText.setText(R.string.provider_delivery_on);  deliverySwitch.setChecked(true);}
+        else{deliveryOnOffText.setText(R.string.provider_delivery_off); deliverySwitch.setChecked(false);}
+        // Ironing //
+        if(user.getIsIroning()) {ironingOnOffText.setText(R.string.provider_ironing_on);  ironingSwitch.setChecked(true);}
+        else{ironingOnOffText.setText(R.string.provider_ironing_off); ironingSwitch.setChecked(false);}
         // Max Weight //
         maxWeightEditText.setText(String.valueOf(user.getMaxWeightKg()));
         // Price //

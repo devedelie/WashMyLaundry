@@ -48,7 +48,7 @@
     <string name="provider_availability_off">Not Available</string>
     <string name="provider_delivery_on">Delivering</string>
     <string name="provider_delivery_off">Not Delivering</string>
-    <string name="provider_ironing_on">ON</string>
-    <string name="provider_ironing_off">OFF</string>
+    <string name="provider_ironing_on">Accepting</string>
+    <string name="provider_ironing_off">Not Accepting</string>
 
 </resources>
