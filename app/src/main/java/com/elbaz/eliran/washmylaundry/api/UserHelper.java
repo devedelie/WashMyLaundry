@@ -41,14 +41,6 @@ public class UserHelper {
     }
     // --- SET ---
 
-//    // To delete of not in use
-//    public static Task<DocumentReference> updateUserDocument(String uid, User updatedUser){  /// TEST ///**************
-//
-//        return UserHelper.getUsersCollection()
-//                .document(uid)
-//                .collection(COLLECTION_NAME)
-//                .add(updatedUser);
-//    }
 
     public static Task<Void> updateUserAddress(String uid, String address){
         return UserHelper.getUsersCollection().document(uid).update("userAddress", address);
@@ -68,7 +60,7 @@ public class UserHelper {
 
 
 
-    // -- PROVIDERS Methods only-------------------------------------------------------
+    // -- PROVIDER's Methods (only)-------------------------------------------------------
 
     // --- SET ---
 
