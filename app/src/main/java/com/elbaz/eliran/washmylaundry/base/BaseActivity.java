@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.controllers.activities.MainActivity;
+import com.elbaz.eliran.washmylaundry.controllers.activities.SplashScreen;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -91,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, SplashScreen.class);
                 context.startActivity(intent);
                 dialog.cancel();
             }
