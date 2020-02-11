@@ -30,7 +30,6 @@ public class CurrentUserViewModel extends ViewModel {
     }
 
     public void setCurrentUserId(){
-//        this.mUserMutableLiveData.setValue(user);
         mCurrentUserDataRepository.setCurrentUserId();
     }
 }

@@ -86,7 +86,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
-        mProviderViewModel.init(); // To retrieve the data from the repository
+//        mProviderViewModel.init(); // To retrieve the data from the repository
         mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
     }
 
@@ -129,20 +129,15 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     }
 
         private void configureSwitches() {
-        // ----- Availability Switch -------//
-        // Configure views before Listener
-            if(statusSwitch.isChecked()){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
-            else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
-        statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
-                else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
-                UserHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
-            }
-        });
+            // ----- Availability Switch -------//
+            statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
+                    else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
+                    UserHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                }
+            });
             // ----- Delivery Switch -------//
-            if(deliverySwitch.isChecked()){ deliveryOnOffText.setText(getString(R.string.provider_delivery_on));}
-            else{ deliveryOnOffText.setText(getString(R.string.provider_delivery_off)); }
             deliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(deliverySwitch.isChecked()){ deliveryOnOffText.setText(getString(R.string.provider_delivery_on));}
@@ -151,8 +146,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 }
             });
             // ----- Ironing Switch -------//
-            if(ironingSwitch.isChecked()){ ironingOnOffText.setText(getString(R.string.provider_ironing_on));}
-            else{ ironingOnOffText.setText(getString(R.string.provider_ironing_off)); }
             ironingSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(ironingSwitch.isChecked()){ ironingOnOffText.setText(getString(R.string.provider_ironing_on));}
