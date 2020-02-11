@@ -1,8 +1,10 @@
 package com.elbaz.eliran.washmylaundry.repositories;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -12,8 +14,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class CurrentUserDataRepository {
 
     private static CurrentUserDataRepository sInstance;
-
-    private MutableLiveData<String> mCurrentUserID = new MutableLiveData<>();
 
     // A static variable to be used as a reference instead of calling FirebaseAuth.getInstance().getCurrentUser();  multiple times
     public static String currentUserID;
@@ -26,15 +26,16 @@ public class CurrentUserDataRepository {
         return sInstance;
     }
 
+    //------------------
+    // UserId (Firebase)
+    //------------------
 
-    // --- GET ---
+    private MutableLiveData<String> mCurrentUserID = new MutableLiveData<>();
+
 
     public MutableLiveData<String> getCurrentUserId(){
         return mCurrentUserID;
     }
-
-
-    // --- SET ---
 
     public void setCurrentUserId(){
         if(isCurrentUserLogged()){
@@ -42,6 +43,20 @@ public class CurrentUserDataRepository {
             currentUserID = getCurrentUser().getUid();
         }
 
+    }
+
+    //----------
+    // Location
+    //----------
+
+    private MutableLiveData<LatLng> mUserLatLng = new MutableLiveData<>();
+
+    public LiveData<LatLng> getCurrentUserLatLng(){
+        return mUserLatLng;
+    }
+
+    public void setCurrentUserLatLng(LatLng latLng){
+        this.mUserLatLng.setValue(latLng);
     }
 
     // --------------------

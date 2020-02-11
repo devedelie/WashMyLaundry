@@ -19,7 +19,8 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.User;
-import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserViewModel;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
+import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
@@ -42,10 +43,10 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
     public static Boolean mLocationPermissionGranted = false;
     public static final Integer PERMISSIONS_REQUEST_ENABLE_GPS = 9002;
 
-    public static Location deviceLocation; // Used for distance calculation on other fragments.
-    private String deviceLocationVariable;
+//    public static Location deviceLocation; // Used for distance calculation on other fragments.
+//    private String deviceLocationVariable;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private CurrentUserViewModel mCurrentUserViewModel;
+    public static CurrentUserSharedViewModel mCurrentUserSharedViewModel;
     public static String currentUserId;
 
     @Override
@@ -53,10 +54,11 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        configureViewModel();
+        this.configureViewModel();
         // Verify all permissions and setups
         this.verifyPlacesSDK();
         this.isGpsEnabled();
+
     }
 
     @Override
@@ -69,7 +71,7 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
             displayMobileDataSettingsDialog(this, this);}
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){
-            mCurrentUserViewModel.setCurrentUserId(); // To set currentUserID in ViewModel - Then Continue
+            mCurrentUserSharedViewModel.setCurrentUserId(); // To set currentUserID in ViewModel - Then Continue
             getDeviceLocation(); // Get Device location
         }else if (!isCurrentUserLogged() && mLocationPermissionGranted){
             intentActivity(MainActivity.class); // Go to Login screen if logged Off
@@ -82,9 +84,9 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
     //----------------------------
 
     private void configureViewModel() {
-        mCurrentUserViewModel = new ViewModelProvider(this).get(CurrentUserViewModel.class);
-        mCurrentUserViewModel.init();
-        mCurrentUserViewModel.getCurrentUserId().observe(this, this::updateCurrentUserId);
+        mCurrentUserSharedViewModel = new ViewModelProvider(this).get(CurrentUserSharedViewModel.class);
+        mCurrentUserSharedViewModel.init();
+        mCurrentUserSharedViewModel.getCurrentUserId().observe(this, this::updateCurrentUserId);
     }
 
     private void updateCurrentUserId(String currentUserId) {
@@ -176,12 +178,13 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
                         public void onSuccess(Location location) {
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
-                                deviceLocation = location; // Set device location variable for distance calculation
-                                // create a location string for retrofit (LatLng toString())
-                                deviceLocationVariable = new LatLng(location.getLatitude(), location.getLongitude()).toString(); // set a global location variable for other use
-                                deviceLocationVariable = deviceLocationVariable.replaceAll("[()]", "");
-                                deviceLocationVariable = deviceLocationVariable.replaceAll("[lat/lng:]", "");
-                                Log.d(TAG, "SplashScreen onSuccess: " + deviceLocation + " " + deviceLocationVariable);
+                                CurrentUserDataRepository.getInstance().setCurrentUserLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
+//                                deviceLocation = location; // Set device location variable for distance calculation
+//                                // create a location string for retrofit (LatLng toString())
+//                                deviceLocationVariable = new LatLng(location.getLatitude(), location.getLongitude()).toString(); // set a global location variable for other use
+//                                deviceLocationVariable = deviceLocationVariable.replaceAll("[()]", "");
+//                                deviceLocationVariable = deviceLocationVariable.replaceAll("[lat/lng:]", "");
+//                                Log.d(TAG, "SplashScreen onSuccess: " + deviceLocation + " " + deviceLocationVariable);
                                 checkUserMode();
                             }else{
                                 Log.d(TAG, "onComplete: current location is null");

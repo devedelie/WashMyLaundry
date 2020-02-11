@@ -9,11 +9,11 @@ import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 /**
  * Created by Eliran Elbaz on 08-Feb-20.
  */
-public class CurrentUserViewModel extends ViewModel {
+public class CurrentUserSharedViewModel extends ViewModel {
     // REPOSITORIES
     private CurrentUserDataRepository mCurrentUserDataRepository;
     // Data
-    private MutableLiveData<String> mCurrentUserID;
+
 
     public void init(){
         if(mCurrentUserID != null){
@@ -23,7 +23,10 @@ public class CurrentUserViewModel extends ViewModel {
         mCurrentUserID = mCurrentUserDataRepository.getCurrentUserId();
     }
 
-
+    //------------------
+    // UserId (Firebase)
+    //------------------
+    private MutableLiveData<String> mCurrentUserID;
 
     public LiveData<String> getCurrentUserId(){
         return mCurrentUserDataRepository.getCurrentUserId();
@@ -32,4 +35,6 @@ public class CurrentUserViewModel extends ViewModel {
     public void setCurrentUserId(){
         mCurrentUserDataRepository.setCurrentUserId();
     }
+
+
 }
