@@ -23,7 +23,7 @@
     <string name="need_to_authorise_location_services">In order to access, please authorise location services for this application.</string>
     <string name="connection_succeed">Signed-in</string>
 
-    <string name="provider_login_title">Providers Login</string>
+    <string name="provider_login_title">PROVIDERS</string>
 
     <!-- SplashScreen -->
     <string name="no_location_found">Error locating the device</string>
