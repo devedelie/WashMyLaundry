@@ -1,7 +1,5 @@
 package com.elbaz.eliran.washmylaundry.models;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import javax.annotation.Nullable;
 
 /**
@@ -15,7 +13,7 @@ public class User {
     private String urlPicture;
     private boolean isProvider, isAvailable, isDelivering, isIroning;
     private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
-    private LatLng userCoordinates;
+    private double userLatCoordinates, userLngCoordinates;
 
     public User(){ }
 
@@ -53,9 +51,13 @@ public class User {
 
     public void setUserZipCode(int userZipCode) { this.userZipCode = userZipCode; }
 
-    public LatLng getUserCoordinates() { return userCoordinates; }
+    public double getUserLatCoordinates() { return userLatCoordinates;}
 
-    public void setUserCoordinates(LatLng userCoordinates) { this.userCoordinates = userCoordinates; }
+    public void setUserLatCoordinates(double userLatCoordinates) { this.userLatCoordinates = userLatCoordinates; }
+
+    public double getUserLngCoordinates() { return userLngCoordinates; }
+
+    public void setUserLngCoordinates(double userLngCoordinates) { this.userLngCoordinates = userLngCoordinates; }
 
     public String getDistrict() { return district; }
 
