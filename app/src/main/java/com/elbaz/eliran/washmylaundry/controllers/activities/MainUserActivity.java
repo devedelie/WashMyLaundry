@@ -1,5 +1,6 @@
 package com.elbaz.eliran.washmylaundry.controllers.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,29 +13,41 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.adapters.PageAdapter;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.content.ContentValues.TAG;
 
-public class MainUserActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainUserActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.main_user_activity_drawerLayout) DrawerLayout drawerLayout;
     @BindView(R.id.drawer_main_user_activity) NavigationView navigationView;
+    @BindView(R.id.activity_main_bottom_navigation) BottomNavigationView bottomNavigationView;
+    @BindView(R.id.activity_main_user_viewpager) ViewPager pager;
+    //For Data
+    private Context mContext;
+    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
+        mContext = this;
+        // Get RootView for snackBarMessage
+        rootView = getWindow().getDecorView().getRootView();
 
         configureDrawerLayoutAndNavigationView();
+        configureToolbar();
+        configureBottomNavigation();
+        configureViewPager();
     }
 
     @Override
@@ -76,6 +89,42 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    //ViewPager configuration
+    protected void configureViewPager() {
+        //Set Adapter PageAdapter and glue it together
+        pager.setAdapter(new PageAdapter(mContext, getSupportFragmentManager()));
+        // Set the offscreenLimit - loads 2 fragments simultaneously offScreen, to improves fluency of visual load
+        pager.setOffscreenPageLimit(2);
+        // ViewPager scroll listener
+        pager.addOnPageChangeListener(this);
+    }
+
+    // BottomNavigation Layout
+    private void configureBottomNavigation(){
+        // Configure BottomNavigation Listener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_mapView:
+                        pager.setCurrentItem(0);
+                        break;
+                    case R.id.action_listView:
+                        pager.setCurrentItem(1);
+                        break;
+                    case R.id.action_orders:
+                        pager.setCurrentItem(2);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+    // Toolbar for Navigation Drawer and searchAction icon
+    protected void configureToolbar(){
+        setSupportActionBar(toolbar);
+    }
 
     //-------------------
     // Actions
@@ -101,4 +150,19 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         return true;
     }
 
+    // Pager Listener actions
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
 }

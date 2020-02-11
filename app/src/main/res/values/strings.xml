@@ -51,4 +51,9 @@
     <string name="provider_ironing_on">Accepting</string>
     <string name="provider_ironing_off">Not Accepting</string>
 
+    <!--BottomNavigation-->
+    <string name="tab_name_1">Map View</string>
+    <string name="tab_name_2">List View</string>
+    <string name="tab_name_3">Orders</string>
+
 </resources>
