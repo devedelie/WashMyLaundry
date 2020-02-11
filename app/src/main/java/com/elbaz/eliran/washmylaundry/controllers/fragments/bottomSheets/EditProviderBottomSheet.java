@@ -3,10 +3,12 @@ package com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -31,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -41,6 +44,7 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 06-Feb-20.
  */
 public class EditProviderBottomSheet extends BaseBottomSheet {
+    @BindView(R.id.bottom_sheet_top_bar_title) TextView topTitle;
     @BindView(R.id.edit_provider_address_text) EditText addressEditText;
     @BindView(R.id.edit_provider_zip_text) EditText zipEditText;
     @BindView(R.id.edit_provider_phone_text) EditText phoneEditText;
@@ -53,7 +57,8 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     // For DATA
     private int AUTOCOMPLETE_REQUEST_CODE = 1;
     private List<Place.Field> mFields = Arrays.asList(Place.Field.ID, Place.Field.ADDRESS,Place.Field.LAT_LNG); // Set the fields to specify which types of place data to return after the user has made a selection.
-    private LatLng addressLatLng;
+    private double addressLat;
+    private double addressLng;
     private User mUser = new User();
     private String jsonObject = "{'userAddress' : 'userZipCode' : 'phoneNumber' : 'machineType'}";
 
@@ -67,21 +72,22 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
         return editProviderBottomSheet ;
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(this.getFragmentLayout(), container, false);
+        ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         // Convert JSON to User object
         jsonObject = bundle.getString("userObject");
         mUser = new Gson().fromJson(jsonObject, User.class);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         this.configureAddressViewType();
         this.setUiElements();
+
+        return view;
     }
+
 
     // --------------------
     // CONFIGURATIONS
@@ -93,9 +99,9 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     protected int setTitle() { return R.string.edit_bs_title; }
 
     private void configureAddressViewType() {
-        addressEditText.setClickable(true);
+//        addressEditText.setClickable(true);
         addressEditText.setFocusable(false);
-        addressEditText.setInputType(InputType.TYPE_NULL);
+//        addressEditText.setInputType(InputType.TYPE_NULL);
         addressEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +134,8 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     @OnClick(R.id.edit_provider_save_btn)
     public void onAddressSaveButton(){
         if(addressEditText!=null)UserHelper.updateUserAddress(getCurrentUser().getUid(), addressEditText.getText().toString());
+        if(addressLat != 0) UserHelper.updateProviderServiceLatCoordinates(getCurrentUser().getUid(), addressLat);
+        if(addressLat != 0) UserHelper.updateProviderServiceLngCoordinates(getCurrentUser().getUid(), addressLng);
         if(zipEditText!=null && !zipEditText.getText().toString().isEmpty()) UserHelper.updateUserZipCode(getCurrentUser().getUid(), Integer.valueOf(zipEditText.getText().toString()));
         if(phoneEditText!=null && !phoneEditText.getText().toString().isEmpty()) UserHelper.updateUserPhone(getCurrentUser().getUid(), Integer.valueOf(phoneEditText.getText().toString()));
         if(machineEditText!=null)UserHelper.updateProviderMachineType(getCurrentUser().getUid(), machineEditText.getText().toString());
@@ -162,9 +170,11 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
             if (resultCode == RESULT_OK) {
                 //Manage the action to be taken
                 Place place = Autocomplete.getPlaceFromIntent(data);
+                addressEditText.getText().clear();
                 addressEditText.setText(place.getAddress());
-                addressLatLng = place.getLatLng();
-                Log.d(TAG, "onActivityResult: " + addressLatLng);
+                addressLat = place.getLatLng().latitude;
+                addressLng = place.getLatLng().longitude;
+                Log.d(TAG, "onActivityResult: " + addressLat + " , " + addressLng);
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 // Handle the error.
@@ -181,6 +191,7 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     //--------------
 
     private void setUiElements() {
+        topTitle.setText(setTitle());
         if(mUser.getUserAddress() != null && !mUser.getUserAddress().isEmpty()) addressEditText.setText(mUser.getUserAddress());
         if(mUser.getUserZipCode() != 0) zipEditText.setText(String.valueOf(mUser.getUserZipCode()));
         if(mUser.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mUser.getPhoneNumber()));

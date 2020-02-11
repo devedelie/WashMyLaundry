@@ -87,4 +87,12 @@ public class UserHelper {
     public static Task<Void> updateProviderPricePerKg(String uid, int pricePerKg){
         return UserHelper.getUsersCollection().document(uid).update("pricePerKg", pricePerKg);
     }
+
+    public static Task<Void> updateProviderServiceLatCoordinates(String uid, double lat){
+        return UserHelper.getUsersCollection().document(uid).update("userLatCoordinates", lat);
+    }
+
+    public static Task<Void> updateProviderServiceLngCoordinates(String uid, double lat){
+        return UserHelper.getUsersCollection().document(uid).update("userLngCoordinates", lat);
+    }
 }
