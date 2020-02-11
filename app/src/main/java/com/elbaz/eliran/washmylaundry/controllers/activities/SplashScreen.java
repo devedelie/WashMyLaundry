@@ -179,12 +179,6 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 CurrentUserDataRepository.getInstance().setCurrentUserLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
-//                                deviceLocation = location; // Set device location variable for distance calculation
-//                                // create a location string for retrofit (LatLng toString())
-//                                deviceLocationVariable = new LatLng(location.getLatitude(), location.getLongitude()).toString(); // set a global location variable for other use
-//                                deviceLocationVariable = deviceLocationVariable.replaceAll("[()]", "");
-//                                deviceLocationVariable = deviceLocationVariable.replaceAll("[lat/lng:]", "");
-//                                Log.d(TAG, "SplashScreen onSuccess: " + deviceLocation + " " + deviceLocationVariable);
                                 checkUserMode();
                             }else{
                                 Log.d(TAG, "onComplete: current location is null");
