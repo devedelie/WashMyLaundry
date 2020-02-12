@@ -23,9 +23,9 @@ public class CurrentUserSharedViewModel extends ViewModel {
         mCurrentUserID = mCurrentUserDataRepository.getCurrentUserId();
     }
 
-    //------------------
-    // UserId (Firebase)
-    //------------------
+    //--------------------------
+    // GET/SET UserId (Firebase)
+    //--------------------------
     private MutableLiveData<String> mCurrentUserID;
 
     public LiveData<String> getCurrentUserId(){
@@ -35,6 +35,20 @@ public class CurrentUserSharedViewModel extends ViewModel {
     public void setCurrentUserId(){
         mCurrentUserDataRepository.setCurrentUserId();
     }
+
+//    //-------------------------
+//    // GET/SET User Object
+//    //-------------------------
+//
+//    private MutableLiveData<User> mUserMutableLiveData = new MutableLiveData<>();
+//
+//    public LiveData<User> getCurrentUserData(){
+//        return mCurrentUserDataRepository.getCurrentUserData();
+//    }
+//
+//    public void setCurrentUserData(){
+//        mCurrentUserDataRepository.setCurrentUserData();
+//    }
 
 
 }

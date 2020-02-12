@@ -12,7 +12,6 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Eliran Elbaz on 08-Feb-20.
  */
 public class CurrentUserDataRepository {
-
     private static CurrentUserDataRepository sInstance;
 
     // A static variable to be used as a reference instead of calling FirebaseAuth.getInstance().getCurrentUser();  multiple times
@@ -42,7 +41,6 @@ public class CurrentUserDataRepository {
             this.mCurrentUserID.setValue(getCurrentUser().getUid());
             currentUserID = getCurrentUser().getUid();
         }
-
     }
 
     //----------
@@ -59,6 +57,8 @@ public class CurrentUserDataRepository {
         this.mUserLatLng.setValue(latLng);
     }
 
+
+
     // --------------------
     // REST REQUEST
     // --------------------
@@ -67,5 +67,7 @@ public class CurrentUserDataRepository {
 
     @Nullable
     protected FirebaseUser getCurrentUser(){ return FirebaseAuth.getInstance().getCurrentUser(); }
+
+
 
 }
