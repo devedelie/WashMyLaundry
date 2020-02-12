@@ -79,15 +79,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         setDataObserver();
     }
 
-    private void setDataObserver() {
-        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
-    }
-
-
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
         mProviderViewModel.init(); // To retrieve the data from the repository
-        mProviderViewModel.setCurrentProviderData(); // Trigger the listener
+        mProviderViewModel.setCurrentProviderData(); // Trigger the Document listener
+    }
+
+    private void setDataObserver() {
+        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
     }
 
 
@@ -154,35 +153,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 }
             });
     }
-
-    //--------------------------
-    // Cloud Firestore Listeners
-    //--------------------------
-//    private void userDataFirestoreListener(){
-//        final DocumentReference docRef = ProviderHelper.getProviderDocument(CurrentUserDataRepository.currentUserID);
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w(TAG, "Listen failed.", e);
-//                    return;
-//                }
-//                // -- Data received
-//                if (snapshot != null && snapshot.exists()) {
-//                    Log.d(TAG, "Current data: " + snapshot.getData());
-//                    mProvider = new User();
-//                    mProvider = snapshot.toObject(User.class);
-//                    if(mProvider !=null){
-//                        mProviderViewModel.setCurrentProviderData(mProvider); // If a change was detected, set Object in ViewModel
-//                    }
-//
-//                } else {
-//                    Log.d(TAG, "Current data: null");
-//                }
-//            }
-//        });
-//    }
 
 
     //-------------------
@@ -251,6 +221,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     //-------------------
 
     private void updateUiWithData(Provider provider) {
+        Log.d(TAG, "updateUiWithData: ");
         mProvider = new Provider();
         mProvider = provider;
         // Set provider Image //
