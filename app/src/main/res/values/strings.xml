@@ -9,7 +9,7 @@
     <string name="drawer_category_settings">SETTINGS</string>
     <string name="drawer_category_logout">LOGOUT</string>
 
-    <!-- MainActivity -->
+    <!-- MainActivity (Login)-->
     <string name="error_authentication_canceled">Sign-in attempt was canceled!</string>
     <string name="error_no_internet">No Internet access! The device is offline.</string>
     <string name="login_email">Login with Email</string>
@@ -22,6 +22,9 @@
     <string name="popup_title_permission_gps_enable_btn">Enable</string>
     <string name="need_to_authorise_location_services">In order to access, please authorise location services for this application.</string>
     <string name="connection_succeed">Signed-in</string>
+    <string name="connection_multiple_accounts_warning">Attention</string>
+    <string name="connection_multiple_user">Another account with the same E-mail is already registered as a PROVIDER in our system. Please try another email</string>
+    <string name="connection_multiple_provider">Another account with the same E-mail is already registered as a USER in our system. Please try another email</string>
 
     <string name="provider_login_title">PROVIDERS</string>
 
