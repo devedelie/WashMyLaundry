@@ -8,11 +8,11 @@ import javax.annotation.Nullable;
 public class User {
 
 
-    private String uid, username, userAddress, district, machineType;
+    private String uid, username, userAddress, district;
     @Nullable
     private String urlPicture;
-    private boolean isProvider, isAvailable, isDelivering, isIroning;
-    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
+    private boolean isProvider;
+    private int userZipCode, phoneNumber;
     private double userLatCoordinates, userLngCoordinates;
 
     public User(){ }
@@ -22,8 +22,6 @@ public class User {
         this.username = username;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
-        this.maxWeightKg = 7;
-        this.pricePerKg = 5;
     }
 
     public String getUid() { return uid; }
@@ -63,31 +61,9 @@ public class User {
 
     public void setDistrict(@Nullable String district) { this.district = district; }
 
-    public boolean getIsAvailable() { return isAvailable; }
-
-    public void setIsAvailable(boolean available) { isAvailable = available; }
-
     public int getPhoneNumber() { return phoneNumber; }
 
     public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public int getMaxWeightKg() { return maxWeightKg; }
 
-    public void setMaxWeightKg(int maxWeightKg) { this.maxWeightKg = maxWeightKg; }
-
-    public String getMachineType() { return machineType; }
-
-    public void setMachineType(String machineType) { this.machineType = machineType; }
-
-    public int getPricePerKg() { return pricePerKg; }
-
-    public void setPricePerKg(int pricePerKg) { this.pricePerKg = pricePerKg; }
-
-    public boolean getIsDelivering() { return isDelivering; }
-
-    public void setIsDelivering(boolean delivering) { isDelivering = delivering; }
-
-    public boolean getIsIroning() { return isIroning; }
-
-    public void setIsIroning(boolean ironing) { isIroning = ironing; }
 }

@@ -3,6 +3,7 @@ package com.elbaz.eliran.washmylaundry.api;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -11,10 +12,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class ProviderHelper {
     private static final String COLLECTION_NAME = "providers";
-
-    //*******************************************
-    // To be used in the future, on 2 apps version
-    //*******************************************
 
     // --- COLLECTION REFERENCE ---
 
@@ -37,5 +34,55 @@ public class ProviderHelper {
 
     public static Task<DocumentSnapshot> getProvider(String uid){
         return ProviderHelper.getProvidersCollection().document(uid).get();
+    }
+
+    public static DocumentReference getProviderDocument(String uid){
+        return ProviderHelper.getProvidersCollection().document(uid);
+    }
+
+    // --- Update ---
+
+    public static Task<Void> updateProviderAddress(String uid, String address){
+        return ProviderHelper.getProvidersCollection().document(uid).update("providerAddress", address);
+    }
+
+    public static Task<Void> updateProviderZipCode(String uid, int zipCode){
+        return ProviderHelper.getProvidersCollection().document(uid).update("providerZipCode", zipCode);
+    }
+
+    public static Task<Void> updateProviderPhone(String uid, int phone){
+        return ProviderHelper.getProvidersCollection().document(uid).update("phoneNumber", phone);
+    }
+
+    public static Task<Void> updateProviderAvailabilityStatus(String uid, boolean status){
+        return ProviderHelper.getProvidersCollection().document(uid).update("isAvailable", status);
+    }
+
+    public static Task<Void> updateProviderDeliveryStatus(String uid, boolean status){
+        return ProviderHelper.getProvidersCollection().document(uid).update("isDelivering", status);
+    }
+
+    public static Task<Void> updateProviderIroningStatus(String uid, boolean status){
+        return ProviderHelper.getProvidersCollection().document(uid).update("isIroning", status);
+    }
+
+    public static Task<Void> updateProviderMachineType(String uid, String machineType){
+        return ProviderHelper.getProvidersCollection().document(uid).update("machineType", machineType);
+    }
+
+    public static Task<Void> updateProviderWeightPerService(String uid, int maxWeightPerService){
+        return ProviderHelper.getProvidersCollection().document(uid).update("maxWeightKg", maxWeightPerService);
+    }
+
+    public static Task<Void> updateProviderPricePerKg(String uid, int pricePerKg){
+        return ProviderHelper.getProvidersCollection().document(uid).update("pricePerKg", pricePerKg);
+    }
+
+    public static Task<Void> updateProviderServiceLatCoordinates(String uid, double lat){
+        return ProviderHelper.getProvidersCollection().document(uid).update("providerLatCoordinates", lat);
+    }
+
+    public static Task<Void> updateProviderServiceLngCoordinates(String uid, double lat){
+        return ProviderHelper.getProvidersCollection().document(uid).update("providerLngCoordinates", lat);
     }
 }

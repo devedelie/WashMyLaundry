@@ -1,24 +1,17 @@
 package com.elbaz.eliran.washmylaundry.models;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import javax.annotation.Nullable;
 
 /**
  * Created by Eliran Elbaz on 04-Feb-20.
  */
 public class Provider {
-    private String pid;
-    private String providerName;
+    private String pid, providerName, providerAddress, district, machineType;
     @Nullable
-    private String urlPicture, providerAddress;
-    private boolean isProvider, isProviderAvailable;
-    private int providerZipCode;
-    private LatLng providerCoordinates;
-
-    //*******************************************
-    // To be used in the future, on 2 apps version
-    //*******************************************
+    private String urlPicture;
+    private boolean isProvider, isAvailable, isDelivering, isIroning;
+    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
+    private double providerLatCoordinates, providerLngCoordinates;
 
     public Provider(){ }
 
@@ -26,11 +19,9 @@ public class Provider {
         this.pid = pid;
         this.providerName = providerName;
         this.urlPicture = urlPicture;
-        this.providerAddress = "";
         this.isProvider = isProvider;
-        this.isProviderAvailable = false;
-        this.providerZipCode = 0;
-        this.providerCoordinates = null;
+        this.maxWeightKg = 7;
+        this.pricePerKg = 5;
     }
 
     public String getPid() { return pid; }
@@ -46,26 +37,57 @@ public class Provider {
 
     public void setUrlPicture(@Nullable String urlPicture) { this.urlPicture = urlPicture; }
 
-    @Nullable
-    public String getProviderAddress() { return providerAddress; }
-
-    public void setProviderAddress(@Nullable String providerAddress) { this.providerAddress = providerAddress; }
-
     public boolean getIsProvider() { return isProvider; }
 
     public void setIsProvider(boolean provider) { isProvider = provider; }
 
-    public boolean getIsProviderAvailable() { return isProviderAvailable; }
+    public String getProviderAddress() { return providerAddress; }
 
-    public void setIsProviderAvailable(boolean providerAvailable) { isProviderAvailable = providerAvailable; }
+    public void setProviderAddress(@Nullable String providerAddress) { this.providerAddress = providerAddress; }
 
-    public int getProviderZipCode() { return providerZipCode; }
+    public int getUserZipCode() { return userZipCode; }
 
-    public void setProviderZipCode(int providerZipCode) { this.providerZipCode = providerZipCode; }
+    public void setUserZipCode(int userZipCode) { this.userZipCode = userZipCode; }
 
-    public LatLng getProviderCoordinates() { return providerCoordinates; }
+    public double getProviderLatCoordinates() { return providerLatCoordinates;}
 
-    public void setProviderCoordinates(LatLng providerCoordinates) { this.providerCoordinates = providerCoordinates; }
+    public void setProviderLatCoordinates(double providerLatCoordinates) { this.providerLatCoordinates = providerLatCoordinates; }
+
+    public double getProviderLngCoordinates() { return providerLngCoordinates; }
+
+    public void setProviderLngCoordinates(double providerLngCoordinates) { this.providerLngCoordinates = providerLngCoordinates; }
+
+    public String getDistrict() { return district; }
+
+    public void setDistrict(@Nullable String district) { this.district = district; }
+
+    public boolean getIsAvailable() { return isAvailable; }
+
+    public void setIsAvailable(boolean available) { isAvailable = available; }
+
+    public int getPhoneNumber() { return phoneNumber; }
+
+    public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
+
+    public int getMaxWeightKg() { return maxWeightKg; }
+
+    public void setMaxWeightKg(int maxWeightKg) { this.maxWeightKg = maxWeightKg; }
+
+    public String getMachineType() { return machineType; }
+
+    public void setMachineType(String machineType) { this.machineType = machineType; }
+
+    public int getPricePerKg() { return pricePerKg; }
+
+    public void setPricePerKg(int pricePerKg) { this.pricePerKg = pricePerKg; }
+
+    public boolean getIsDelivering() { return isDelivering; }
+
+    public void setIsDelivering(boolean delivering) { isDelivering = delivering; }
+
+    public boolean getIsIroning() { return isIroning; }
+
+    public void setIsIroning(boolean ironing) { isIroning = ironing; }
 }
 
 

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -41,7 +42,7 @@ public class ProviderLoginActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (isCurrentUserLogged()){ // (onResume is being called also when Firebase Auth-UI is being closed)
-            loginOrCreateProviderInFirestore();
+            verifyMultipleAccounts();
         }
     }
 
@@ -129,7 +130,7 @@ public class ProviderLoginActivity extends BaseActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                this.loginOrCreateProviderInFirestore();
+                this.verifyMultipleAccounts();
                 showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
 
             } else { // ERRORS
@@ -164,11 +165,35 @@ public class ProviderLoginActivity extends BaseActivity {
     // --------------------
 
     //  Http request that create user in firestore
-    private void loginOrCreateProviderInFirestore(){
+    private void verifyMultipleAccounts(){
 
         if (this.getCurrentUser() != null){
             // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
             UserHelper.getUsersCollection().whereEqualTo("uid", getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Put Documents in a DocumentSnapshot List
+                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
+                                if(mListOfDocuments.size()<=0){ // Verify if USER doesn't exist in the database
+                                    createProviderInFirestore(); // Then continue to createProviderInFireStore
+                                }else { // Else -- > Alert message to say that a user with the same email is registered as a USER -- > use another email
+                                    Log.d(TAG, "onComplete: -> User exist in Firestore " +mListOfDocuments.size());
+                                    signOutUserFromFirebaseOnly();
+                                    alertDialogAction(getString(R.string.connection_multiple_accounts_warning) , getString(R.string.connection_multiple_user));
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+//    //  Http request that create provider in firestore
+    private void createProviderInFirestore(){
+            // Get user collection whereEqualsTo the current providerID (if successful --> user exist in firestore)
+            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -183,7 +208,7 @@ public class ProviderLoginActivity extends BaseActivity {
                                     boolean isProvider = true; // Provider Login Screen = true
                                     Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
                                     // Create a Provider document (inside Users collection)
-                                    UserHelper.createUser(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    ProviderHelper.createProvider(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             intentActivity(SplashScreen.class); // Call SplashScreen only when object was created in Firestore
@@ -196,37 +221,7 @@ public class ProviderLoginActivity extends BaseActivity {
                             }
                         }
                     });
-        }
     }
-
-//    //  Http request that create provider in firestore
-//    private void createProviderInFirestore(){
-//
-//        if (this.getCurrentUser() != null){
-//            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
-//            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
-//                    .get()
-//                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                // Put Documents in a DocumentSnapshot List
-//                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
-//                                if(mListOfDocuments.size()<=0){
-//                                    String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
-//                                    String providerName = getCurrentUser().getDisplayName();
-//                                    String pid = getCurrentUser().getUid();
-//                                    boolean isProvider = true;
-//                                    Log.d(TAG, "onComplete: User doesn't exist in Firestore " + providerName + " " + pid + " " + isProvider);
-//                                    ProviderHelper.createProvider(pid, providerName, urlPicture, isProvider).addOnFailureListener(onFailureListener());
-//                                }else {
-//                                    Log.d(TAG, "onComplete: Continue normally -> User exist in Firestore " +mListOfDocuments.size());
-//                                }
-//                            }
-//                        }
-//                    });
-//        }
-//    }
 
     // --------------------
     // ERROR HANDLER

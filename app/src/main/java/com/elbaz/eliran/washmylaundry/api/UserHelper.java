@@ -58,41 +58,13 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("userCoordinates", userCoordinates);
     }
 
-
-
-    // -- PROVIDER's Methods (only)-------------------------------------------------------
-
-    // --- SET ---
-
-    public static Task<Void> updateProviderAvailabilityStatus(String uid, boolean status){
-        return UserHelper.getUsersCollection().document(uid).update("isAvailable", status);
-    }
-
-    public static Task<Void> updateProviderDeliveryStatus(String uid, boolean status){
-        return UserHelper.getUsersCollection().document(uid).update("isDelivering", status);
-    }
-
-    public static Task<Void> updateProviderIroningStatus(String uid, boolean status){
-        return UserHelper.getUsersCollection().document(uid).update("isIroning", status);
-    }
-
-    public static Task<Void> updateProviderMachineType(String uid, String machineType){
-        return UserHelper.getUsersCollection().document(uid).update("machineType", machineType);
-    }
-
-    public static Task<Void> updateProviderWeightPerService(String uid, int maxWeightPerService){
-        return UserHelper.getUsersCollection().document(uid).update("maxWeightKg", maxWeightPerService);
-    }
-
-    public static Task<Void> updateProviderPricePerKg(String uid, int pricePerKg){
-        return UserHelper.getUsersCollection().document(uid).update("pricePerKg", pricePerKg);
-    }
-
-    public static Task<Void> updateProviderServiceLatCoordinates(String uid, double lat){
+    public static Task<Void> updateUserLatCoordinates(String uid, double lat){
         return UserHelper.getUsersCollection().document(uid).update("userLatCoordinates", lat);
     }
 
-    public static Task<Void> updateProviderServiceLngCoordinates(String uid, double lat){
+    public static Task<Void> updateUserLngCoordinates(String uid, double lat){
         return UserHelper.getUsersCollection().document(uid).update("userLngCoordinates", lat);
     }
+
+
 }

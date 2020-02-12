@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.User;
@@ -199,6 +200,14 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
 
     private void checkUserMode() { // Provider OR User ?
         UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User currentUser = documentSnapshot.toObject(User.class);
+                if(currentUser!=null) launchActivity(currentUser.getIsProvider());
+            }
+        }).addOnFailureListener(onFailureListener());
+        // If above fail, the account is Provider
+        ProviderHelper.getProvider(this.getCurrentUser().getUid()).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User currentUser = documentSnapshot.toObject(User.class);

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.firebase.ui.auth.AuthUI;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         if (isCurrentUserLogged()){ // (onResume is being called also when Firebase Auth-UI is being closed)
-            loginOrCreateUserInFirestore();
+            verifyMultipleAccounts();
         }
     }
 
@@ -129,7 +130,7 @@ public class MainActivity extends BaseActivity{
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 // CREATE USER IN FIRESTORE
-                    this.loginOrCreateUserInFirestore();
+                    this.verifyMultipleAccounts();
                     showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
 
             } else { // ERRORS
@@ -162,8 +163,33 @@ public class MainActivity extends BaseActivity{
     // --------------------
     // REST REQUEST
     // --------------------
+     //  Http request that create user in firestore
+    private void verifyMultipleAccounts(){
 
-    //  Http request that create user in firestore
+        if (this.getCurrentUser() != null){
+            // Get user collection whereEqualsTo the current userID (if successful --> user exist in firestore)
+            ProviderHelper.getProvidersCollection().whereEqualTo("pid", getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Put Documents in a DocumentSnapshot List
+                                List<DocumentSnapshot> mListOfDocuments = task.getResult().getDocuments();
+                                if(mListOfDocuments.size()<=0){ // Verify if USER doesn't exist in the database
+                                    loginOrCreateUserInFirestore(); // Then continue to createProviderInFireStore
+                                }else { // Else -- > Alert message to say that a user with the same email is registered as a USER -- > use another email
+                                    Log.d(TAG, "onComplete: -> User exist in Firestore " +mListOfDocuments.size());
+                                    signOutUserFromFirebaseOnly();
+                                    alertDialogAction(getString(R.string.connection_multiple_accounts_warning) , getString(R.string.connection_multiple_provider));
+                                }
+                            }
+                        }
+                    });
+        }
+    }
+
+
     private void loginOrCreateUserInFirestore(){
 
         if (this.getCurrentUser() != null){
