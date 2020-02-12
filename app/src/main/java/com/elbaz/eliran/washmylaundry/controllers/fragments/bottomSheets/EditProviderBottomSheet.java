@@ -56,14 +56,14 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     private double addressLat;
     private double addressLng;
     private Provider mProvider = new Provider();
-    private String jsonObject = "{'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType'}";
+    private String jsonObject = "{'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType'}";
 
-    public static EditProviderBottomSheet newInstance(String key, String userJson) {
-        Log.d(TAG, "newInstance BottomSheetEditProvider: " + key + " " +userJson);
+    public static EditProviderBottomSheet newInstance(String key, String providerJson) {
+        Log.d(TAG, "newInstance BottomSheetEditProvider: " + key + " " +providerJson);
         EditProviderBottomSheet editProviderBottomSheet;
         editProviderBottomSheet = new EditProviderBottomSheet();
         Bundle bundle = new Bundle();
-        bundle.putString(key, userJson);
+        bundle.putString(key, providerJson);
         editProviderBottomSheet.setArguments(bundle);
         return editProviderBottomSheet ;
     }
