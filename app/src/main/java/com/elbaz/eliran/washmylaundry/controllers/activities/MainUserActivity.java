@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -20,8 +21,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.adapters.PageAdapter;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditUserBottomSheet;
+import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
 import butterknife.BindView;
 
@@ -36,6 +41,8 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     //For Data
     private Context mContext;
     private View rootView;
+    public static User mUser;
+    private UserViewModel mUserViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +51,8 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         // Get RootView for snackBarMessage
         rootView = getWindow().getDecorView().getRootView();
 
+        configureViewModel();
         configureDrawerLayoutAndNavigationView();
-        configureToolbar();
         configureBottomNavigation();
         configureViewPager();
     }
@@ -56,9 +63,30 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        configureDataObserver();
+    }
+
     //-------------------
     // CONFIGURATIONS
     //-------------------
+
+    private void configureViewModel() {
+        mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        mUserViewModel.init(); // To retrieve the data from the repository
+        mUserViewModel.setCurrentUserData(); // Trigger the Document listener
+    }
+
+    private void configureDataObserver() {
+        mUserViewModel.getCurrentUserData().observe(this, this::updateObjectWithData);
+    }
+
+    private void updateObjectWithData(User user) {
+        mUser = new User();
+        mUser = user;
+    }
 
     // Navigation drawer config
     protected void configureDrawerLayoutAndNavigationView(){
@@ -140,7 +168,8 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
                 // Your orders
                 break;
             case 1:
-                // settings action
+                // Edit Profile action
+                editUserProfile();
                 break;
             case 2:
                 signOutUserFromFirebase(); // logout action
@@ -148,6 +177,10 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         }
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void editUserProfile() {
+        EditUserBottomSheet.newInstance("userObject", new Gson().toJson(mUser)).show(getSupportFragmentManager(), "editUser");
     }
 
     // Pager Listener actions

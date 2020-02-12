@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".controllers.activities.MainProviderActivity">
+    tools:context=".controllers.activities.MainUserActivity">
 
     <LinearLayout
         android:id="@+id/activity_main_user_root"
