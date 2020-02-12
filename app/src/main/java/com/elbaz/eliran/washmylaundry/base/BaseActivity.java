@@ -21,6 +21,7 @@ import com.elbaz.eliran.washmylaundry.controllers.activities.SplashScreen;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -111,6 +112,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
     }
 
+    public void signOutUserFromFirebaseOnly(){
+        AuthUI.getInstance()
+                .signOut(this);
+    }
+
     private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin){
         return new OnSuccessListener<Void>() {
             @Override
@@ -131,6 +137,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |  Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    // -------------
+    // AlertDialogs
+    // -------------
+
+    public void alertDialogAction(String title, String message){
+        new MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Ok and close the alert
+
+                    }
+                })
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_dialog_alert_dark)
+                .show();
     }
 }
 
