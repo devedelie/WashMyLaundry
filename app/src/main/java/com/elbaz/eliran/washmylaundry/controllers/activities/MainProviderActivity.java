@@ -14,7 +14,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,18 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
-import com.elbaz.eliran.washmylaundry.api.UserHelper;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
-import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -65,29 +60,34 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.provider_price_picker_text) EditText priceEditText;
     // Data
     private ProviderViewModel mProviderViewModel;
-    private User mUser;
+    private Provider mProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
+        configureViewModel();
         configureDrawerLayoutAndNavigationView();
         configureSwitches();
-        userDataFirestoreListener();
+//        userDataFirestoreListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        configureViewModel();
+        setDataObserver();
+    }
+
+    private void setDataObserver() {
+        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
     }
 
 
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
-//        mProviderViewModel.init(); // To retrieve the data from the repository
-        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
+        mProviderViewModel.init(); // To retrieve the data from the repository
+        mProviderViewModel.setCurrentProviderData(); // Trigger the listener
     }
 
 
@@ -134,7 +134,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
                     else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
-                    UserHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                    ProviderHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
                 }
             });
             // ----- Delivery Switch -------//
@@ -142,7 +142,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(deliverySwitch.isChecked()){ deliveryOnOffText.setText(getString(R.string.provider_delivery_on));}
                     else{ deliveryOnOffText.setText(getString(R.string.provider_delivery_off)); }
-                    UserHelper.updateProviderDeliveryStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                    ProviderHelper.updateProviderDeliveryStatus(CurrentUserDataRepository.currentUserID, isChecked);
                 }
             });
             // ----- Ironing Switch -------//
@@ -150,7 +150,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(ironingSwitch.isChecked()){ ironingOnOffText.setText(getString(R.string.provider_ironing_on));}
                     else{ ironingOnOffText.setText(getString(R.string.provider_ironing_off)); }
-                    UserHelper.updateProviderIroningStatus(CurrentUserDataRepository.currentUserID, isChecked);
+                    ProviderHelper.updateProviderIroningStatus(CurrentUserDataRepository.currentUserID, isChecked);
                 }
             });
     }
@@ -158,31 +158,31 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     //--------------------------
     // Cloud Firestore Listeners
     //--------------------------
-    private void userDataFirestoreListener(){
-        final DocumentReference docRef = UserHelper.getUserDocument(CurrentUserDataRepository.currentUserID);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-                // -- Data received
-                if (snapshot != null && snapshot.exists()) {
-                    Log.d(TAG, "Current data: " + snapshot.getData());
-                    mUser = new User();
-                    mUser = snapshot.toObject(User.class);
-                    if(mUser !=null){
-                        mProviderViewModel.setCurrentProviderData(mUser); // If a change was detected, set Object in ViewModel
-                    }
-
-                } else {
-                    Log.d(TAG, "Current data: null");
-                }
-            }
-        });
-    }
+//    private void userDataFirestoreListener(){
+//        final DocumentReference docRef = ProviderHelper.getProviderDocument(CurrentUserDataRepository.currentUserID);
+//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot snapshot,
+//                                @Nullable FirebaseFirestoreException e) {
+//                if (e != null) {
+//                    Log.w(TAG, "Listen failed.", e);
+//                    return;
+//                }
+//                // -- Data received
+//                if (snapshot != null && snapshot.exists()) {
+//                    Log.d(TAG, "Current data: " + snapshot.getData());
+//                    mProvider = new User();
+//                    mProvider = snapshot.toObject(User.class);
+//                    if(mProvider !=null){
+//                        mProviderViewModel.setCurrentProviderData(mProvider); // If a change was detected, set Object in ViewModel
+//                    }
+//
+//                } else {
+//                    Log.d(TAG, "Current data: null");
+//                }
+//            }
+//        });
+//    }
 
 
     //-------------------
@@ -221,7 +221,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     @OnClick(R.id.edit_provider_icon)
     public void onEditClick(){
-        EditProviderBottomSheet.newInstance("userObject", new Gson().toJson(mUser)).show(getSupportFragmentManager(), "editProvider");
+        EditProviderBottomSheet.newInstance("providerObject", new Gson().toJson(mProvider)).show(getSupportFragmentManager(), "editProvider");
     }
 
     // --------------------
@@ -229,7 +229,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // --------------------
 
     private void updateProviderMaxWeight(int maxWeight){
-        UserHelper.updateProviderWeightPerService(CurrentUserDataRepository.currentUserID, maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        ProviderHelper.updateProviderWeightPerService(CurrentUserDataRepository.currentUserID, maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Max Weight Saved");
@@ -238,7 +238,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     }
 
     private void updateProviderPrice(int pricePerKg){
-        UserHelper.updateProviderPricePerKg(CurrentUserDataRepository.currentUserID, pricePerKg).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+        ProviderHelper.updateProviderPricePerKg(CurrentUserDataRepository.currentUserID, pricePerKg).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Price Saved");
@@ -250,7 +250,9 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // UI
     //-------------------
 
-    private void updateUiWithData(User user) {
+    private void updateUiWithData(Provider provider) {
+        mProvider = new Provider();
+        mProvider = provider;
         // Set provider Image //
         if (this.getCurrentUser().getPhotoUrl() != null) {
             Glide.with(this)
@@ -258,27 +260,27 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                     .apply(RequestOptions.centerCropTransform())
                     .into(providerImage);
         }
-        usernameText.setText(user.getUsername());
+        usernameText.setText(provider.getProviderName());
         emailText.setText(getCurrentUser().getEmail());
         // Phone //
-        if(user.getPhoneNumber() == 0){ phoneText.setText(R.string.provider_phone_not_available);}
-        else{phoneText.setText(String.valueOf(user.getPhoneNumber()));}
+        if(provider.getPhoneNumber() == 0){ phoneText.setText(R.string.provider_phone_not_available);}
+        else{phoneText.setText(String.valueOf(provider.getPhoneNumber()));}
         // Address //
-        if(user.getUserAddress() == null){addressText.setText(R.string.provider_address_not_available);}
-        else{addressText.setText(user.getUserAddress());}
+        if(provider.getProviderAddress() == null){addressText.setText(R.string.provider_address_not_available);}
+        else{addressText.setText(provider.getProviderAddress());}
         // Status //
-        if(user.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green); statusSwitch.setChecked(true);}
+        if(provider.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green); statusSwitch.setChecked(true);}
         else{statusText.setText(R.string.provider_status_not_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_red); statusSwitch.setChecked(false);}
         // Delivery //
-        if(user.getIsDelivering()) {deliveryOnOffText.setText(R.string.provider_delivery_on);  deliverySwitch.setChecked(true);}
+        if(provider.getIsDelivering()) {deliveryOnOffText.setText(R.string.provider_delivery_on);  deliverySwitch.setChecked(true);}
         else{deliveryOnOffText.setText(R.string.provider_delivery_off); deliverySwitch.setChecked(false);}
         // Ironing //
-        if(user.getIsIroning()) {ironingOnOffText.setText(R.string.provider_ironing_on);  ironingSwitch.setChecked(true);}
+        if(provider.getIsIroning()) {ironingOnOffText.setText(R.string.provider_ironing_on);  ironingSwitch.setChecked(true);}
         else{ironingOnOffText.setText(R.string.provider_ironing_off); ironingSwitch.setChecked(false);}
         // Max Weight //
-        maxWeightEditText.setText(String.valueOf(user.getMaxWeightKg()));
+        maxWeightEditText.setText(String.valueOf(provider.getMaxWeightKg()));
         // Price //
-        priceEditText.setText(String.valueOf(user.getPricePerKg()));
+        priceEditText.setText(String.valueOf(provider.getPricePerKg()));
 
     }
 
