@@ -6,7 +6,7 @@ import javax.annotation.Nullable;
  * Created by Eliran Elbaz on 04-Feb-20.
  */
 public class Provider {
-    private String pid, providerName, providerAddress, district, machineType;
+    private String pid, providerName, providerAddress, district, machineType, providerDescription;
     @Nullable
     private String urlPicture;
     private boolean isProvider, isAvailable, isDelivering, isIroning;
