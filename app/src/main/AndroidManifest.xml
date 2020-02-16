@@ -76,6 +76,13 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <!-- ReservationActivity -->
+        <activity
+            android:name=".controllers.activities.ReservationActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>
