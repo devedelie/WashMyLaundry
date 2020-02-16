@@ -42,11 +42,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="About Me:"
-                    android:layout_margin="20dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginBottom="5dp"
                     android:textColor="@color/quantum_grey600"
                     android:textStyle="bold"/>
 
                 <TextView
+                    android:id="@+id/pre_order_about_me_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -56,9 +58,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
                     android:textStyle="bold"
                     android:text="Machine Type:"/>
 
@@ -67,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
                     android:layout_marginEnd="25dp"
-                    android:layout_marginTop="10dp"
                     android:text="SAMSUNG Mega Drum 7XP"/>
 
             </LinearLayout>
@@ -101,13 +102,14 @@
                         android:layout_height="25dp"
                         android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_man_identity_black_48dp"
+                        android:src="@drawable/ic_laundry_bag"
+                        android:tint="@color/quantum_grey600"
                         android:layout_weight="1"/>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_weight="7">
+                        android:layout_weight="6.5">
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -120,16 +122,35 @@
                             android:id="@+id/bottom_menu_laundry_weight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3 Bags - 15Kg"
+                            android:text="Max 3 Bags - 15Kg"
                             android:layout_marginStart="20dp"
                             android:layout_gravity="center_vertical" />
                     </LinearLayout>
-                    <Switch
+                    <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="2"
-                        android:layout_marginEnd="20dp"/>
+                        android:orientation="horizontal"
+                        android:layout_weight="2.5"
+                        android:layout_gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_remove_circle_black_24dp"
+                            android:layout_marginEnd="15dp"
+                            android:tint="@color/colorPrimaryDark"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_add_circle_black_24dp"
+                            android:layout_marginStart="15dp"
+                            android:tint="@color/colorPrimaryDark"/>
+
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!--Line Break-->
@@ -153,6 +174,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_iron_black"
+                        android:tint="@color/quantum_grey600"
                         android:layout_weight="1"/>
                     <LinearLayout
                         android:layout_width="0dp"
@@ -204,6 +226,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/ic_delivery_truck_black"
+                        android:tint="@color/quantum_grey600"
                         android:layout_weight="1"/>
                     <LinearLayout
                         android:layout_width="0dp"

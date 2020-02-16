@@ -26,6 +26,8 @@ import static android.content.ContentValues.TAG;
 public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
     @BindView(R.id.id_details_profile_image) ImageView providerImage;
     @BindView(R.id.id_details_username_text) TextView providerName;
+    @BindView(R.id.id_details_services_counter_text) TextView providerServiceCounter;
+    @BindView(R.id.pre_order_about_me_text) TextView providerDescription;
 
     // For Data
     private Provider mProvider = new Provider();
@@ -68,6 +70,8 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
         }
         // Set provider Name //
         providerName.setText(mProvider.getProviderName());
+        providerServiceCounter.setText(getString(R.string.pre_order_provider_service_count,String.valueOf(mProvider.getServicesCount())));
+        providerDescription.setText(mProvider.getProviderDescription());
     }
 
     protected int getFragmentLayout() { return R.layout.bottom_sheet_user_pre_order; }

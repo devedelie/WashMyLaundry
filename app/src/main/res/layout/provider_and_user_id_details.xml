@@ -48,12 +48,6 @@
                         android:textStyle="bold"
                         android:text="Rating: " />
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="18dp"
-                        android:layout_gravity="center"
-                        android:tint="@color/quantum_grey600"
-                        android:src="@drawable/ic_laundry_machine_black_48dp"/>
-                    <ImageView
                         android:id="@+id/provider_stars_1"
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
@@ -103,6 +97,32 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"/>
                 </LinearLayout>
+
+
+                <!-- Provider rating -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="Services: " />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:tint="@color/quantum_grey600"
+                        android:src="@drawable/ic_laundry_machine_black_48dp"/>
+                    <TextView
+                        android:id="@+id/id_details_services_counter_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="( # Customers) " />
+                </LinearLayout>
+
 
             </LinearLayout>
 

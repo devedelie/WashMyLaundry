@@ -66,6 +66,7 @@
     <string name="lorem_impsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
     <!-- PreOrder BottomSheet-->
+    <string name="pre_order_provider_service_count">( %1$s Customers)</string>
 
     <!-- Status display-->
     <string name="currently_available_providers">There are currently %1$s available providers</string>
