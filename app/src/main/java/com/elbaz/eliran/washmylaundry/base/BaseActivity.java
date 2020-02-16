@@ -158,5 +158,21 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setIcon(R.drawable.ic_dialog_alert_dark)
                 .show();
     }
+
+    public void alertDialogInformation(String title, String message){
+        new MaterialAlertDialogBuilder(this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Ok and close the alert
+
+                    }
+                })
+                // A null listener allows the button to dismiss the dialog and take no further action.
+//                .setNegativeButton(android.R.string.no, null)
+                .setIcon(R.drawable.ic_dialog_alert_dark)
+                .show();
+    }
 }
 

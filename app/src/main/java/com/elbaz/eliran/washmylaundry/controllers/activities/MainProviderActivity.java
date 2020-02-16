@@ -18,6 +18,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -69,7 +70,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
         configureViewModel();
         configureDrawerLayoutAndNavigationView();
-        configureSwitches();
+
 //        userDataFirestoreListener();
     }
 
@@ -86,7 +87,15 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     }
 
     private void setDataObserver() {
-        mProviderViewModel.getCurrentProviderData().observe(this, this::updateUiWithData);
+        mProviderViewModel.getCurrentProviderData().observe(this, new Observer<Provider>() {
+            @Override
+            public void onChanged(Provider provider) {
+                mProvider = new Provider();
+                mProvider = provider;
+                updateUiWithData(mProvider);
+                configureSwitches();
+            }
+        });
     }
 
 
@@ -129,13 +138,21 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
         private void configureSwitches() {
             // ----- Availability Switch -------//
-            statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            if(mProvider.getProviderAddress() == null || mProvider.getProviderAddress().isEmpty()){
+                statusSwitch.setClickable(false);
+                alertDialogInformation("Address is Missing !", "You need to add an address before you can go available");
+            }else {
+                statusSwitch.setClickable(true);
+                statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if(isChecked){ availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
                     else{ availabilityOnOffText.setText(getString(R.string.provider_availability_off)); }
                     ProviderHelper.updateProviderAvailabilityStatus(CurrentUserDataRepository.currentUserID, isChecked);
                 }
-            });
+                });
+            }
+
+
             // ----- Delivery Switch -------//
             deliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -222,8 +239,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     private void updateUiWithData(Provider provider) {
         Log.d(TAG, "updateUiWithData: ");
-        mProvider = new Provider();
-        mProvider = provider;
         // Set provider Image //
         if (this.getCurrentUser().getPhotoUrl() != null) {
             Glide.with(this)
