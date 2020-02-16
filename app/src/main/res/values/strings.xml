@@ -54,11 +54,15 @@
     <string name="provider_ironing_on">Accepting</string>
     <string name="provider_ironing_off">Not Accepting</string>
 
+    <!-- MainProvider Edit-->
+    <string name="provider_edit_about_me">About me: I live in Paris and work from home. I have plenty of free time and am looking for opportunities for extra monthly income.</string>
+
     <!--BottomNavigation-->
     <string name="tab_name_1">Map View</string>
     <string name="tab_name_2">List View</string>
     <string name="tab_name_3">Orders</string>
 
+    <!--General text-->
     <string name="lorem_impsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
 
     <!-- PreOrder BottomSheet-->
