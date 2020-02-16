@@ -10,7 +10,7 @@ public class Provider {
     @Nullable
     private String urlPicture;
     private boolean isProvider, isAvailable, isDelivering, isIroning;
-    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg;
+    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg, servicesCount;
     private double providerLatCoordinates, providerLngCoordinates;
 
     public Provider(){ }
@@ -92,6 +92,10 @@ public class Provider {
     public String getProviderDescription() { return providerDescription; }
 
     public void setProviderDescription(String providerDescription) { this.providerDescription = providerDescription; }
+
+    public int getServicesCount() { return servicesCount; }
+
+    public void setServicesCount(int servicesCount) { this.servicesCount = servicesCount; }
 }
 
 
