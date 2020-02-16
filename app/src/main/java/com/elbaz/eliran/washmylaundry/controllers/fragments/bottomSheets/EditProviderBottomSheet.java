@@ -19,6 +19,7 @@ import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -26,6 +27,7 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -46,8 +48,9 @@ import static android.content.ContentValues.TAG;
 public class EditProviderBottomSheet extends BaseBottomSheet {
     @BindView(R.id.bottom_sheet_top_bar_title) TextView topTitle;
     @BindView(R.id.edit_provider_address_text) EditText addressEditText;
-    @BindView(R.id.edit_provider_zip_text) EditText zipEditText;
+//    @BindView(R.id.edit_provider_zip_text) EditText zipEditText;
     @BindView(R.id.edit_provider_phone_text) EditText phoneEditText;
+    @BindView(R.id.edit_provider_about_me_text) EditText aboutMeEditText;
     @BindView(R.id.edit_provider_machine_type_text) EditText machineEditText;
 
     // For DATA
@@ -129,13 +132,29 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
 
     @OnClick(R.id.edit_provider_save_btn)
     public void onAddressSaveButton(){
-        if(addressEditText!=null) ProviderHelper.updateProviderAddress(getCurrentUser().getUid(), addressEditText.getText().toString());
-        if(addressLat != 0) ProviderHelper.updateProviderServiceLatCoordinates(getCurrentUser().getUid(), addressLat);
-        if(addressLat != 0) ProviderHelper.updateProviderServiceLngCoordinates(getCurrentUser().getUid(), addressLng);
-        if(zipEditText!=null && !zipEditText.getText().toString().isEmpty()) ProviderHelper.updateProviderZipCode(getCurrentUser().getUid(), Integer.valueOf(zipEditText.getText().toString()));
-        if(phoneEditText!=null && !phoneEditText.getText().toString().isEmpty()) ProviderHelper.updateProviderPhone(getCurrentUser().getUid(), Integer.valueOf(phoneEditText.getText().toString()));
-        if(machineEditText!=null)ProviderHelper.updateProviderMachineType(getCurrentUser().getUid(), machineEditText.getText().toString());
-        dismiss();
+        String address="", machine="", aboutMe="";
+        int phone =0;
+        double addressLat=0, addressLng=0;
+        // Get data from EditTexts Views
+        if(addressEditText!=null) { address = addressEditText.getText().toString();}
+        if(phoneEditText!=null && !phoneEditText.getText().toString().isEmpty()) { phone = Integer.valueOf(phoneEditText.getText().toString()); }
+        if(machineEditText!=null) { machine = machineEditText.getText().toString();}
+        if(this.addressLat != 0) {  addressLat = this.addressLat; }
+        if(this.addressLng != 0) {  addressLng = this.addressLng;}
+        if(aboutMeEditText!=null) { aboutMe = aboutMeEditText.getText().toString();}
+
+        // Register/Update data into existing Document
+        DocumentReference updateProviderDocument = ProviderHelper.getProviderDocument(getCurrentUser().getUid());
+        updateProviderDocument.update("providerAddress", address, "phoneNumber", phone,
+                "machineType", machine, "providerDescription", aboutMe, "providerLatCoordinates",
+                addressLat, "providerLatCoordinates", addressLng).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dismiss(); // Dismiss edit fragment and goes back to Activity
+            }
+        });
+
+
     }
 
 
@@ -189,7 +208,8 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     private void setUiElements() {
         topTitle.setText(setTitle());
         if(mProvider.getProviderAddress() != null && !mProvider.getProviderAddress().isEmpty()) addressEditText.setText(mProvider.getProviderAddress());
-        if(mProvider.getUserZipCode() != 0) zipEditText.setText(String.valueOf(mProvider.getUserZipCode()));
+//        if(mProvider.getUserZipCode() != 0) zipEditText.setText(String.valueOf(mProvider.getUserZipCode()));
+        if(mProvider.getProviderDescription() != null && !mProvider.getProviderDescription().isEmpty()) aboutMeEditText.setText(mProvider.getProviderDescription());
         if(mProvider.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mProvider.getPhoneNumber()));
         if(mProvider.getMachineType() != null && !mProvider.getMachineType().isEmpty()) machineEditText.setText(mProvider.getMachineType());
     }
