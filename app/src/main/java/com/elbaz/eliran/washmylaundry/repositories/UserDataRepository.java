@@ -2,7 +2,6 @@ package com.elbaz.eliran.washmylaundry.repositories;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,12 +9,11 @@ import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public class UserDataRepository {
     }
 
     public void setProviderList(){
-        getAllAvailableProviders();
+        listenToAllAvailableProviders();
     }
 
 
@@ -102,48 +100,48 @@ public class UserDataRepository {
     }
 
      //  Providers Listener
-    private void getAllAvailableProviders(){
-        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    mProvider = new Provider();
-                    mProviderList = new ArrayList<>();
-                    for (DocumentSnapshot document : task.getResult()) {
-                        mProviderList.add(document.toObject(Provider.class));
-                    }
-
-                    mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
-
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-
-            }
-        });
-
-    }
-
-//    //  Providers Listener
-//    private void listenToAllAvailableProviders(){
-//        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).addSnapshotListener(new EventListener<QuerySnapshot>() {
+//    private void getAllAvailableProviders(){
+//        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //            @Override
-//            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
-//
-//                if (e != null) {
-//                    Log.w(TAG, "Listen failed.", e);
-//                    return;
-//                }
-//                // -- Data received
-//                List<Provider> providers = new ArrayList<>();
-//                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-//                    if (doc != null) {
-//                        providers.add(doc.getString("asd"));
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    mProvider = new Provider();
+//                    mProviderList = new ArrayList<>();
+//                    for (DocumentSnapshot document : task.getResult()) {
+//                        mProviderList.add(document.toObject(Provider.class));
 //                    }
+//
+//                    mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
+//
+//                } else {
+//                    Log.d(TAG, "Error getting documents: ", task.getException());
 //                }
-//                Log.d(TAG, "Current cites in CA: " + providers);
 //
 //            }
 //        });
+//
 //    }
+
+//    //  Providers Listener Test
+    private void listenToAllAvailableProviders(){
+        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+                // -- Data received
+                mProviderList = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    mProviderList.add(doc.toObject(Provider.class));
+                }
+
+                mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
+                Log.d(TAG, "listenToAllAvailableProviders: END ");
+
+            }
+        });
+    }
 }

@@ -133,6 +133,9 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Provider provider = new Provider();
+//        provider = mAvailableProvidersList.get()
+//        UserPreOrderBottomSheet.newInstance("providerObject", new Gson().toJson(mP)).show(getSupportFragmentManager(), "preOrder");
         return false;
     }
 
@@ -148,6 +151,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     private void updateMapWithMarkers() {
         Log.d(TAG, "updateMapWithMarkers: ");
+        mMap.clear(); // Clear all markers before every update
         for (int i = 0 ; i<mAvailableProvidersList.size() ; i++){
             LatLng latLng = new LatLng(mAvailableProvidersList.get(i).getProviderLatCoordinates(), mAvailableProvidersList.get(i).getProviderLngCoordinates());
             setCustomMarker(latLng, i, mAvailableProvidersList.get(i).getPid());
