@@ -57,7 +57,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.provider_status_switch) Switch statusSwitch;
     @BindView(R.id.provider_delivery_switch) Switch deliverySwitch;
     @BindView(R.id.provider_ironing_switch) Switch ironingSwitch;
-    @BindView(R.id.provider_max_weight_picker_text) EditText maxWeightEditText;
+    @BindView(R.id.provider_max_bags_picker_text) EditText maxBagsEditText;
     @BindView(R.id.provider_price_picker_text) EditText priceEditText;
     // Data
     private ProviderViewModel mProviderViewModel;
@@ -151,8 +151,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 }
                 });
             }
-
-
             // ----- Delivery Switch -------//
             deliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -176,9 +174,9 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // ACTIONS
     //-------------------
 
-    @OnClick(R.id.provider_max_weight_picker_text)
+    @OnClick(R.id.provider_max_bags_picker_text)
     public void onWeightTextClick(){
-        pricePickerDialog(getString(R.string.provider_max_weight_dialog), Integer.parseInt(maxWeightEditText.getText().toString()), 5, 25);
+        pricePickerDialog(getString(R.string.provider_max_weight_dialog), Integer.parseInt(maxBagsEditText.getText().toString()), 1, 5);
     }
 
     @OnClick(R.id.provider_price_picker_text)
@@ -263,8 +261,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         // Ironing //
         if(provider.getIsIroning()) {ironingOnOffText.setText(R.string.provider_ironing_on);  ironingSwitch.setChecked(true);}
         else{ironingOnOffText.setText(R.string.provider_ironing_off); ironingSwitch.setChecked(false);}
-        // Max Weight //
-        maxWeightEditText.setText(String.valueOf(provider.getMaxWeightKg()));
+        // Max Bags //
+        maxBagsEditText.setText(String.valueOf(provider.getMaxBags()));
         // Price //
         priceEditText.setText(String.valueOf(provider.getPricePerKg()));
 

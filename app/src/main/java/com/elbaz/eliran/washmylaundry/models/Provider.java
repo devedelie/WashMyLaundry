@@ -10,7 +10,7 @@ public class Provider {
     @Nullable
     private String urlPicture;
     private boolean isProvider, isAvailable, isDelivering, isIroning;
-    private int userZipCode, phoneNumber, maxWeightKg, pricePerKg, servicesCount;
+    private int userZipCode, phoneNumber, maxBags, pricePerKg, servicesCount;
     private double providerLatCoordinates, providerLngCoordinates;
 
     public Provider(){ }
@@ -20,7 +20,7 @@ public class Provider {
         this.providerName = providerName;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
-        this.maxWeightKg = 7;
+        this.maxBags = 3;
         this.pricePerKg = 5;
     }
 
@@ -69,9 +69,9 @@ public class Provider {
 
     public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public int getMaxWeightKg() { return maxWeightKg; }
+    public int getMaxBags() { return maxBags; }
 
-    public void setMaxWeightKg(int maxWeightKg) { this.maxWeightKg = maxWeightKg; }
+    public void setMaxBags(int maxBags) { this.maxBags = maxBags; }
 
     public String getMachineType() { return machineType; }
 
