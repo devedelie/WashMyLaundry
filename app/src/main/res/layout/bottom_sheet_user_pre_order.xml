@@ -1,0 +1,438 @@
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/user_pre_order_bottom_sheet"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.elbaz.eliran.washmylaundry.controllers.activities.MainUserActivity"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/id_details_container"
+            layout="@layout/provider_and_user_id_details"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/fragment_restaurant_detail_layout_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="About Me:"
+                    android:layout_margin="20dp"
+                    android:textColor="@color/quantum_grey600"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:text="@string/lorem_impsum"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:text="Machine Type:"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="SAMSUNG Mega Drum 7XP"/>
+
+            </LinearLayout>
+
+            <!-- Services Selection-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:text="Service Options:"/>
+
+                <!-- Service Providers Container-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="10">
+                    <ImageView
+                        android:id="@+id/bottom_menu_man_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_man_identity_black_48dp"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="7">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Laundry Weight"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/bottom_menu_laundry_weight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3 Bags - 15Kg"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:layout_marginEnd="20dp"/>
+                </LinearLayout>
+
+                <!--Line Break-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@android:color/darker_gray" />
+
+                <!-- Iron Container-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="10">
+                    <ImageView
+                        android:id="@+id/bottom_menu_iron_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_iron_black"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="7">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ironing Service"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginBottom="5dp"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/bottom_menu_iron_text_on_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Include Ironing"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:layout_marginEnd="20dp"/>
+                </LinearLayout>
+
+                <!--Line Break-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@android:color/darker_gray" />
+
+                <!--Delivery Container-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="10">
+                    <ImageView
+                        android:id="@+id/bottom_menu_delivery_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_delivery_truck_black"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="7">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery Service"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/bottom_menu_delivery_text_on_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Include delivery"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:layout_marginEnd="20dp"/>
+                </LinearLayout>
+
+                <!--Line Break-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addRestaurantFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="false"
+        android:focusable="true"
+        app:backgroundTint="@color/colorAccent"
+        android:src="@drawable/ic_laundry_machine_black_48dp"
+        app:layout_anchor="@id/id_details_container"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:orientation="vertical" android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--    &lt;!&ndash;Import of top Id card&ndash;&gt;-->
+<!--    <include-->
+<!--        layout="@layout/id_details_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+<!--    &lt;!&ndash; Bottom Menu&ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:layout_weight="3">-->
+
+<!--        &lt;!&ndash; Service Providers Container&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp"-->
+<!--            android:weightSum="10">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/bottom_menu_man_icon"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@drawable/ic_man_identity_black_48dp"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_weight="7">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Service Provider"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:textStyle="bold"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/bottom_menu_current_available_providers"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Currently 23 Available Providers"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical" />-->
+<!--            </LinearLayout>-->
+<!--            <Switch-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginEnd="20dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash;Line Break&ndash;&gt;-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:background="@android:color/darker_gray" />-->
+
+<!--        &lt;!&ndash; Iron Container&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp"-->
+<!--            android:weightSum="10">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/bottom_menu_iron_icon"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="25dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@drawable/ic_iron_black"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_weight="7">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Ironing Service"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:textStyle="bold"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/bottom_menu_iron_text_on_off"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Include Ironing"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical" />-->
+<!--            </LinearLayout>-->
+<!--            <Switch-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginEnd="20dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash;Line Break&ndash;&gt;-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:background="@android:color/darker_gray" />-->
+
+<!--        &lt;!&ndash;Delivery Container&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="10dp"-->
+<!--            android:weightSum="10">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/bottom_menu_delivery_icon"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="35dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@drawable/ic_delivery_truck_black"-->
+<!--                android:layout_weight="1"/>-->
+<!--            <LinearLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_weight="7">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Delivery Service"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:textStyle="bold"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/bottom_menu_delivery_text_on_off"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Include delivery"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_gravity="center_vertical" />-->
+<!--            </LinearLayout>-->
+<!--            <Switch-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_weight="2"-->
+<!--                android:layout_marginEnd="20dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        &lt;!&ndash;Line Break&ndash;&gt;-->
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_marginStart="50dp"-->
+<!--            android:background="@android:color/darker_gray" />-->
+
+<!--    </LinearLayout>-->
+
+<!--</LinearLayout>-->

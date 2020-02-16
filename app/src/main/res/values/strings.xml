@@ -59,4 +59,12 @@
     <string name="tab_name_2">List View</string>
     <string name="tab_name_3">Orders</string>
 
+    <string name="lorem_impsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+
+    <!-- PreOrder BottomSheet-->
+
+    <!-- Status display-->
+    <string name="currently_available_providers">There are currently %1$s available providers</string>
+    <string name="currently_no_available_providers">There are currently no providers available</string>
+
 </resources>
