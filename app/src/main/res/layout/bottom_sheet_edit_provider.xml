@@ -114,8 +114,9 @@
             android:imeOptions="actionNext"
             android:nextFocusDown="@id/edit_provider_phone_text"
             android:inputType="textCapSentences|textMultiLine"
+            android:gravity="top|start"
             android:maxLength="500"
-            android:maxLines="6"/>
+            android:maxLines="6" />
     </LinearLayout>
 
     <Button
