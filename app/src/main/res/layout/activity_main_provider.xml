@@ -212,7 +212,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
-                    android:text="Max Laundry Weight" />
+                    android:text="Max Laundry Bags" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -227,10 +227,10 @@
                         android:textStyle="bold"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/places_autocomplete_prediction_primary_text"
-                        android:text="Max Weight (Kg/per service)"
+                        android:text="Max Bags Per Service(5Kg/bag)"
                         android:layout_weight="9"/>
                     <EditText
-                        android:id="@+id/provider_max_weight_picker_text"
+                        android:id="@+id/provider_max_bags_picker_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
