@@ -48,7 +48,7 @@ import static android.content.ContentValues.TAG;
 public class EditProviderBottomSheet extends BaseBottomSheet {
     @BindView(R.id.bottom_sheet_top_bar_title) TextView topTitle;
     @BindView(R.id.edit_provider_address_text) EditText addressEditText;
-//    @BindView(R.id.edit_provider_zip_text) EditText zipEditText;
+    @BindView(R.id.edit_provider_username_text) EditText usernameEditText;
     @BindView(R.id.edit_provider_phone_text) EditText phoneEditText;
     @BindView(R.id.edit_provider_about_me_text) EditText aboutMeEditText;
     @BindView(R.id.edit_provider_machine_type_text) EditText machineEditText;
@@ -98,21 +98,18 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     protected int setTitle() { return R.string.edit_bs_title; }
 
     private void configureAddressViewType() {
-//        addressEditText.setClickable(true);
         addressEditText.setFocusable(false);
-//        addressEditText.setInputType(InputType.TYPE_NULL);
         addressEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
                     launchAutocompleteSearchBar(); // If Internet is active - then invoke Google Address-Autocomplete
                 }else {
-//                    alertDialogAddress(); // If Internet is inactive - invoke warning dialog box
+                     // If Internet is inactive - invoke warning dialog box
                 }
             }
         });
     }
-
 
 
     // --------------------
@@ -132,10 +129,11 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
 
     @OnClick(R.id.edit_provider_save_btn)
     public void onAddressSaveButton(){
-        String address="", machine="", aboutMe="";
+        String name="",address="", machine="", aboutMe="";
         int phone =0;
         double addressLat=0, addressLng=0;
         // Get data from EditTexts Views
+        if(usernameEditText!=null) { name = usernameEditText.getText().toString();}
         if(addressEditText!=null) { address = addressEditText.getText().toString();}
         if(phoneEditText!=null && !phoneEditText.getText().toString().isEmpty()) { phone = Integer.valueOf(phoneEditText.getText().toString()); }
         if(machineEditText!=null) { machine = machineEditText.getText().toString();}
@@ -145,18 +143,15 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
 
         // Register/Update data into existing Document
         DocumentReference updateProviderDocument = ProviderHelper.getProviderDocument(getCurrentUser().getUid());
-        updateProviderDocument.update("providerAddress", address, "phoneNumber", phone,
+        updateProviderDocument.update("providerName", name,"providerAddress", address, "phoneNumber", phone,
                 "machineType", machine, "providerDescription", aboutMe, "providerLatCoordinates",
-                addressLat, "providerLatCoordinates", addressLng).addOnSuccessListener(new OnSuccessListener<Void>() {
+                addressLat, "providerLngCoordinates", addressLng).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 dismiss(); // Dismiss edit fragment and goes back to Activity
             }
         });
-
-
     }
-
 
     private void launchAutocompleteSearchBar(){
         if (!Places.isInitialized()) {
@@ -206,9 +201,14 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     //--------------
 
     private void setUiElements() {
+        // Set previous LatLng in variables, if exist (to reload of the data)
+        if(mProvider.getProviderLatCoordinates() != 0) {addressLat = mProvider.getProviderLatCoordinates(); }
+        if(mProvider.getProviderLngCoordinates() != 0) {addressLng = mProvider.getProviderLngCoordinates(); }
+        // Set Title
         topTitle.setText(setTitle());
+        // Set EditTexts
+        if(mProvider.getProviderName() != null && !mProvider.getProviderName().isEmpty()) usernameEditText.setText(mProvider.getProviderName());
         if(mProvider.getProviderAddress() != null && !mProvider.getProviderAddress().isEmpty()) addressEditText.setText(mProvider.getProviderAddress());
-//        if(mProvider.getUserZipCode() != 0) zipEditText.setText(String.valueOf(mProvider.getUserZipCode()));
         if(mProvider.getProviderDescription() != null && !mProvider.getProviderDescription().isEmpty()) aboutMeEditText.setText(mProvider.getProviderDescription());
         if(mProvider.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mProvider.getPhoneNumber()));
         if(mProvider.getMachineType() != null && !mProvider.getMachineType().isEmpty()) machineEditText.setText(mProvider.getMachineType());

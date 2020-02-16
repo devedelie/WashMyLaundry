@@ -26,6 +26,26 @@
         android:focusable="true"
         android:text="Personal Details:"/>
 
+    <!-- Full Name-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit_provider_username_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Full Name"
+            android:layout_weight="8"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@id/edit_provider_address_text"/>
+    </LinearLayout>
+
     <!-- Address-->
     <LinearLayout
         android:layout_width="match_parent"
