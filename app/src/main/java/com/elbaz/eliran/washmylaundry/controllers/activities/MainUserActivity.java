@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @BindView(R.id.drawer_main_user_activity) NavigationView navigationView;
     @BindView(R.id.activity_main_bottom_navigation) BottomNavigationView bottomNavigationView;
     @BindView(R.id.activity_main_user_viewpager) ViewPager pager;
+    @BindView(R.id.user_delivery_switch) Switch userDeliverySwitch;
     //For Data
     private Context mContext;
     private View rootView;
@@ -55,6 +58,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         configureDrawerLayoutAndNavigationView();
         configureBottomNavigation();
         configureViewPager();
+        configureSwitches();
     }
 
     @Override
@@ -86,6 +90,18 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     private void updateObjectWithData(User user) {
         mUser = new User();
         mUser = user;
+    }
+
+    private void configureSwitches() {
+
+        // ----- Delivery Switch -------//
+        userDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.d(TAG, "onCheckedChanged: Delivery Switch " + isChecked);
+                if (isChecked)  {mUserViewModel.setProviderList(true);}
+                else { mUserViewModel.setProviderList(false);}
+            }
+        });
     }
 
     // Navigation drawer config
@@ -166,6 +182,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         switch (order){
             case 0:
                 // Your orders
+                test();
                 break;
             case 1:
                 // Edit Profile action
@@ -181,6 +198,10 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
 
     private void editUserProfile() {
         EditUserBottomSheet.newInstance("userObject", new Gson().toJson(mUser)).show(getSupportFragmentManager(), "editUser");
+    }
+
+    private void test() {
+
     }
 
     // Pager Listener actions

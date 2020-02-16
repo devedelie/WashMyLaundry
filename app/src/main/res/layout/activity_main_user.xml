@@ -22,11 +22,88 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/activity_main_user_viewpager"
+
+        <!--Middle Container - ViewPager + SelectionMenu -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/activity_main_user_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9"/>
+
+            <!-- Bottom Menu-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <!--Line Break-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray" />
+
+                <!--Delivery Container-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:weightSum="10">
+                    <ImageView
+                        android:id="@+id/bottom_menu_delivery_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_delivery_truck_black"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="7">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Delivery Service"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/bottom_menu_delivery_text_on_off"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Display results with delivery service option"
+                            android:layout_marginStart="20dp"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                    <Switch
+                        android:id="@+id/user_delivery_switch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:layout_marginEnd="20dp"/>
+                </LinearLayout>
+
+                <!--Line Break-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="50dp"
+                    android:background="@android:color/darker_gray" />
+
+            </LinearLayout>
+            <!--End of selectionMenu-->
+
 
         <!--DropShadow for TabLayout-->
         <View
@@ -44,6 +121,8 @@
             app:itemTextColor="@drawable/bottom_navigation_colors"
             app:menu="@menu/bottom_navigation_menu" />
 
+
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -53,8 +53,8 @@ public class UserViewModel extends ViewModel {
         return mUserDataRepository.getProvidersList();
     }
 
-    public void setProviderList(){
-        mUserDataRepository.setProviderList();
+    public void setProviderList(boolean isDelivering){
+        mUserDataRepository.setProviderList(isDelivering);
     }
 
 }

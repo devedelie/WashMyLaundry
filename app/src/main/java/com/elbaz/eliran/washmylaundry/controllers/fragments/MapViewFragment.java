@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.UserPreOrderBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
@@ -32,9 +35,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.OnClick;
 
 import static android.content.ContentValues.TAG;
 import static com.elbaz.eliran.washmylaundry.models.Constants.MAXIMUM_ZOOM_PREFERENCE;
@@ -44,6 +50,9 @@ import static com.elbaz.eliran.washmylaundry.models.Constants.MINIMUM_ZOOM_PREFE
  * Created by Eliran Elbaz on 06-Feb-20.
  */
 public class MapViewFragment extends BaseFragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+//    @BindView(R.id.bottom_menu_current_available_providers) TextView availableProvidersStatus;
+    private TextView availableProvidersStatus;
+
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final float DEFAULT_ZOOM = 15f ;
     private GoogleMap mMap;
@@ -51,9 +60,12 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     private UserViewModel mUserViewModel;
     private List<Provider> mAvailableProvidersList = new ArrayList<>();
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getFragmentLayout(), container, false);
+        // Views
+        availableProvidersStatus = (TextView) view.findViewById(R.id.bottom_menu_current_available_providers);
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
         // Initialise map
@@ -73,6 +85,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
                 mAvailableProvidersList.clear();
                 mAvailableProvidersList.addAll(providers);
                 updateMapWithMarkers();
+                updateStatusTextView();
             }
         });
     }
@@ -87,7 +100,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     private void configureViewModel() {
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        mUserViewModel.setProviderList(); // Trigger the query to get ProviderList
+        mUserViewModel.setProviderList(false); // Trigger the query to get ProviderList ('false'- for default results without delivery)
     }
 
     private void updateCurrentLatLng(LatLng latLng) {
@@ -130,12 +143,24 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     // ACTIONS
     //---------------
 
+    @OnClick(R.id.top_information_bar)
+    public void onInformationLayoutClick(){
+        alertDialogAction("Select a Provider", "Please select a nearby provider on the map by clicking on a marker");
+    }
+
 
     @Override
     public boolean onMarkerClick(Marker marker) {
         Provider provider = new Provider();
-//        provider = mAvailableProvidersList.get()
-//        UserPreOrderBottomSheet.newInstance("providerObject", new Gson().toJson(mP)).show(getSupportFragmentManager(), "preOrder");
+        for(int i = 0 ; i<mAvailableProvidersList.size() ; i++){
+            Log.d(TAG, "onMarkerClick: 1 FOR ID " + mAvailableProvidersList.get(i).getPid() + "  " + marker.getTag());
+            if(mAvailableProvidersList.get(i).getPid().equals(marker.getTag())) {
+                Log.d(TAG, "onMarkerClick: 2 IF " + marker.getId());
+                provider = mAvailableProvidersList.get(i);
+            }
+        }
+        Log.d(TAG, "onMarkerClick: 3");
+        UserPreOrderBottomSheet.newInstance("providerObject", new Gson().toJson(provider)).show(getActivity().getSupportFragmentManager(), "preOrder");
         return false;
     }
 
@@ -147,6 +172,18 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     // A method to move the camera(map) to specific location by passing LatLng and Zoom
     private void moveCamera(LatLng latLng, float zoom){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+    }
+
+    private void updateStatusTextView(){
+        if(mAvailableProvidersList.size() > 0){
+            availableProvidersStatus.setText(getString(R.string.currently_available_providers, String.valueOf(mAvailableProvidersList.size())));
+            availableProvidersStatus.setTextColor(getResources().getColor(R.color.quantum_grey600));
+        }else {
+            availableProvidersStatus.setText(getString(R.string.currently_no_available_providers));
+            availableProvidersStatus.setTextColor(Color.RED);
+        }
+
+//        availableProvidersStatus.setText(String.valueOf(mAvailableProvidersList.size()));
     }
 
     private void updateMapWithMarkers() {
