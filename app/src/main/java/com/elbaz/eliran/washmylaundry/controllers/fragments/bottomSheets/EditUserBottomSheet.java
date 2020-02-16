@@ -14,10 +14,12 @@ import androidx.annotation.Nullable;
 
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
@@ -25,6 +27,7 @@ import com.google.android.libraries.places.api.model.TypeFilter;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.gson.Gson;
 
 import java.util.Arrays;
@@ -46,7 +49,6 @@ public class EditUserBottomSheet extends BaseBottomSheet {
     @BindView(R.id.bottom_sheet_top_bar_title) TextView topTitle;
     @BindView(R.id.edit_user_full_name_text) EditText fullNameEditText;
     @BindView(R.id.edit_user_address_text) EditText addressEditText;
-    @BindView(R.id.edit_user_zip_text) EditText zipEditText;
     @BindView(R.id.edit_user_phone_text) EditText phoneEditText;
 
     // For DATA
@@ -127,6 +129,29 @@ public class EditUserBottomSheet extends BaseBottomSheet {
         hideKeyboard(v);
     }
 
+    @OnClick(R.id.edit_user_save_btn)
+
+
+
+    public void onSaveBtnClick(){
+        String username="", address="";
+        int phoneNumber=0;
+        // Get EditText data
+        if(fullNameEditText!=null) { username = fullNameEditText.getText().toString();}
+        if(addressEditText!=null) { address = addressEditText.getText().toString();}
+        if(phoneEditText!=null && !phoneEditText.getText().toString().isEmpty()) { phoneNumber = Integer.valueOf(phoneEditText.getText().toString()); }
+        // Register/Update data into existing Document
+        DocumentReference updateUserDocument = UserHelper.getUserDocument(getCurrentUser().getUid());
+        updateUserDocument.update("username", username, "userAddress", address,
+                "phoneNumber", phoneNumber ).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dismiss(); // Dismiss edit fragment and goes back to Activity
+            }
+        });
+
+    }
+
     private void launchAutocompleteSearchBar(){
         if (!Places.isInitialized()) {
             Places.initialize(getActivity().getApplicationContext(), BuildConfig.GOOGLE_API_KEY, Locale.FRANCE);
@@ -178,7 +203,6 @@ public class EditUserBottomSheet extends BaseBottomSheet {
     private void setUiElements() {
         topTitle.setText(setTitle());
         if(mUser.getUserAddress() != null && !mUser.getUserAddress().isEmpty()) addressEditText.setText(mUser.getUserAddress());
-        if(mUser.getUserZipCode() != 0) zipEditText.setText(String.valueOf(mUser.getUserZipCode()));
         if(mUser.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mUser.getPhoneNumber()));
         if(mUser.getUsername() != null && !mUser.getUsername().isEmpty()) fullNameEditText.setText(mUser.getUsername());
     }
