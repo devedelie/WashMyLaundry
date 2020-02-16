@@ -88,6 +88,10 @@ public class Provider {
     public boolean getIsIroning() { return isIroning; }
 
     public void setIsIroning(boolean ironing) { isIroning = ironing; }
+
+    public String getProviderDescription() { return providerDescription; }
+
+    public void setProviderDescription(String providerDescription) { this.providerDescription = providerDescription; }
 }
 
 
