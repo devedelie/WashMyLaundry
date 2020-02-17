@@ -54,7 +54,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     private TextView availableProvidersStatus;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static final float DEFAULT_ZOOM = 15f ;
+    private static final float DEFAULT_ZOOM = 16f ;
     private GoogleMap mMap;
     private LatLng currentLocation;
     private UserViewModel mUserViewModel;
@@ -153,13 +153,10 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     public boolean onMarkerClick(Marker marker) {
         Provider provider = new Provider();
         for(int i = 0 ; i<mAvailableProvidersList.size() ; i++){
-            Log.d(TAG, "onMarkerClick: 1 FOR ID " + mAvailableProvidersList.get(i).getPid() + "  " + marker.getTag());
             if(mAvailableProvidersList.get(i).getPid().equals(marker.getTag())) {
-                Log.d(TAG, "onMarkerClick: 2 IF " + marker.getId());
                 provider = mAvailableProvidersList.get(i);
             }
         }
-        Log.d(TAG, "onMarkerClick: 3");
         UserPreOrderBottomSheet.newInstance("providerObject", new Gson().toJson(provider)).show(getActivity().getSupportFragmentManager(), "preOrder");
         return false;
     }
