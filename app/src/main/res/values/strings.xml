@@ -68,10 +68,21 @@
     <!-- PreOrder BottomSheet-->
     <string name="pre_order_provider_service_count">( %1$s Customers)</string>
     <string name="max_bags_15kg">Max %1$s Bags - (5Kg/bag)</string>
+    <string name="id_details_euro_kg">€%1$s/Kg</string>
+
+    <!-- Reservation Activity-->
+    <string name="reservation_laundry_bags_amount">%1$sX Laundry Bags</string>
+    <string name="laundry_bags_price">€%1$s</string>
+    <string name="laundry_subtotal_price">€%1$s</string>
+    <string name="laundry_fees_price">€%1$s</string>
+    <string name="laundry_ironing_price">€%1$s</string>
+    <string name="laundry_delivery_price">€%1$s</string>
+    <string name="laundry_total_price">€%1$s</string>
 
     <!-- Status display-->
     <string name="currently_available_providers">There are currently %1$s available providers</string>
     <string name="currently_no_available_providers">There are currently no providers available</string>
+
 
 
 </resources>
