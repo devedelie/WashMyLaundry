@@ -42,6 +42,7 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
     @BindView(R.id.pre_order_max_bags_text) TextView bagsNumberText;
     @BindView(R.id.pre_order_ironing_switch) CheckBox ironingCheckBox;
     @BindView(R.id.pre_order_delivery_switch) CheckBox deliveryCheckBox;
+    @BindView(R.id.bottom_menu_delivery_text_on_off) TextView deliveryLineText;
 
     // For Data
     private Provider mProvider = new Provider();
@@ -87,20 +88,27 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
     // Configurations
     // --------------------
     private void configureCheckBoxes() {
-        // ----- Ironing Switch -------//
+        // ----- Ironing CheckBox -------//
         ironingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(ironingCheckBox.isChecked()){ isIroningChecked = true; }
                 else{ isIroningChecked = false; }
             }
         });
-        // ----- Delivery Switch -------//
-        deliveryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(deliveryCheckBox.isChecked()){ isDeliveryChecked = true; }
-                else{ isDeliveryChecked = false; }
-            }
-        });
+        // ----- Delivery CheckBox -------//
+        if(mProvider.getIsDelivering()){
+            deliveryCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(deliveryCheckBox.isChecked()){ isDeliveryChecked = true; }
+                    else{ isDeliveryChecked = false; }
+                }
+            });
+        }else {
+            deliveryLineText.setText(getString(R.string.pre_order_no_delivery));
+            deliveryCheckBox.setVisibility(View.INVISIBLE);
+        }
+
+
     }
     // --------------------
     // Actions

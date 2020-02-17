@@ -69,6 +69,7 @@
     <string name="pre_order_provider_service_count">( %1$s Customers)</string>
     <string name="max_bags_15kg">Max %1$s Bags - (5Kg/bag)</string>
     <string name="id_details_euro_kg">€%1$s/Kg</string>
+    <string name="pre_order_no_delivery">Delivery is not available</string>
 
     <!-- Reservation Activity-->
     <string name="reservation_laundry_bags_amount">%1$sX Laundry Bags</string>
