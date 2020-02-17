@@ -22,7 +22,7 @@ public class OrdersHelper {
     // --- CREATE ---
 
     // Create an order by USER for a PROVIDER
-    public static Task<Void> createProviderOrdersDocument(String uid, String pid, String details) {
+    public static Task<Void> createOrdersDocument(String uid, String pid, String details) {
         // Create Order object
         Orders orderDocumentToCreate = new Orders(uid);
         String uniqueOrderID = uid + "AND" + pid + Utils.getDate(); // Creates a unique order ID in Provider's collection
