@@ -100,7 +100,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     private void configureViewModel() {
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        mUserViewModel.setProviderList(false); // Trigger the query to get ProviderList ('false'- for default results without delivery)
+        mUserViewModel.setProviderList("isProvider"); // Trigger the listener to get ProviderList ('isProvider' is always true- to get all default results without delivery filter)
     }
 
     private void updateCurrentLatLng(LatLng latLng) {

@@ -98,8 +98,8 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         userDeliverySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(TAG, "onCheckedChanged: Delivery Switch " + isChecked);
-                if (isChecked)  {mUserViewModel.setProviderList(true);}
-                else { mUserViewModel.setProviderList(false);}
+                if (isChecked)  {mUserViewModel.setProviderList("isDelivering");} // Trigger the listener to get ProviderList ('isDelivering'  to get all results with delivery filter)
+                else { mUserViewModel.setProviderList("isProvider");} // Trigger the listener to get ProviderList ('isProvider' is always true- to get all default results without delivery filter)
             }
         });
     }

@@ -63,9 +63,8 @@ public class UserDataRepository {
         return mProvidersListMutableLiveData;
     }
 
-    public void setProviderList(boolean isDelivering){
-        if(isDelivering){ listenToAllAvailableProvidersWithDelivery(); }
-        else { listenToAllAvailableProviders(); }
+    public void setProviderList(String isDelivering){
+        listenToAllAvailableProvidersWithDelivery(isDelivering);
     }
 
 
@@ -101,32 +100,9 @@ public class UserDataRepository {
     }
 
 
-    //  Providers Listener
-    private void listenToAllAvailableProviders(){
-        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
-
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-                // -- Data received
-                mProviderList = new ArrayList<>();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    mProviderList.add(doc.toObject(Provider.class));
-                }
-
-                mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
-                Log.d(TAG, "listenToAllAvailableProviders: END ");
-
-            }
-        });
-    }
-
     //  Providers Listener with delivery condition
-    private void listenToAllAvailableProvidersWithDelivery(){
-        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).whereEqualTo("isDelivering", true).addSnapshotListener(new EventListener<QuerySnapshot>() {
+    private void listenToAllAvailableProvidersWithDelivery(String isDelivering){
+        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).whereEqualTo(isDelivering, true).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
 
@@ -147,28 +123,4 @@ public class UserDataRepository {
         });
     }
 
-
-
-    //  Get Providers
-//    private void getAllAvailableProviders(){
-//        ProviderHelper.getProvidersCollection().whereEqualTo("isAvailable", true).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    mProvider = new Provider();
-//                    mProviderList = new ArrayList<>();
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        mProviderList.add(document.toObject(Provider.class));
-//                    }
-//
-//                    mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
-//
-//                } else {
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//
-//            }
-//        });
-//
-//    }
 }
