@@ -23,6 +23,7 @@
             android:textSize="25sp"
             android:gravity="center_horizontal"/>
         <TextView
+            android:id="@+id/reservation_activity_provider_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Provider Name"
@@ -60,6 +61,7 @@
             android:orientation="vertical"
             android:layout_marginStart="15dp">
             <TextView
+                android:id="@+id/reservation_activity_user_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address"/>
@@ -96,14 +98,16 @@
             android:weightSum="10"
             android:layout_marginTop="10dp">
             <TextView
+                android:id="@+id/reservation_activity_laundry_bags_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="2X Laundry Bags"
+                android:text="@string/reservation_laundry_bags_amount"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_laundry_bags_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€32.5"
+                android:text="@string/laundry_bags_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
                 android:layout_marginEnd="25dp"/>
@@ -136,9 +140,10 @@
                 android:text="Subtotal"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_subtotal_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€32.5"
+                android:text="@string/laundry_subtotal_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
                 android:layout_marginEnd="25dp"/>
@@ -156,52 +161,59 @@
                 android:text="Fees"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_laundry_fee_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€3.5"
+                android:text="@string/laundry_fees_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
                 android:layout_marginEnd="25dp"/>
         </LinearLayout>
         <!-- Ironing -->
         <LinearLayout
+            android:id="@+id/reservation_ironing_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Ironing"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_ironing_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€8.5"
+                android:text="@string/laundry_ironing_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
                 android:layout_marginEnd="25dp"/>
         </LinearLayout>
         <!-- Delivery -->
         <LinearLayout
+            android:id="@+id/reservation_delivery_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:visibility="gone">
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Delivery"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_delivery_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€4"
+                android:text="@string/laundry_delivery_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
-                android:layout_marginEnd="25dp"/>
+                android:layout_marginEnd="25dp" />
         </LinearLayout>
     </LinearLayout>
     <View
@@ -231,9 +243,10 @@
                 android:text="Total"
                 android:layout_weight="8.5"/>
             <TextView
+                android:id="@+id/reservation_activity_total_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="€48.5"
+                android:text="@string/laundry_total_price"
                 android:layout_weight="1.5"
                 android:gravity="end"
                 android:layout_marginEnd="25dp"/>
