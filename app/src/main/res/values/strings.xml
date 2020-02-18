@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">WashMyLaundry</string>
 
+    <!-- FONT ID -->
+    <string name="Roboto_Bold" translatable="false">Roboto-Bold</string>
+    <string name="Roboto_Medium" translatable="false">Roboto-Medium</string>
+    <string name="Roboto_Light" translatable="false">Roboto-Light</string>
+    <string name="Roboto_Thin" translatable="false">Roboto-Thin</string>
+
     <!-- Base Activity-->
     <string name="error_unknown_error">An unknown error has occurred</string>
 
@@ -60,7 +66,7 @@
     <!--BottomNavigation-->
     <string name="tab_name_1">Map View</string>
     <string name="tab_name_2">List View</string>
-    <string name="tab_name_3">Orders</string>
+    <string name="tab_name_3">My Orders</string>
 
     <!--General text-->
     <string name="lorem_impsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
@@ -85,6 +91,12 @@
     <string name="currently_available_providers">There are currently %1$s available providers</string>
     <string name="currently_no_available_providers">There are currently no providers available</string>
 
+    <!-- ListViewFragment-->
+    <string name="list_view_detail_distance">Distance</string>
+    <string name="list_view_provider_name">Name</string>
+    <string name="list_view_provider_address">Address</string>
+    <string name="list_view_provider_rate">Rate</string>
+    <string name="list_view_provider_max_bags">Max Bags</string>
 
 
 </resources>
