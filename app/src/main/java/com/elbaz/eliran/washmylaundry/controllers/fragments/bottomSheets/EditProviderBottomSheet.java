@@ -17,6 +17,7 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Provider;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -102,10 +103,10 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
         addressEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNetworkAvailable()){
+                if(Utils.isInternetAvailable(getActivity().getApplicationContext())){
                     launchAutocompleteSearchBar(); // If Internet is active - then invoke Google Address-Autocomplete
                 }else {
-                     // If Internet is inactive - invoke warning dialog box
+                    displayMobileDataSettingsDialog(getActivity(), getActivity());// If Internet is inactive - invoke warning dialog box
                 }
             }
         });

@@ -4,12 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -20,14 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.elbaz.eliran.washmylaundry.R;
-import com.elbaz.eliran.washmylaundry.controllers.activities.MainActivity;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Eliran Elbaz on 06-Feb-20.
@@ -109,18 +102,9 @@ public abstract class BaseBottomSheet extends BottomSheetDialogFragment {
         return displayMetrics.heightPixels;
     }
 
-    // --------------------
-    // NETWORK CONNECTIVITY
-    // --------------------
-
-    public boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager)  getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        Log.d(TAG, "isNetworkAvailable: " + activeNetworkInfo);
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
+    // ----------------------------
+    // NETWORK CONNECTIVITY DIALOG
+    // ----------------------------
 
     public AlertDialog displayMobileDataSettingsDialog(final Activity activity, final Context context){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -129,9 +113,6 @@ public abstract class BaseBottomSheet extends BottomSheetDialogFragment {
         builder.setPositiveButton("Continue", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dismiss();
-                Intent intent = new Intent(context, MainActivity.class);
-                context.startActivity(intent);
                 dialog.cancel();
             }
         });
