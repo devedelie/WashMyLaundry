@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.Constraints;
 import androidx.lifecycle.Observer;
@@ -16,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
+import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
@@ -25,9 +29,13 @@ import com.elbaz.eliran.washmylaundry.repositories.UserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,13 +64,15 @@ public class ReservationActivity extends BaseActivity {
 
     // For Data
     private Provider mProvider = new Provider();
-    private String jsonObject = "{'pid' : 'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType' : 'pricePerKg' : 'maxBags'}";
+    private String jsonObject = "{'pid' : 'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType' : 'pricePerKg' : 'maxBags' : 'ordersList'}";
     private int bagsNumber;
     private boolean isDeliveryChecked, isIroningChecked;
     private UserViewModel mUserViewModel;
     private User mUser = new User();
     // Data For Invoice
     double fee = 3.5, ironing = 8.5, na=0, delivery=3.5, bagsTotalPrice=0, total=0;
+    private List<String> userOrdersList = new ArrayList<>();
+    private List<String> providerOrdersList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -185,11 +195,20 @@ public class ReservationActivity extends BaseActivity {
 
     private void createOrderInFirestore(){
         String uniqueOrderId = Utils.getDateForOrderId() + "&UID=" +  mUser.getUid() + "&PID=" + mProvider.getPid() ; // Creates a unique order ID in Provider's collection
-
+        if(mProvider.getOrdersList() !=null){ // If there are past values in the list, add them into ProviderOrderList
+            providerOrdersList = mProvider.getOrdersList();
+        }
+        if(mUser.getOrdersList() != null){ // If there are past values in the list, add them into UserOrderList
+            userOrdersList = mUser.getOrdersList();
+        }
+        providerOrdersList.add(uniqueOrderId);// add the current order id into ordersList
+        userOrdersList.add(uniqueOrderId);// add the current order id into ordersList
         OrdersHelper.createOrderDocument(mUser.getUid(), mProvider.getPid(), uniqueOrderId, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 // Update User+Provider documents with the order in a ArrayList<>
+                UserHelper.updateOrdersList(mUser.getUid(), userOrdersList).addOnFailureListener(onFailureListener());
+                ProviderHelper.updateOrdersList(mProvider.getPid(), providerOrdersList).addOnFailureListener(onFailureListener());
 
                 // End the operation with a message
                 Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG);
@@ -197,6 +216,19 @@ public class ReservationActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    // --------------------
+    // ERROR HANDLER
+    // --------------------
+
+    protected OnFailureListener onFailureListener(){
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+            }
+        };
     }
 
 }

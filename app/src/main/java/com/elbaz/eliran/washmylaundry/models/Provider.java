@@ -1,5 +1,7 @@
 package com.elbaz.eliran.washmylaundry.models;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 
 /**
@@ -12,6 +14,7 @@ public class Provider {
     private boolean isProvider, isAvailable, isDelivering, isIroning;
     private int userZipCode, phoneNumber, maxBags, pricePerKg, servicesCount;
     private double providerLatCoordinates, providerLngCoordinates;
+    private List<String> ordersList;
 
     public Provider(){ }
 
@@ -96,6 +99,10 @@ public class Provider {
     public int getServicesCount() { return servicesCount; }
 
     public void setServicesCount(int servicesCount) { this.servicesCount = servicesCount; }
+
+    public List<String> getOrdersList() { return ordersList; }
+
+    public void setOrdersList(List<String> ordersList) { this.ordersList = ordersList; }
 }
 
 

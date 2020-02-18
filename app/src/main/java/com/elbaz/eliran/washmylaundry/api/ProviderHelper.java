@@ -7,6 +7,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.List;
+
 /**
  * Created by Eliran Elbaz on 04-Feb-20.
  */
@@ -41,6 +43,10 @@ public class ProviderHelper {
     }
 
     // --- Update ---
+
+    public static Task<Void> updateOrdersList(String uid, List<String> orderId){
+        return ProviderHelper.getProvidersCollection().document(uid).update("ordersList", orderId);
+    }
 
     public static Task<Void> updateProviderAddress(String uid, String address){
         return ProviderHelper.getProvidersCollection().document(uid).update("providerAddress", address);
