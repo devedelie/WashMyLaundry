@@ -21,6 +21,7 @@ import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -68,7 +69,7 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Verify Network connectivity
-        if(!isNetworkAvailable()){
+        if(!Utils.isInternetAvailable(this)){
             displayMobileDataSettingsDialog(this, this);}
         // Then, avoid login-screen if the user is already authenticated (onResume is being called also when Firebase Auth-UI is being closed)
         else if (isCurrentUserLogged() && mLocationPermissionGranted){

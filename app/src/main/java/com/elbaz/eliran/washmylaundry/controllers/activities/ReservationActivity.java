@@ -21,6 +21,7 @@ import com.elbaz.eliran.washmylaundry.models.User;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.repositories.ReservationDataRepository;
 import com.elbaz.eliran.washmylaundry.repositories.UserDataRepository;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
@@ -133,7 +134,7 @@ public class ReservationActivity extends BaseActivity {
         Log.d(TAG, "setUiElements: Reservation" + latLng.longitude);
         providerName.setText(mProvider.getProviderName());
         // Set static map
-        if(isNetworkAvailable()) {
+        if(Utils.isInternetAvailable(this)) {
             Glide.with(this).load(fabricateURL(latLng)).into(staticMapImage);
         } else {
 //            staticMapImage.setImageResource(R.drawable.map_offline);
