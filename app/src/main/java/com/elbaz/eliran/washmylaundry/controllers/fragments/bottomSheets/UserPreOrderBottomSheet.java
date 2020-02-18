@@ -1,5 +1,8 @@
 package com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
@@ -87,6 +91,10 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
     // --------------------
     // Configurations
     // --------------------
+
+    protected int getFragmentLayout() { return R.layout.bottom_sheet_user_pre_order; }
+
+
     private void configureCheckBoxes() {
         // ----- Ironing CheckBox -------//
         ironingCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -140,6 +148,7 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
             startActivity(intent);
         }else{
             Log.d(TAG, "onContinueBtnClick: "); // invoke error dialog to set address before reservation
+            displayMobileDataSettingsDialog(getActivity(), getActivity());
         }
     }
     // --------------------
@@ -162,5 +171,21 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
         bagsNumber.setText(String.valueOf(bagsNumberInt));
     }
 
-    protected int getFragmentLayout() { return R.layout.bottom_sheet_user_pre_order; }
+
+
+    public AlertDialog displayMobileDataSettingsDialog(final Activity activity, final Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("No Address");
+        builder.setMessage("Please add your address in profile settings before continuing with your order");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                dismiss();
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+        return builder.create();
+    }
 }
