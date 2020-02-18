@@ -5,8 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
 
@@ -18,6 +21,21 @@ public class Utils {
     public static Date getDate(){
         Date currentTime = Calendar.getInstance().getTime();
         return currentTime;
+    }
+
+    public static String getDateForOrderId(){
+        DateFormat date = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.getDefault());
+        return date.format(new Date());
+    }
+
+    public static Date getFullDateForOrder(){
+        Date currentTime = Calendar.getInstance().getTime();
+        return currentTime;
+    }
+
+    public static String getTodayDateFormat(){
+        DateFormat date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        return date.format(new Date());
     }
 
     public static boolean isInternetAvailable(final Context context) {

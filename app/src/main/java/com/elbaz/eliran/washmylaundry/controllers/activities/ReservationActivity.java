@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer;
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.washmylaundry.BuildConfig;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
@@ -24,6 +25,8 @@ import com.elbaz.eliran.washmylaundry.repositories.UserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -58,6 +61,8 @@ public class ReservationActivity extends BaseActivity {
     private boolean isDeliveryChecked, isIroningChecked;
     private UserViewModel mUserViewModel;
     private User mUser = new User();
+    // Data For Invoice
+    double fee = 3.5, ironing = 8.5, na=0, delivery=3.5, bagsTotalPrice=0, total=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,7 +120,7 @@ public class ReservationActivity extends BaseActivity {
 
     @OnClick(R.id.order_confirmation_btn)
     public void onConfirmationBtnClick(){
-
+        createOrderInFirestore();
     }
 
     @OnClick(R.id.bottom_sheet_back_button)
@@ -129,8 +134,8 @@ public class ReservationActivity extends BaseActivity {
     // --------------------
 
     private void setUiElements(LatLng latLng) {
-        double bagsTotalPrice = calculatePriceWithBagsAmount(bagsNumber);
-        double fee = 3.5, ironing = 8.5, na=0, delivery=3.5;
+        bagsTotalPrice = calculatePriceWithBagsAmount(bagsNumber);
+
         Log.d(TAG, "setUiElements: Reservation" + latLng.longitude);
         providerName.setText(mProvider.getProviderName());
         // Set static map
@@ -149,7 +154,7 @@ public class ReservationActivity extends BaseActivity {
         if(isDeliveryChecked) { deliveryContainer.setVisibility(View.VISIBLE); deliveryPrice.setText(getString(R.string.laundry_delivery_price, String.valueOf(delivery)));}
         else {delivery = 0;} // Zero value for calculation
 
-        double total = bagsTotalPrice + fee + ironing + delivery; // Total sum
+        total = bagsTotalPrice + fee + ironing + delivery; // Total sum
         totalPrice.setText(getString(R.string.laundry_total_price, String.valueOf(total)));
     }
 
@@ -172,6 +177,26 @@ public class ReservationActivity extends BaseActivity {
             Log.d(Constraints.TAG, "fabricateURL: "+ url);
         }catch (Exception e){ }
         return url;
+    }
+
+    // --------------------
+    // REST REQUEST
+    // --------------------
+
+    private void createOrderInFirestore(){
+        String uniqueOrderId = Utils.getDateForOrderId() + "&UID=" +  mUser.getUid() + "&PID=" + mProvider.getPid() ; // Creates a unique order ID in Provider's collection
+
+        OrdersHelper.createOrderDocument(mUser.getUid(), mProvider.getPid(), uniqueOrderId, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // Update User+Provider documents with the order in a ArrayList<>
+
+                // End the operation with a message
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG);
+                snackbar.show();
+                finish();
+            }
+        });
     }
 
 }

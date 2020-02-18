@@ -1,7 +1,6 @@
 package com.elbaz.eliran.washmylaundry.api;
 
 import com.elbaz.eliran.washmylaundry.models.Orders;
-import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -22,15 +21,15 @@ public class OrdersHelper {
     // --- CREATE ---
 
     // Create an order by USER for a PROVIDER
-    public static Task<Void> createOrdersDocument(String uid, String pid, String details) {
+    public static Task<Void> createOrderDocument(String uid, String pid, String uniqueOrderId, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
         // Create Order object
-        Orders orderDocumentToCreate = new Orders(uid);
-        String uniqueOrderID = uid + "AND" + pid + Utils.getDate(); // Creates a unique order ID in Provider's collection
-        // Add a new User Document to Firestore
+        Orders orderDocumentToCreate = new Orders(uid, pid, uniqueOrderId, taxAdded, deliveryPrice, ironingPrice, finalPrice, reservationDate, reservationDateFormatted);
+
+        // Add a new Order Document to Firestore
         return OrdersHelper.getOrdersCollection()
-                .document(uid) // Setting uID for Document
+                .document(pid) // Setting uID for Document
                 .collection(PERSONAL_ORDERS_COLLECTION)
-                .document(uniqueOrderID)
+                .document(uniqueOrderId)
                 .set(orderDocumentToCreate);
     }
 }

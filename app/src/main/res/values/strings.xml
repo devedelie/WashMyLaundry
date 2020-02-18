@@ -79,6 +79,7 @@
     <string name="laundry_ironing_price">€%1$s</string>
     <string name="laundry_delivery_price">€%1$s</string>
     <string name="laundry_total_price">€%1$s</string>
+    <string name="create_reservation_success">Your order was registered successfully on our system</string>
 
     <!-- Status display-->
     <string name="currently_available_providers">There are currently %1$s available providers</string>
