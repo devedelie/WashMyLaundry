@@ -15,6 +15,8 @@ public class Provider {
     private int userZipCode, phoneNumber, maxBags, pricePerKg, servicesCount;
     private double providerLatCoordinates, providerLngCoordinates;
     private List<String> ordersList;
+    private List<String> reviewsList;
+    private List<Double> providerRating;
 
     public Provider(){ }
 
@@ -25,6 +27,7 @@ public class Provider {
         this.isProvider = isProvider;
         this.maxBags = 3;
         this.pricePerKg = 5;
+        this.providerRating.add(5.0);
     }
 
     public String getPid() { return pid; }
@@ -103,6 +106,14 @@ public class Provider {
     public List<String> getOrdersList() { return ordersList; }
 
     public void setOrdersList(List<String> ordersList) { this.ordersList = ordersList; }
+
+    public List<Double> getProviderRating() { return providerRating; }
+
+    public void setProviderRating(List<Double> providerRating) { this.providerRating = providerRating; }
+
+    public List<String> getReviewsList() { return reviewsList; }
+
+    public void setReviewsList(List<String> reviewsList) { this.reviewsList = reviewsList; }
 }
 
 
