@@ -10,7 +10,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class OrdersHelper {
     private static final String ORDERS_COLLECTION = "orders";
-    private static final String PERSONAL_ORDERS_COLLECTION = "personalOrders";
+//    private static final String PERSONAL_ORDERS_COLLECTION = "personalOrders";
 
     // --- COLLECTION REFERENCE ---
 
@@ -21,15 +21,26 @@ public class OrdersHelper {
     // --- CREATE ---
 
     // Create an order by USER for a PROVIDER
-    public static Task<Void> createOrderDocument(String uid, String pid, String uniqueOrderId, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
+    public static Task<Void> createOrderDocument(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int clientPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
         // Create Order object
-        Orders orderDocumentToCreate = new Orders(uid, pid, uniqueOrderId, taxAdded, deliveryPrice, ironingPrice, finalPrice, reservationDate, reservationDateFormatted);
+        Orders orderDocumentToCreate = new Orders(uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, providerPhone, clientPhone, orderStatus, taxAdded, deliveryPrice, ironingPrice, finalPrice, reservationDate, reservationDateFormatted);
 
         // Add a new Order Document to Firestore
         return OrdersHelper.getOrdersCollection()
-                .document(pid) // Setting uID for Document
-                .collection(PERSONAL_ORDERS_COLLECTION)
                 .document(uniqueOrderId)
                 .set(orderDocumentToCreate);
     }
+
+    // --- GET ---
+
+    // Get current user orders list from all providers
+//    public static Task<CollectionReference> getUserOrdersList(String uid){
+//        return OrdersHelper.getOrdersCollection()
+//                .document()
+//                .collection(PERSONAL_ORDERS_COLLECTION)
+//                .whereEqualTo("uid", uid)
+//                .get();
+//    }
+
+
 }
