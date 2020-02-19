@@ -1,5 +1,6 @@
 package com.elbaz.eliran.washmylaundry.views;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,10 +40,14 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void updateProvidersList(Provider provider, RequestManager glide){
+    public void updateProvidersList(Provider provider, RequestManager glide, Resources resources){
         try{
             // Set ImageView
-            glide.load(provider.getUrlPicture()).apply(RequestOptions.centerCropTransform()).into(providerImage);
+            if(provider.getUrlPicture() != null && !provider.getUrlPicture().isEmpty()){
+                glide.load(provider.getUrlPicture()).apply(RequestOptions.centerCropTransform()).into(providerImage);
+            }else {
+                providerImage.setImageDrawable(resources.getDrawable(R.drawable.ic_anon_user_48dp));
+            }
             // Set TextViews
             providerName.setText(provider.getProviderName());
             providerAddress.setText(provider.getProviderAddress());

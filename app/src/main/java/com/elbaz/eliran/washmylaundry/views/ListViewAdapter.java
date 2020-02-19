@@ -1,6 +1,7 @@
 package com.elbaz.eliran.washmylaundry.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,9 @@ public class ListViewAdapter extends RecyclerView.Adapter<ListViewViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ListViewViewHolder holder, int position) {
-        holder.updateProvidersList(this.mAvailableProvidersList.get(position), Glide.with(mContext));
+        // Get resources to enable text color modification
+        Resources resources = holder.itemView.getContext().getResources();
+        holder.updateProvidersList(this.mAvailableProvidersList.get(position), Glide.with(mContext), resources);
     }
 
     @Override
