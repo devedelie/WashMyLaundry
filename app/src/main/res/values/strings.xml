@@ -99,4 +99,12 @@
     <string name="list_view_provider_max_bags">Max Bags</string>
 
 
+    <!-- MyOrdersFragment-->
+    <string name="my_orders_recyclerView_provider_name">Name</string>
+    <string name="my_orders_recyclerView_date">Date</string>
+    <string name="my_order_recyclerView_price">Price</string>
+    <string name="my_orders_recyclerView_status">Status</string>
+    <string name="my_orders_recycler_view_empty">Your orders list is empty</string>
+
+
 </resources>

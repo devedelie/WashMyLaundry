@@ -81,6 +81,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         mUserViewModel.init(); // To retrieve the data from the repository
         mUserViewModel.setCurrentUserData(); // Trigger the Document listener
+        mUserViewModel.setOrderList(getCurrentUser().getUid());
     }
 
     private void configureDataObserver() {

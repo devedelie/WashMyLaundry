@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.elbaz.eliran.washmylaundry.repositories.UserDataRepository;
@@ -55,6 +56,21 @@ public class UserViewModel extends ViewModel {
 
     public void setProviderList(String isDelivering){
         mUserDataRepository.setProviderList(isDelivering);
+    }
+
+
+    //-------------------------
+    // GET/SET Orders List
+    //-------------------------
+
+    private MutableLiveData<List<Orders>> mOrdersList = new MutableLiveData<>();
+
+    public MutableLiveData<List<Orders>> getOrdersList(){
+        return mUserDataRepository.getOrdersList();
+    }
+
+    public void setOrderList(String uid){
+        mUserDataRepository.setOrderList(uid);
     }
 
 }

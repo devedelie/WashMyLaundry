@@ -5,8 +5,10 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
+import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.google.firebase.firestore.DocumentReference;
@@ -29,6 +31,7 @@ public class UserDataRepository {
     private User mUser;
     private Provider mProvider;
     private List<Provider> mProviderList;
+    private List<Orders> mOrders;
 
 
     // Singleton
@@ -65,6 +68,20 @@ public class UserDataRepository {
 
     public void setProviderList(String isDelivering){
         listenToAllAvailableProvidersWithDelivery(isDelivering);
+    }
+
+    //-------------------------
+    // GET/SET Orders List
+    //-------------------------
+
+    private MutableLiveData<List<Orders>> mOrdersList = new MutableLiveData<>();
+
+    public MutableLiveData<List<Orders>> getOrdersList(){
+        return mOrdersList;
+    }
+
+    public void setOrderList(String uid){
+        listenToAllUserOrders(uid);
     }
 
 
@@ -118,6 +135,30 @@ public class UserDataRepository {
 
                 mProvidersListMutableLiveData.setValue(mProviderList); // Set list in LiveData
                 Log.d(TAG, "listenToAllAvailableProviders: END ");
+
+            }
+        });
+    }
+
+
+    //  Orders Listener with user Id condition
+    private void listenToAllUserOrders(String uid){
+        OrdersHelper.getOrdersCollection().whereEqualTo("uid", uid).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+                // -- Data received
+                mOrders = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    mOrders.add(doc.toObject(Orders.class));
+                }
+
+                mOrdersList.setValue(mOrders); // Set list in LiveData
+                Log.d(TAG, "listenToAllAvailableOrders: END " + mOrders.size());
 
             }
         });

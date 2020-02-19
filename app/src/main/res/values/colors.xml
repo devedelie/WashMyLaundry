@@ -13,4 +13,11 @@
     <color name="gmail_btn_color">#D87777</color>
     <color name="facebook_btn_color">#5C73DD</color>
 
+    <!-- Status colors -->
+    <color name="order_waiting">#E9AF59</color>
+    <color name="order_approved">#D1B250</color>
+    <color name="order_ready">#98DD5C</color>
+    <color name="order_delivered">#98DD5C</color>
+
+
 </resources>
