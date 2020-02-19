@@ -203,7 +203,10 @@ public class ReservationActivity extends BaseActivity {
         }
         providerOrdersList.add(uniqueOrderId);// add the current order id into ordersList
         userOrdersList.add(uniqueOrderId);// add the current order id into ordersList
-        OrdersHelper.createOrderDocument(mUser.getUid(), mProvider.getPid(), uniqueOrderId, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        OrdersHelper.createOrderDocument(mUser.getUid(), mProvider.getPid(), uniqueOrderId, mProvider.getProviderName(),
+                mProvider.getUrlPicture(), mUser.getUsername(), mUser.getUrlPicture(), mProvider.getPhoneNumber(),
+                mUser.getPhoneNumber(), 1, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 // Update User+Provider documents with the order in a ArrayList<>
