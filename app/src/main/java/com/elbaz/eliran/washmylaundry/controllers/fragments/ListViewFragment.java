@@ -96,7 +96,7 @@ public class ListViewFragment extends BaseFragment {
     //-----------------
     //  UI
     //-----------------
-    // Update UI showing news titles
+    // Update UI with providers list
     private void updateUI(List<Provider> providers){
         // Notify changes
         mListViewAdapter.notifyDataSetChanged();
