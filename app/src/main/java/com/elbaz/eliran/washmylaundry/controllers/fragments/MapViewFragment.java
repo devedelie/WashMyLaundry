@@ -185,7 +185,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     private void updateMapWithMarkers() {
         Log.d(TAG, "updateMapWithMarkers: ");
-        mMap.clear(); // Clear all markers before every update
+        if(mMap != null) mMap.clear(); // Clear all markers before every update
         for (int i = 0 ; i<mAvailableProvidersList.size() ; i++){
             LatLng latLng = new LatLng(mAvailableProvidersList.get(i).getProviderLatCoordinates(), mAvailableProvidersList.get(i).getProviderLngCoordinates());
             setCustomMarker(latLng, i, mAvailableProvidersList.get(i).getPid());
@@ -194,9 +194,11 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
 
     // set custom marker
     private void setCustomMarker(LatLng latLng, int i, String tagID){
-        mMap.addMarker(new MarkerOptions().position(latLng)
-                .icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(getActivity(), R.drawable.amu_bubble_mask, i , tagID))))
-                .setTag(tagID);
+        try {
+            mMap.addMarker(new MarkerOptions().position(latLng)
+                    .icon(BitmapDescriptorFactory.fromBitmap(createCustomMarker(getActivity(), R.drawable.amu_bubble_mask, i , tagID))))
+                    .setTag(tagID);
+        }catch (Exception e){ }
     }
 
     // CustomMarker Bitmap
