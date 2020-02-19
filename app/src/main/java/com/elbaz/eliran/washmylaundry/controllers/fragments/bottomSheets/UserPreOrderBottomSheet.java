@@ -161,6 +161,8 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
                     .load(mProvider.getUrlPicture())
                     .apply(RequestOptions.centerCropTransform())
                     .into(providerImage);
+        }else {
+            providerImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_anon_user_48dp));
         }
 
         providerName.setText(mProvider.getProviderName());
