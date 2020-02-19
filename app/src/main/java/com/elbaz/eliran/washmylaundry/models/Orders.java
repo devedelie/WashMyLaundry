@@ -4,25 +4,32 @@ package com.elbaz.eliran.washmylaundry.models;
  * Created by Eliran Elbaz on 08-Feb-20.
  */
 public class Orders {
-    private String uid, pid, uniqueOrderId;
-    private boolean isProviderConfirmedOrder, isOrderReadyForDelivery, isOrderDelivered;
+    private String uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl;
+    private int providerPhone, userPhone, orderStatus;
+//    private boolean isProviderConfirmedOrder, isOrderReadyForDelivery, isOrderDelivered;
     private double taxAdded, deliveryPrice, ironingPrice, finalPrice;
     private String reservationDate, reservationDateFormatted, confirmationDate;
 //    private Timestamp reservationTimestamp, confirmationTimestamp;
 
     public Orders() {}
 
-    public Orders(String uid, String pid, String uniqueOrderId, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
+    public Orders(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int userPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
         this.uid = uid;
         this.pid = pid;
         this.uniqueOrderId = uniqueOrderId;
+        this.providerName = providerName;
+        this.providerImageUrl = providerImageUrl;
+        this.clientName = clientName;
+        this.clientImageUrl = clientImageUrl;
+        this.providerPhone = providerPhone;
+        this.userPhone = userPhone;
+        this.orderStatus = orderStatus;
         this.taxAdded = taxAdded;
         this.deliveryPrice = deliveryPrice;
         this.ironingPrice = ironingPrice;
         this.finalPrice = finalPrice;
         this.reservationDate = reservationDate;
         this.reservationDateFormatted = reservationDateFormatted;
-//        this.reservationTimestamp = reservationTimestamp;
     }
 
     public String getUid() { return uid; }
@@ -37,17 +44,17 @@ public class Orders {
 
     public void setUniqueOrderId(String uniqueOrderId) { this.uniqueOrderId = uniqueOrderId; }
 
-    public boolean isProviderConfirmedOrder() { return isProviderConfirmedOrder; }
-
-    public void setProviderConfirmedOrder(boolean providerConfirmedOrder) { isProviderConfirmedOrder = providerConfirmedOrder; }
-
-    public boolean isOrderReadyForDelivery() { return isOrderReadyForDelivery; }
-
-    public void setOrderReadyForDelivery(boolean orderReadyForDelivery) { isOrderReadyForDelivery = orderReadyForDelivery; }
-
-    public boolean isOrderDelivered() { return isOrderDelivered; }
-
-    public void setOrderDelivered(boolean orderDelivered) { isOrderDelivered = orderDelivered; }
+//    public boolean isProviderConfirmedOrder() { return isProviderConfirmedOrder; }
+//
+//    public void setProviderConfirmedOrder(boolean providerConfirmedOrder) { isProviderConfirmedOrder = providerConfirmedOrder; }
+//
+//    public boolean isOrderReadyForDelivery() { return isOrderReadyForDelivery; }
+//
+//    public void setOrderReadyForDelivery(boolean orderReadyForDelivery) { isOrderReadyForDelivery = orderReadyForDelivery; }
+//
+//    public boolean isOrderDelivered() { return isOrderDelivered; }
+//
+//    public void setOrderDelivered(boolean orderDelivered) { isOrderDelivered = orderDelivered; }
 
     public double getTaxAdded() { return taxAdded; }
 
@@ -77,6 +84,62 @@ public class Orders {
 
     public void setReservationDateFormatted(String reservationDateFormatted) { this.reservationDateFormatted = reservationDateFormatted; }
 
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public void setProviderName(String providerName) {
+        this.providerName = providerName;
+    }
+
+    public String getProviderImageUrl() {
+        return providerImageUrl;
+    }
+
+    public void setProviderImageUrl(String providerImageUrl) {
+        this.providerImageUrl = providerImageUrl;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientImageUrl() {
+        return clientImageUrl;
+    }
+
+    public void setClientImageUrl(String clientImageUrl) {
+        this.clientImageUrl = clientImageUrl;
+    }
+
+    public int getProviderPhone() {
+        return providerPhone;
+    }
+
+    public void setProviderPhone(int providerPhone) {
+        this.providerPhone = providerPhone;
+    }
+
+    public int getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(int userPhone) {
+        this.userPhone = userPhone;
+    }
+
+    public int getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
     //    public Timestamp getReservationTimestamp() { return reservationTimestamp; }
 //
 //    public void setReservationTimestamp(Timestamp reservationTimestamp) { this.reservationTimestamp = reservationTimestamp; }
@@ -84,4 +147,7 @@ public class Orders {
 //    public Timestamp getConfirmationTimestamp() { return confirmationTimestamp; }
 //
 //    public void setConfirmationTimestamp(Timestamp confirmationTimestamp) { this.confirmationTimestamp = confirmationTimestamp; }
+
+
+
 }
