@@ -34,6 +34,7 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.list_view_recyclerViewList_stars_4) ImageView starImage4;
     @BindView(R.id.list_view_recyclerViewList_stars_5) ImageView starImage5;
     @BindView(R.id.list_view_recyclerViewList_image) ImageView providerImage;
+    @BindView(R.id.list_view_recyclerViewList_delivery_truck_icon) ImageView deliveryImage;
 
     public ListViewViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -42,12 +43,14 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
 
     public void updateProvidersList(Provider provider, RequestManager glide, Resources resources){
         try{
-            // Set ImageView
+            // Set ImageViews
             if(provider.getUrlPicture() != null && !provider.getUrlPicture().isEmpty()){
                 glide.load(provider.getUrlPicture()).apply(RequestOptions.centerCropTransform()).into(providerImage);
             }else {
                 providerImage.setImageDrawable(resources.getDrawable(R.drawable.ic_anon_user_48dp));
             }
+            if(provider.getIsDelivering()){ deliveryImage.setVisibility(View.VISIBLE); }
+            else { deliveryImage.setVisibility(View.INVISIBLE);}
             // Set TextViews
             providerName.setText(provider.getProviderName());
             providerAddress.setText(provider.getProviderAddress());

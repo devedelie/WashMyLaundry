@@ -133,6 +133,31 @@
                     android:visibility="visible" />
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="25dp">
+
+                <ImageView
+                    android:id="@+id/list_view_recyclerViewList_delivery_truck_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_delivery_truck_black"
+                    android:layout_marginBottom="5dp"
+                    android:visibility="invisible"
+                    android:gravity="start"/>
+
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    android:id="@+id/list_view_recyclerViewList_delivery_text"
+                    android:layout_width="wrap_content"
+                    android:textStyle=""
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    app:fontName="Roboto_Medium"
+                    android:gravity="start" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
