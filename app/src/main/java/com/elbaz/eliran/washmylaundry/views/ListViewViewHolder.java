@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.list_view_recyclerViewList_stars_4) ImageView starImage4;
     @BindView(R.id.list_view_recyclerViewList_stars_5) ImageView starImage5;
     @BindView(R.id.list_view_recyclerViewList_image) ImageView providerImage;
-    @BindView(R.id.list_view_recyclerViewList_delivery_truck_icon) ImageView deliveryImage;
+    @BindView(R.id.list_view_recyclerViewList_delivery_truck_container) LinearLayout deliveryImage;
 
     public ListViewViewHolder(@NonNull View itemView) {
         super(itemView);
