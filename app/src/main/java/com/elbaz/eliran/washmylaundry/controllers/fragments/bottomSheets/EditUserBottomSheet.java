@@ -131,9 +131,6 @@ public class EditUserBottomSheet extends BaseBottomSheet {
     }
 
     @OnClick(R.id.edit_user_save_btn)
-
-
-
     public void onSaveBtnClick(){
         String username="", address="";
         int phoneNumber=0;

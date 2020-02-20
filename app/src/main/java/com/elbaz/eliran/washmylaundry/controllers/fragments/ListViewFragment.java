@@ -13,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.UserPreOrderBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.elbaz.eliran.washmylaundry.views.ListViewAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,7 @@ public class ListViewFragment extends BaseFragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                        // Action for recyclerView item click
+                        UserPreOrderBottomSheet.newInstance("providerObject", new Gson().toJson(mProviderList.get(position))).show(getActivity().getSupportFragmentManager(), "preOrder");
                     }
                 });
     }
