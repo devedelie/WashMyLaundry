@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @BindView(R.id.activity_main_bottom_navigation) BottomNavigationView bottomNavigationView;
     @BindView(R.id.activity_main_user_viewpager) ViewPager pager;
     @BindView(R.id.user_delivery_switch) Switch userDeliverySwitch;
+    @BindView(R.id.delivery_switch_container) LinearLayout deliverySwitchContainer;
     //For Data
     private Context mContext;
     private View rootView;
@@ -153,12 +155,15 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
                 switch (item.getItemId()) {
                     case R.id.action_mapView:
                         pager.setCurrentItem(0);
+                        deliverySwitchContainer.setVisibility(View.VISIBLE);
                         break;
                     case R.id.action_listView:
                         pager.setCurrentItem(1);
+                        deliverySwitchContainer.setVisibility(View.VISIBLE);
                         break;
                     case R.id.action_orders:
                         pager.setCurrentItem(2);
+                        deliverySwitchContainer.setVisibility(View.INVISIBLE);
                         break;
                 }
                 return true;
@@ -205,19 +210,16 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
 
     }
 
-    // Pager Listener actions
+    // ------------------
+    // ViewPager helper
+    // ------------------
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        Log.d(TAG, "onPageSelected: " + position);
+        bottomNavigationView.getMenu().getItem(position).setChecked(true);
     }
-
     @Override
-    public void onPageSelected(int position) {
-
-    }
-
+    public void onPageSelected(int position) { }
     @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
+    public void onPageScrollStateChanged(int state) { }
 }
