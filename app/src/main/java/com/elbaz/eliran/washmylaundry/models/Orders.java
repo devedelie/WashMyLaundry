@@ -4,16 +4,16 @@ package com.elbaz.eliran.washmylaundry.models;
  * Created by Eliran Elbaz on 08-Feb-20.
  */
 public class Orders {
-    private String uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl;
-    private int providerPhone, userPhone, orderStatus;
+    private String uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, clientAddress;
+    private int providerPhone, userPhone, orderStatus, orderBagsAmount;
 //    private boolean isProviderConfirmedOrder, isOrderReadyForDelivery, isOrderDelivered;
-    private double taxAdded, deliveryPrice, ironingPrice, finalPrice;
+    private double taxAdded, deliveryPrice, ironingPrice, finalPrice, subtotalPrice;
     private String reservationDate, reservationDateFormatted, confirmationDate;
 //    private Timestamp reservationTimestamp, confirmationTimestamp;
 
     public Orders() {}
 
-    public Orders(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int userPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted) {
+    public Orders(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int userPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted, String clientAddress, int orderBagsAmount, double subtotalPrice) {
         this.uid = uid;
         this.pid = pid;
         this.uniqueOrderId = uniqueOrderId;
@@ -30,6 +30,9 @@ public class Orders {
         this.finalPrice = finalPrice;
         this.reservationDate = reservationDate;
         this.reservationDateFormatted = reservationDateFormatted;
+        this.clientAddress = clientAddress;
+        this.orderBagsAmount = orderBagsAmount;
+        this.subtotalPrice = subtotalPrice;
     }
 
     public String getUid() { return uid; }
@@ -138,6 +141,30 @@ public class Orders {
 
     public void setOrderStatus(int orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
+    public int getOrderBagsAmount() {
+        return orderBagsAmount;
+    }
+
+    public void setOrderBagsAmount(int orderBagsAmount) {
+        this.orderBagsAmount = orderBagsAmount;
+    }
+
+    public double getSubtotalPrice() {
+        return subtotalPrice;
+    }
+
+    public void setSubtotalPrice(double subtotalPrice) {
+        this.subtotalPrice = subtotalPrice;
     }
 
     //    public Timestamp getReservationTimestamp() { return reservationTimestamp; }
