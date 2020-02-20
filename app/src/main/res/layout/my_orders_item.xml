@@ -61,26 +61,26 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/my_orders_status_text_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1.5"
-            android:background="@color/fui_bgPhone">
-
+            android:padding="5dp"
+            app:cardCornerRadius="4dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp">
             <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
                 android:id="@+id/my_orders_recyclerView_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_orders_recyclerView_status"
                 app:fontName="Roboto_Medium"
+                android:layout_marginStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"/>
-
-
-
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Image container -->
 <!--        <LinearLayout-->

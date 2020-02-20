@@ -3,10 +3,10 @@ package com.elbaz.eliran.washmylaundry.views;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
@@ -27,7 +27,7 @@ public class MyOrdersViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.my_orders_recyclerView_date) TextView orderDate;
     @BindView(R.id.my_orders_recyclerView_price) TextView orderPrice;
     @BindView(R.id.my_orders_recyclerView_status) TextView orderStatus;
-    @BindView(R.id.my_orders_status_text_container) LinearLayout statusContainer;
+    @BindView(R.id.my_orders_status_text_container) CardView statusContainer;
 
     public MyOrdersViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -40,7 +40,7 @@ public class MyOrdersViewHolder extends RecyclerView.ViewHolder {
           orderDate.setText(String.valueOf(orders.getReservationDateFormatted()));
           orderPrice.setText(String.valueOf(orders.getFinalPrice()));
           orderStatus.setText(Utils.getOrderStatus(orders.getOrderStatus()));
-          statusContainer.setBackgroundColor(Utils.getOrderStatusColor(orders.getOrderStatus()));
+          statusContainer.setCardBackgroundColor(Utils.getOrderStatusColor(orders.getOrderStatus()));
 
         }catch (Exception e){
             Log.d(TAG, "updateWorkmatesList: Error " + e);

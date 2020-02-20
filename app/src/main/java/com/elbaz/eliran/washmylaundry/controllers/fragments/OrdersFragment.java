@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.OrderStateBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +95,7 @@ public class OrdersFragment extends BaseFragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         // RecyclerView onClick action
+                        OrderStateBottomSheet.newInstance("orderObject", new Gson().toJson(mOrdersList.get(position))).show(getActivity().getSupportFragmentManager(), "OrderInvoice");
                     }
                 });
     }
