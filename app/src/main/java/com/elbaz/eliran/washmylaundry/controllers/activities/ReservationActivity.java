@@ -155,7 +155,7 @@ public class ReservationActivity extends BaseActivity {
 //            staticMapImage.setImageResource(R.drawable.map_offline);
         }
         userDeliveryAddress.setText(mUser.getUserAddress());
-        laundryBagsAmount.setText(getString(R.string.reservation_laundry_bags_amount, String.valueOf(mProvider.getMaxBags())));
+        laundryBagsAmount.setText(getString(R.string.reservation_laundry_bags_amount, String.valueOf(bagsNumber)));
         laundryBagsPrice.setText(getString(R.string.laundry_bags_price, String.valueOf(calculatePriceWithBagsAmount(bagsNumber))));
         subtotalPrice.setText(getString(R.string.laundry_subtotal_price, String.valueOf(bagsTotalPrice)));
         feePrice.setText(getString(R.string.laundry_fees_price, String.valueOf(fee)));
@@ -205,7 +205,7 @@ public class ReservationActivity extends BaseActivity {
         userOrdersList.add(uniqueOrderId);// add the current order id into ordersList
         OrdersHelper.createOrderDocument(mUser.getUid(), mProvider.getPid(), uniqueOrderId, mProvider.getProviderName(),
                 mProvider.getUrlPicture(), mUser.getUsername(), mUser.getUrlPicture(), mProvider.getPhoneNumber(),
-                mUser.getPhoneNumber(), 1, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat())
+                mUser.getPhoneNumber(), 1, fee, delivery, ironing, total, Utils.getFullDateForOrder().toString(), Utils.getTodayDateFormat(), mUser.getUserAddress(), bagsNumber, bagsTotalPrice)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
