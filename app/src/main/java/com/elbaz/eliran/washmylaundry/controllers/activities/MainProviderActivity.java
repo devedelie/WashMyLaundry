@@ -20,6 +20,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,12 +29,19 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
+import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
+import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,9 +68,12 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.provider_ironing_switch) Switch ironingSwitch;
     @BindView(R.id.provider_max_bags_picker_text) EditText maxBagsEditText;
     @BindView(R.id.provider_price_picker_text) EditText priceEditText;
+    @BindView(R.id.providers_scheduled_orders_recycler_view) RecyclerView ordersRecyclerView;
     // Data
     private ProviderViewModel mProviderViewModel;
     private Provider mProvider;
+    private List<Orders> mOrdersList;
+    private MyOrdersAdapter mMyOrdersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +81,11 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         ButterKnife.bind(this);
 
         configureViewModel();
+        configureRecyclerView();
         configureDrawerLayoutAndNavigationView();
-
 //        userDataFirestoreListener();
     }
+
 
     @Override
     protected void onResume() {
@@ -80,11 +93,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         setDataObserver();
     }
 
-    private void configureViewModel() {
-        mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
-        mProviderViewModel.init(); // To retrieve the data from the repository
-        mProviderViewModel.setCurrentProviderData(); // Trigger the Document listener
-    }
 
     private void setDataObserver() {
         mProviderViewModel.getCurrentProviderData().observe(this, new Observer<Provider>() {
@@ -94,6 +102,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 mProvider = provider;
                 updateUiWithData(mProvider);
                 configureSwitches();
+            }
+        });
+        mProviderViewModel.getOrdersList().observe(this, new Observer<List<Orders>>() {
+            @Override
+            public void onChanged(List<Orders> orders) {
+                mOrdersList.clear();
+                mOrdersList.addAll(orders);
+                updateUI(orders);
             }
         });
     }
@@ -107,6 +123,22 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     //-------------------
     // CONFIGURATIONS
     //-------------------
+
+    private void configureViewModel() {
+        mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
+        mProviderViewModel.initProvider(); // To retrieve the data from the repository
+        mProviderViewModel.setCurrentProviderData(); // Trigger the Document listener
+        mProviderViewModel.setOrderList(CurrentUserDataRepository.currentUserID); // Trigger orders listener
+    }
+
+    private void configureRecyclerView() {
+        //Configure Adapter & RecyclerView
+        ordersRecyclerView.setHasFixedSize(true);
+        mOrdersList = new ArrayList<>();
+        mMyOrdersAdapter = new MyOrdersAdapter(this.mOrdersList, this);
+        ordersRecyclerView.setAdapter(this.mMyOrdersAdapter);
+        ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
     // Navigation drawer config
     protected void configureDrawerLayoutAndNavigationView(){
@@ -268,6 +300,21 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     }
 
+    // Update recyclerView with orders list
+    private void updateUI(List<Orders> orders) {
+        if(mOrdersList != null && mOrdersList.size() > 0){
+            Collections.sort(mOrdersList, new Comparator<Orders>() {
+                @Override
+                public int compare(Orders orders, Orders t1) {
+                    int sort;
+                    sort = orders.getReservationDate().compareTo(t1.getReservationDate());
+                    return sort;
+                }
+            });
+        }
+        // Notify changes
+        mMyOrdersAdapter.notifyDataSetChanged();
+    }
 
     public void pricePickerDialog(String title, int displayCurrentValue, int minValue, int maxValue) {
         final Dialog dialog = new Dialog(MainProviderActivity.this);
