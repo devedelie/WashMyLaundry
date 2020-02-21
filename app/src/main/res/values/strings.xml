@@ -59,6 +59,7 @@
     <string name="provider_delivery_off">Not Delivering</string>
     <string name="provider_ironing_on">Accepting</string>
     <string name="provider_ironing_off">Not Accepting</string>
+    <string name="euro_value">€%1$s</string>
 
     <!-- MainProvider Edit-->
     <string name="provider_edit_about_me">About me: I live in Paris and work from home. I have plenty of free time and am looking for opportunities for extra monthly income.</string>

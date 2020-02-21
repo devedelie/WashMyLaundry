@@ -297,7 +297,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         // Max Bags //
         maxBagsEditText.setText(String.valueOf(provider.getMaxBags()));
         // Price //
-        priceEditText.setText(String.valueOf(provider.getPricePerKg()));
+        priceEditText.setText(getString(R.string.euro_value, String.valueOf(provider.getPricePerKg())));
 
     }
 

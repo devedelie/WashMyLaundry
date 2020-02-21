@@ -246,7 +246,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_gravity="center"
-                        android:focusable="false"/>
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:text="@string/euro_value"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -286,7 +288,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:layout_gravity="center"
-                            android:focusable="false"/>
+                            android:text="@string/euro_value"
+                            android:focusable="false"
+                            android:gravity="center"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -297,6 +301,11 @@
                     android:layout_marginStart="5dp"
                     android:text="Orders in progress"
                     android:layout_marginBottom="5dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"/>
 
 
                 <androidx.recyclerview.widget.RecyclerView
