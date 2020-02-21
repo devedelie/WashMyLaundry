@@ -99,17 +99,18 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
 
     @OnClick(R.id.order_state_call_icon)
     public void onCallClick(){
-        if(mOrders.getProviderPhone() != 0){
-            Intent intent;
-            // Check if user or provider
-            if(mOrders.getPid().equals(getCurrentUser().getUid())){ intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mOrders.getProviderPhone()));}
-            else{ intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mOrders.getUserPhone()));}
-            // Open Dialer
-            startActivity(intent);
-        }else{
-            // No phone
-            Toast.makeText(getActivity().getApplicationContext(),getString(R.string.no_available_phone_number),Toast.LENGTH_LONG).show();
+        if(mOrders.getPid().equals(getCurrentUser().getUid())){  // If current user is a Provider
+            if(mOrders.getUserPhone() != 0){ makeACall(mOrders.getUserPhone()); }
+            else {Toast.makeText(getActivity().getApplicationContext(),getString(R.string.no_available_phone_number),Toast.LENGTH_LONG).show();}
+        }else { // Else, current user is a Client
+            if(mOrders.getProviderPhone() != 0){ makeACall(mOrders.getProviderPhone()); }
+            else {Toast.makeText(getActivity().getApplicationContext(),getString(R.string.no_available_phone_number),Toast.LENGTH_LONG).show();}
         }
+    }
+
+    private void makeACall(int phoneNumber){
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        startActivity(intent);
     }
 
     @OnClick(R.id.order_state_chat_icon)
