@@ -66,7 +66,7 @@ public class Utils {
             case 1:
                 return "Waiting for approval";
             case 2:
-                return "Approved by the provider and being washed now";
+                return "Approved and in process";
             case 3:
                 return "Order is Ready and waiting for delivery";
             case 4:
