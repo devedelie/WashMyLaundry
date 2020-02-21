@@ -31,7 +31,7 @@
             android:id="@+id/order_state_provider_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Provider Name"
+            android:text="Provider/User Name"
             android:textSize="22sp"
             android:gravity="center_horizontal"
             android:layout_marginBottom="15dp"/>
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Order"
+            android:text="Order Details"
             android:textStyle="bold"
             android:textSize="18sp"/>
         <LinearLayout
@@ -277,7 +277,30 @@
         android:layout_marginBottom="5dp"
         app:fontName="Roboto_Medium"
         android:textSize="22sp"
-        android:layout_marginStart="25dp"/>
+        android:layout_marginStart="25dp"
+        android:visibility="gone"/>
+
+
+    <!-- ORDER STATE BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/order_state_orders_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <!-- BUTTON - Orders in progress -->
+        <Button
+            android:id="@+id/order_state_waiting_orders_btn"
+            android:layout_width="0dp"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@color/color_waiting_btn"
+            android:tint="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tag="10"
+            android:visibility="gone"/>
+
+    </LinearLayout>
 
 
     <View

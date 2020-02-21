@@ -7,11 +7,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
@@ -27,7 +31,7 @@ import static android.content.ContentValues.TAG;
  * Created by Eliran Elbaz on 19-Feb-20.
  */
 public class OrderStateBottomSheet extends BaseBottomSheet {
-    @BindView(R.id.order_state_provider_name) TextView providerName;
+    @BindView(R.id.order_state_provider_name) TextView name;
     @BindView(R.id.order_state_user_address) TextView clientAddress;
     @BindView(R.id.order_state_laundry_bags_amount) TextView laundryBagsAmount;
     @BindView(R.id.order_state_laundry_bags_price) TextView laundryBagsPrice;
@@ -39,6 +43,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
     @BindView(R.id.order_state_order_state_text) TextView orderState;
     @BindView(R.id.order_state_ironing_container) LinearLayout ironingContainer;
     @BindView(R.id.order_state_delivery_container) LinearLayout deliveryContainer;
+    @BindView(R.id.order_state_waiting_orders_btn) Button statusBtn;
 
 
     // FOr Data
@@ -95,8 +100,11 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
     @OnClick(R.id.order_state_call_icon)
     public void onCallClick(){
         if(mOrders.getProviderPhone() != 0){
+            Intent intent;
+            // Check if user or provider
+            if(mOrders.getPid().equals(getCurrentUser().getUid())){ intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mOrders.getProviderPhone()));}
+            else{ intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mOrders.getUserPhone()));}
             // Open Dialer
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mOrders.getProviderPhone()));
             startActivity(intent);
         }else{
             // No phone
@@ -109,13 +117,25 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
         // Start Chat
     }
 
+    @OnClick (R.id.order_state_waiting_orders_btn)
+    public void onStatusBtnClick(){
+        int i = mOrders.getOrderStatus();
+        if(i<4) {
+            i++;
+            OrdersHelper.updateOrderState(mOrders.getUniqueOrderId(), i);
+            dismiss();
+        }
+    }
+
     //-------------------
     // UI
     //-------------------
 
     private void setUiElements() {
         try {
-            providerName.setText(mOrders.getProviderName());
+            // Set USER/PROVIDER name
+            if(mOrders.getPid().equals(getCurrentUser().getUid())){ name.setText(mOrders.getClientName());}
+            else{ name.setText(mOrders.getProviderName());}
             clientAddress.setText(mOrders.getClientAddress());
             laundryBagsAmount.setText(getString(R.string.reservation_laundry_bags_amount,String.valueOf(mOrders.getOrderBagsAmount())));
             laundryBagsPrice.setText(getString(R.string.laundry_bags_price, String.valueOf(mOrders.getSubtotalPrice())));
@@ -132,9 +152,35 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
             totalPrice.setText(getString(R.string.laundry_total_price, String.valueOf(mOrders.getFinalPrice())));
             orderState.setText(Utils.getOrderStatus(mOrders.getOrderStatus()));
 
+            // Show button to provider only
+            if(mOrders.getPid().equals(getCurrentUser().getUid())){
+                statusBtn.setVisibility(View.VISIBLE) ;
+                statusBtn.setText(getStateString(mOrders.getOrderStatus()));
+                // If order was delivered, set a green and un-clickable button
+                if(mOrders.getOrderStatus() == 4){
+                    statusBtn.setClickable(false);
+                    statusBtn.setBackgroundColor(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.order_delivered));
+                }
+            }
+
         }catch (Exception e){
             Log.d(TAG, "setUiElements: ERROR" + e);
         }
+    }
 
+    private String getStateString(int i){
+        String status="";
+        switch (i){
+            case 1:
+                return getString(R.string.order_state_provider_accept_btn);
+            case 2:
+                return getString(R.string.order_state_provider_mark_as_ready);
+            case 3:
+                return getString(R.string.order_state_provider_mark_as_delivered);
+            case 4:
+                return getString(R.string.order_state_provider_delivered);
+        }
+
+        return status;
     }
 }
