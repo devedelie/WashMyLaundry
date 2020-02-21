@@ -21,13 +21,13 @@
         android:layout_height="wrap_content"
         android:weightSum="6">
 
+        <!-- Details container -->
         <LinearLayout
             android:id="@+id/textContainer"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="4.5">
-
+            android:layout_weight="3.9">
             <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
                 app:fontName="Roboto_Bold"
                 android:id="@+id/my_orders_recyclerView_provider_name"
@@ -37,7 +37,6 @@
                 android:layout_marginBottom="3dp"
                 android:layout_gravity="top"
                 android:layout_marginStart="5dp"/>
-
             <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
                 android:id="@+id/my_orders_recyclerView_date"
                 android:layout_width="wrap_content"
@@ -47,7 +46,6 @@
                 app:fontName="Roboto_Medium"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"/>
-
             <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
                 android:id="@+id/my_orders_recyclerView_price"
                 android:layout_width="wrap_content"
@@ -57,29 +55,33 @@
                 app:fontName="Roboto_Medium"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="5dp"/>
-
-
         </LinearLayout>
 
+        <!-- Status container -->
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            android:id="@+id/my_orders_recyclerView_status"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/my_orders_recyclerView_status"
+            app:fontName="Roboto_Medium"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"/>
+
+        <!-- Color container -->
         <androidx.cardview.widget.CardView
             android:id="@+id/my_orders_status_text_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1.5"
+            android:layout_weight="0.1"
             android:padding="5dp"
             app:cardCornerRadius="4dp"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp">
-            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                android:id="@+id/my_orders_recyclerView_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_orders_recyclerView_status"
-                app:fontName="Roboto_Medium"
-                android:layout_marginStart="10dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="5dp"/>
+            android:layout_marginBottom="3dp"
+            android:layout_marginEnd="5dp">
         </androidx.cardview.widget.CardView>
 
         <!-- Image container -->

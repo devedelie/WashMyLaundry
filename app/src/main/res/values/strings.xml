@@ -105,9 +105,10 @@
 
 
     <!-- MyOrdersFragment-->
-    <string name="my_orders_recyclerView_provider_name">Name</string>
-    <string name="my_orders_recyclerView_date">Date</string>
-    <string name="my_order_recyclerView_price">Price</string>
+    <string name="my_orders_recyclerView_provider_name">Provider: %1$s</string>
+    <string name="my_orders_recyclerView_client_name">Client: %1$s</string>
+    <string name="my_orders_recyclerView_date">On Date: %1$s</string>
+    <string name="my_order_recyclerView_price">Order Total: €%1$s</string>
     <string name="my_orders_recyclerView_status">Status</string>
     <string name="my_orders_recycler_view_empty">Your orders list is empty</string>
     <string name="order_status">Order Status: </string>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.models.Orders;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 
 import butterknife.BindView;
@@ -36,11 +37,12 @@ public class MyOrdersViewHolder extends RecyclerView.ViewHolder {
 
     public void updateOrdersList(Orders orders, RequestManager glide, Resources resources){
         try{
-          providerName.setText(orders.getProviderName());
-          orderDate.setText(String.valueOf(orders.getReservationDateFormatted()));
-          orderPrice.setText(String.valueOf(orders.getFinalPrice()));
-          orderStatus.setText(Utils.getOrderStatus(orders.getOrderStatus()));
-          statusContainer.setCardBackgroundColor(Utils.getOrderStatusColor(orders.getOrderStatus()));
+            if(orders.getPid().equals(CurrentUserDataRepository.currentUserID)) {providerName.setText(resources.getString(R.string.my_orders_recyclerView_client_name, orders.getClientName()));} // If current user is a Provider
+            else {providerName.setText(resources.getString(R.string.my_orders_recyclerView_provider_name, orders.getProviderName()));} // // If current user is a Client
+            orderDate.setText(resources.getString(R.string.my_orders_recyclerView_date, String.valueOf(orders.getReservationDateFormatted())));
+            orderPrice.setText(resources.getString(R.string.my_order_recyclerView_price, String.valueOf(orders.getFinalPrice())));
+            orderStatus.setText(Utils.getOrderStatus(orders.getOrderStatus()));
+            statusContainer.setCardBackgroundColor(resources.getColor(Utils.getOrderStatusColor(orders.getOrderStatus())));
 
         }catch (Exception e){
             Log.d(TAG, "updateWorkmatesList: Error " + e);
