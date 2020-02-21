@@ -159,9 +159,9 @@ public class ProviderOrdersActivity extends BaseActivity {
                     }
                 }
                 // Set buttons color
-                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP);
-                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP); waitingOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_waiting_btn));
+                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); progressOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
+                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); finishedOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
                 break;
             case "progress":
                 // Add only orders in progress
@@ -172,9 +172,9 @@ public class ProviderOrdersActivity extends BaseActivity {
                     }
                 }
                 // Set buttons color
-                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP);
-                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
+                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); waitingOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
+                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP); progressOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_waiting_btn));
+                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); finishedOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
                 break;
             case "finished":
                 // Add only finished orders
@@ -185,9 +185,9 @@ public class ProviderOrdersActivity extends BaseActivity {
                     }
                 }
                 // Set buttons color
-                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
-                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP);
+                waitingOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); waitingOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
+                progressOrdersBtn.setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP); progressOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_progress_btn));
+                finishedOrdersBtn.setColorFilter(getResources().getColor(R.color.colorTextIcons), PorterDuff.Mode.SRC_ATOP); finishedOrdersBtn.setBackgroundColor(getResources().getColor(R.color.color_waiting_btn));
                 break;
         }
 
