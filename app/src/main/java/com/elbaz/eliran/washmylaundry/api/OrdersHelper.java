@@ -42,5 +42,12 @@ public class OrdersHelper {
 //                .get();
 //    }
 
+    // --- UPDATE ---
+
+    public static Task<Void> updateOrderState(String uniqueOrderId, int orderStatus){
+        return OrdersHelper.getOrdersCollection().document(uniqueOrderId).update("orderStatus", orderStatus);
+    }
+
+
 
 }
