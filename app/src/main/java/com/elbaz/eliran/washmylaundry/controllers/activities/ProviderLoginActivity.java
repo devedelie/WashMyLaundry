@@ -36,7 +36,7 @@ public class ProviderLoginActivity extends BaseActivity {
     private static final int RC_SIGN_IN = 100;
 
     @Override
-    public int getFragmentLayout() { return R.layout.activity_provider_login; }
+    public int getActivityLayout() { return R.layout.activity_provider_login; }
 
     @Override
     protected void onResume() {

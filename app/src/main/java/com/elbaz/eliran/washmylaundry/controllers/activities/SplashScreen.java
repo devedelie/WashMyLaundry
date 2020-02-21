@@ -97,7 +97,7 @@ public class SplashScreen extends BaseActivity implements EasyPermissions.Permis
 
 
     @Override
-    public int getFragmentLayout() {
+    public int getActivityLayout() {
         return R.layout.activity_splash_screen;
     }
 

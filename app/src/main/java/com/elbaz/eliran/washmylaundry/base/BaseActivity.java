@@ -37,11 +37,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(this.getFragmentLayout());
+        this.setContentView(this.getActivityLayout());
         ButterKnife.bind(this); //Configure Butterknife
     }
 
-    public abstract int getFragmentLayout();
+    public abstract int getActivityLayout();
 
     // --------------------
     // UTILS

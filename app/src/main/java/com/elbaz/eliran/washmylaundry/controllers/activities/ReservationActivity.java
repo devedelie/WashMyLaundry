@@ -119,7 +119,7 @@ public class ReservationActivity extends BaseActivity {
     // --------------------
 
     @Override
-    public int getFragmentLayout() {
+    public int getActivityLayout() {
         return R.layout.activity_reservation;
     }
 

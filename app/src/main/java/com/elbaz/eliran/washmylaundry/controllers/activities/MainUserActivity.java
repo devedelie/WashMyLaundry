@@ -64,7 +64,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     }
 
     @Override
-    public int getFragmentLayout() {
+    public int getActivityLayout() {
         return R.layout.activity_main_user;
     }
 
