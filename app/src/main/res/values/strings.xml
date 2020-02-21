@@ -113,6 +113,7 @@
 
     <!-- ProviderOrdersActivity -->
     <string name="empty_order_list">There are no orders in this section</string>
+    <string name="your_orders_title">Your Orders</string>
 
 
 </resources>

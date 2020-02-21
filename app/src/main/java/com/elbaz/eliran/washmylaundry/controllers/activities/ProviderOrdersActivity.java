@@ -35,6 +35,7 @@ public class ProviderOrdersActivity extends BaseActivity {
     @BindView(R.id.activity_provider_orders_finished_orders_btn) ImageButton finishedOrdersBtn;
     @BindView(R.id.activity_provider_orders_recycler_view) RecyclerView ordersRecyclerView;
     @BindView(R.id.activity_provider_orders__text_view_recycler_view_empty) TextView emptyRecyclerViewText;
+    @BindView(R.id.provider_order_activity_bar_title) TextView titleText;
 
     private List<Orders> allProviderOrders;
     private List<Orders> filteredOrdersList;
@@ -49,6 +50,7 @@ public class ProviderOrdersActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle();
         configureViewModel();
         configureRecyclerView();
     }
@@ -83,6 +85,8 @@ public class ProviderOrdersActivity extends BaseActivity {
         return R.layout.activity_provider_orders;
     }
 
+    private void setTitle(){titleText.setText(R.string.your_orders_title); }
+
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
     }
@@ -99,6 +103,11 @@ public class ProviderOrdersActivity extends BaseActivity {
     //-------------------
     // ACTIONS
     //-------------------
+
+    @OnClick(R.id.provider_order_activity_back_button)
+    public void onBackBtnClick(){
+        finish();
+    }
 
     @OnClick(R.id.activity_provider_orders_waiting_orders_btn)
     public void onWaitingBtnClick(){

@@ -4,6 +4,45 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--TopBar-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <ImageView
+            android:id="@+id/provider_order_activity_back_button"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="25dp"
+            android:layout_gravity="center"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:tint="@color/quantum_grey600"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_weight="0.2"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"/>
+        <TextView
+            android:id="@+id/provider_order_activity_bar_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.8">
+        </TextView>
+    </LinearLayout>
+
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--DropShadow-->
+        <View android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/toolbar_dropshadow_blue"/>
+
+    </FrameLayout>
+
     <!-- TOP BUTTONS CONTAINER -->
     <LinearLayout
         android:id="@+id/activity_provider_orders__buttons_container"
