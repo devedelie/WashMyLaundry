@@ -30,9 +30,11 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
+import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.OrderStateBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
+import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -73,6 +75,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // Data
     private ProviderViewModel mProviderViewModel;
     private Provider mProvider;
+    private List<Orders> allProviderOrders;
     private List<Orders> mRecentOrdersList;
     private MyOrdersAdapter mMyOrdersAdapter;
 
@@ -83,8 +86,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
         configureViewModel();
         configureRecyclerView();
+        configureOnClickRecyclerView();
         configureDrawerLayoutAndNavigationView();
-//        userDataFirestoreListener();
     }
 
 
@@ -137,6 +140,18 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         mMyOrdersAdapter = new MyOrdersAdapter(this.mRecentOrdersList, this);
         ordersRecyclerView.setAdapter(this.mMyOrdersAdapter);
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    //  Configure item click on RecyclerView
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(ordersRecyclerView, R.layout.fragment_orders)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        // RecyclerView onClick action
+                        OrderStateBottomSheet.newInstance("orderObject", new Gson().toJson(mRecentOrdersList.get(position))).show(getSupportFragmentManager(), "OrderInvoice");
+                    }
+                });
     }
 
     // Navigation drawer config
@@ -303,7 +318,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     // Update recyclerView with orders list
     private void updateUI(List<Orders> orders) {
-        List<Orders> allProviderOrders = new ArrayList<>();
+        allProviderOrders = new ArrayList<>();
         allProviderOrders.clear();
         allProviderOrders.addAll(orders);
         // Add only unfinished orders
