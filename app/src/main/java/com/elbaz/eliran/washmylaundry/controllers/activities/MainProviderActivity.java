@@ -72,7 +72,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // Data
     private ProviderViewModel mProviderViewModel;
     private Provider mProvider;
-    private List<Orders> mOrdersList;
+    private List<Orders> mRecentOrdersList;
     private MyOrdersAdapter mMyOrdersAdapter;
 
     @Override
@@ -107,8 +107,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         mProviderViewModel.getOrdersList().observe(this, new Observer<List<Orders>>() {
             @Override
             public void onChanged(List<Orders> orders) {
-                mOrdersList.clear();
-                mOrdersList.addAll(orders);
                 updateUI(orders);
             }
         });
@@ -134,8 +132,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     private void configureRecyclerView() {
         //Configure Adapter & RecyclerView
         ordersRecyclerView.setHasFixedSize(true);
-        mOrdersList = new ArrayList<>();
-        mMyOrdersAdapter = new MyOrdersAdapter(this.mOrdersList, this);
+        mRecentOrdersList = new ArrayList<>();
+        mMyOrdersAdapter = new MyOrdersAdapter(this.mRecentOrdersList, this);
         ordersRecyclerView.setAdapter(this.mMyOrdersAdapter);
         ordersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -302,8 +300,19 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     // Update recyclerView with orders list
     private void updateUI(List<Orders> orders) {
-        if(mOrdersList != null && mOrdersList.size() > 0){
-            Collections.sort(mOrdersList, new Comparator<Orders>() {
+        List<Orders> allProviderOrders = new ArrayList<>();
+        allProviderOrders.clear();
+        allProviderOrders.addAll(orders);
+        // Add only unfinished orders
+        mRecentOrdersList.clear();
+        for(int i = 0 ; i < allProviderOrders.size() ; i++){
+            if(allProviderOrders.get(i).getOrderStatus() < 4){
+                mRecentOrdersList.add(allProviderOrders.get(i));
+            }
+        }
+        // Sort orders (newest first)
+        if(mRecentOrdersList != null && mRecentOrdersList.size() > 0){
+            Collections.sort(mRecentOrdersList, new Comparator<Orders>() {
                 @Override
                 public int compare(Orders orders, Orders t1) {
                     int sort;
