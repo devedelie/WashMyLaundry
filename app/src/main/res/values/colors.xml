@@ -19,5 +19,10 @@
     <color name="order_ready">#98DD5C</color>
     <color name="order_delivered">#98DD5C</color>
 
+    <!-- Provider's orders lists-->
+    <color name="color_waiting_btn">#7193C9</color>
+    <color name="color_progress_btn">#4A7BCA</color>
+    <color name="color_finished_btn">#135CCF</color>
+
 
 </resources>

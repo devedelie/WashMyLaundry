@@ -83,6 +83,14 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <!-- ProviderOrdersActivity -->
+        <activity
+            android:name=".controllers.activities.ProviderOrdersActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
     </application>
 
 </manifest>

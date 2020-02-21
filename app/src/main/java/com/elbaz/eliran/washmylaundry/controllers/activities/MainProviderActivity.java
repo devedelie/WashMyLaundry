@@ -1,6 +1,7 @@
 package com.elbaz.eliran.washmylaundry.controllers.activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -114,7 +115,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
 
     @Override
-    public int getFragmentLayout() {
+    public int getActivityLayout() {
         return R.layout.activity_main_provider;
     }
 
@@ -222,6 +223,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         switch (order){
             case 0:
                  // Your orders
+                Intent intent = new Intent(this, ProviderOrdersActivity.class);
+                startActivity(intent);
                 break;
             case 1:
                  // settings action

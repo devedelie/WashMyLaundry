@@ -111,5 +111,8 @@
     <string name="my_orders_recycler_view_empty">Your orders list is empty</string>
     <string name="order_status">Order Status: </string>
 
+    <!-- ProviderOrdersActivity -->
+    <string name="empty_order_list">There are no orders in this section</string>
+
 
 </resources>

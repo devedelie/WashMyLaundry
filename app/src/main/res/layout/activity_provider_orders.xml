@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TOP BUTTONS CONTAINER -->
+    <LinearLayout
+        android:id="@+id/activity_provider_orders__buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <!-- BUTTON - Orders in progress -->
+        <ImageButton
+            android:id="@+id/activity_provider_orders_waiting_orders_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@color/color_waiting_btn"
+            android:src="@drawable/ic_autorenew_black_24dp"
+            android:tint="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tag="10"/>
+
+        <!-- BUTTON - Finished orders -->
+        <ImageButton
+            android:id="@+id/activity_provider_orders_in_progress_orders_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@color/color_progress_btn"
+            android:src="@drawable/ic_watch_later_black_24dp"
+            android:tint="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tag="20"/>
+
+        <!-- BUTTON - Finished orders -->
+        <ImageButton
+            android:id="@+id/activity_provider_orders_finished_orders_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:background="@color/color_progress_btn"
+            android:src="@drawable/ic_v_black_24dp"
+            android:tint="@color/colorAccent"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:tag="30"/>
+
+    </LinearLayout>
+
+
+    <!-- RECYCLER VIEW CONTAINER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- MESSAGE RECYCLER VIEW EMPTY -->
+        <TextView
+            android:id="@+id/activity_provider_orders__text_view_recycler_view_empty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_order_list"
+            android:textAlignment="center"
+            android:layout_margin="@dimen/default_large_margin"/>
+
+        <!-- RECYCLER VIEW -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/activity_provider_orders_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</LinearLayout>
