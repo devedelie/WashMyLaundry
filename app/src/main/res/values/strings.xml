@@ -97,7 +97,7 @@
     <string name="currently_no_available_providers">There are currently no providers available</string>
 
     <!-- ListViewFragment-->
-    <string name="list_view_detail_distance">Distance</string>
+    <string name="list_view_detail_distance">%1$sm</string>
     <string name="list_view_provider_name">Name</string>
     <string name="list_view_provider_address">Address</string>
     <string name="list_view_provider_rate">Rate</string>

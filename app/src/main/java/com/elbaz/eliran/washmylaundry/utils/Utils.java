@@ -1,11 +1,13 @@
 package com.elbaz.eliran.washmylaundry.utils;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -88,5 +90,18 @@ public class Utils {
                 return R.color.order_delivered;
         }
         return R.color.order_waiting;
+    }
+
+    public static int calculateDistance(LatLng userLatLng, LatLng providerLatLng){
+        Log.d(TAG, "calculateDistance: " + userLatLng.latitude + " " + userLatLng.longitude+ " " + providerLatLng.latitude+ " " + providerLatLng.longitude);
+        float[] distance = new float[1];
+        try{
+            if(providerLatLng.latitude !=0 && providerLatLng.longitude !=0 && userLatLng.latitude !=0 && userLatLng.longitude !=0){
+                Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, providerLatLng.latitude, providerLatLng.longitude, distance); }
+        }catch (Exception e){
+            Log.d(TAG, "calculateDistance Error: " +e);
+        }
+        Log.d(TAG, "calculateDistance: Distance" + Math.round(distance[0]) );
+        return Math.round(distance[0]);
     }
 }

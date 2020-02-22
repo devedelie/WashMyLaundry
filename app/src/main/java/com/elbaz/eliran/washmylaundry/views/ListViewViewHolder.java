@@ -14,7 +14,9 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.models.Provider;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
+import com.google.android.gms.maps.model.LatLng;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,7 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.list_view_recyclerView_address) TextView providerAddress;
     @BindView(R.id.list_view__recyclerView_rate) TextView providerRate;
     @BindView(R.id.list_view__recyclerView_max_bags) TextView providerMaxBags;
+    @BindView(R.id.list_view_recyclerView_distance) TextView providerDistance;
     @BindView(R.id.list_view_recyclerViewList_stars_1) ImageView starImage1;
     @BindView(R.id.list_view_recyclerViewList_stars_2) ImageView starImage2;
     @BindView(R.id.list_view_recyclerViewList_stars_3) ImageView starImage3;
@@ -58,6 +61,9 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
             providerRate.setText(String.valueOf(provider.getPricePerKg()));
             providerMaxBags.setText(String.valueOf(provider.getMaxBags()));
             calculateStarRating(provider);
+            // Calculate distance
+            providerDistance.setText(resources.getString(R.string.list_view_detail_distance,
+                    String.valueOf(Utils.calculateDistance(CurrentUserDataRepository.getInstance().getCurrentUserLatLng().getValue(), new LatLng(provider.getProviderLatCoordinates(), provider.getProviderLngCoordinates())))));
         }catch (Exception e){
             Log.d(TAG, "updateProvidersList: ERROR");
         }
