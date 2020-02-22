@@ -58,8 +58,8 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
             // Set TextViews
             providerName.setText(provider.getProviderName());
             providerAddress.setText(provider.getProviderAddress());
-            providerRate.setText(String.valueOf(provider.getPricePerKg()));
-            providerMaxBags.setText(String.valueOf(provider.getMaxBags()));
+            providerRate.setText(resources.getString(R.string.list_view_provider_rate, String.valueOf(provider.getPricePerKg())));
+            providerMaxBags.setText(resources.getString(R.string.list_view_provider_max_bags, String.valueOf(provider.getMaxBags())));
             calculateStarRating(provider);
             // Calculate distance
             providerDistance.setText(resources.getString(R.string.list_view_detail_distance,
