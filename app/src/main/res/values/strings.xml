@@ -122,5 +122,10 @@
     <string name="empty_order_list">There are no orders in this section</string>
     <string name="your_orders_title">Your Orders</string>
 
+    <!-- Chat BottomSheet -->
+    <string name="chat_layout_no_messages">There are no messages yet</string>
+    <string name="chat_layout_write_message_edit_text">Write your message</string>
+    <string name="send_btn">Send</string>
+
 
 </resources>

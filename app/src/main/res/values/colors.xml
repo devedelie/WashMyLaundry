@@ -24,5 +24,9 @@
     <color name="color_progress_btn">#4A7BCA</color>
     <color name="color_finished_btn">#135CCF</color>
 
+    <!-- Chat-->
+    <color name="sender_color">#ECB3FC</color>
+    <color name="receiver_color">#B5D8F5</color>
+
 
 </resources>
