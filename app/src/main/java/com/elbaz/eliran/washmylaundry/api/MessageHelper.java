@@ -22,7 +22,7 @@ public class MessageHelper {
                 .orderBy("dateCreated")
                 .limit(50);
     }
-    
+
     // --- UPDATE ---
 
 
