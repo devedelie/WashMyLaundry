@@ -124,8 +124,8 @@ public class ChatBottomSheet extends BaseBottomSheet implements ChatAdapter.List
         //  Check if text field is not empty and current user properly downloaded from Firestore
         if (!TextUtils.isEmpty(editTextMessage.getText())){
             //  Create a new Message to Firestore (USER/PROVIDER)
-            if(isProvider) {MessageHelper.createMessageForChat(mOrders.getPid(), mOrders.getProviderName(), mOrders.getProviderImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId()).addOnFailureListener(this.onFailureListener());}
-            else {MessageHelper.createMessageForChat(mOrders.getUid(), mOrders.getClientName(), mOrders.getClientImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId()).addOnFailureListener(this.onFailureListener());}
+            if(isProvider) {MessageHelper.createMessageForChat(mOrders.getPid(), mOrders.getProviderName(), mOrders.getProviderImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId(), true).addOnFailureListener(this.onFailureListener());}
+            else {MessageHelper.createMessageForChat(mOrders.getUid(), mOrders.getClientName(), mOrders.getClientImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId(), false).addOnFailureListener(this.onFailureListener());}
 
             // Reset text field
             this.editTextMessage.setText("");

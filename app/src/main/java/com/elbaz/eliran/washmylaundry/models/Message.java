@@ -14,20 +14,16 @@ public class Message {
     private Date dateCreated;
     @Nullable
     private String urlImage;
+    boolean isProvider;
 
     public Message() { }
 
-    public Message(String id, String name, String message) {
-        this.id = id;
-        this.name = name;
-        this.message = message;
-    }
-
-    public Message(String id, String name, @Nullable String urlImage , String message) {
+    public Message(String id, String name, @Nullable String urlImage , String message, boolean isProvider) {
         this.id = id;
         this.name = name;
         this.message = message;
         this.urlImage = urlImage;
+        this.isProvider = isProvider;
     }
 
 
@@ -39,7 +35,7 @@ public class Message {
     public Date getDateCreated() { return dateCreated; }
     @Nullable
     public String getUrlImage() { return urlImage; }
-
+    public boolean isProvider() { return isProvider; }
 
     // --- SETTERS ---
     public void setId(String id) { this.id = id; }
@@ -47,6 +43,7 @@ public class Message {
     public void setMessage(String message) { this.message = message; }
     public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
     public void setUrlImage(@Nullable String urlImage) { this.urlImage = urlImage; }
+    public void setProvider(boolean provider) { isProvider = provider; }
 
 
 

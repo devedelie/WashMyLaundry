@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
-import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.ChatBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Message;
 
 import java.text.DateFormat;
@@ -71,7 +70,7 @@ public class ChatViewHolder extends RecyclerView.ViewHolder {
         if (message.getDateCreated() != null) this.textViewDate.setText(this.convertDateToHour(message.getDateCreated()));
 
         // Update isProvider ImageView
-        this.imageViewIsProvider.setVisibility(ChatBottomSheet.isProvider ? View.VISIBLE : View.INVISIBLE);
+        this.imageViewIsProvider.setVisibility(message.isProvider() ? View.VISIBLE : View.INVISIBLE);
 
         // Update profile picture ImageView
         if (message.getUrlImage() != null)

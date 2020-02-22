@@ -26,10 +26,10 @@ public class MessageHelper {
     // --- UPDATE ---
 
 
-    public static Task<DocumentReference> createMessageForChat(String id, String name, @Nullable String imageUrl, String textMessage, String chat){
+    public static Task<DocumentReference> createMessageForChat(String id, String name, @Nullable String imageUrl, String textMessage, String chat, boolean isProvider){
 
         // 1 - Create the Message object
-        Message message = new Message(id, name, imageUrl, textMessage);
+        Message message = new Message(id, name, imageUrl, textMessage, isProvider);
 
         // 2 - Store Message to Firestore
         return ChatHelper.getChatCollection()
