@@ -35,34 +35,6 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract int getFragmentLayout();
 
-    //--------------------------
-    // Cloud Firestore Listeners
-    //--------------------------
-//    private void userDataFirestoreListener(){
-//        final DocumentReference docRef = UserHelper.getUserDocument(CurrentUserDataRepository.currentUserID);
-//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot,
-//                                @Nullable FirebaseFirestoreException e) {
-//                if (e != null) {
-//                    Log.w(TAG, "Listen failed.", e);
-//                    return;
-//                }
-//                // -- Data received
-//                if (snapshot != null && snapshot.exists()) {
-//                    Log.d(TAG, "Current data: " + snapshot.getData());
-//                    mUser = new User();
-//                    mUser = snapshot.toObject(User.class);
-//                    if(mUser !=null){
-//                        CurrentUserDataRepository.getInstance().setCurrentUserData(mUser); // If a change was detected, set Object in ViewModel
-//                    }
-//
-//                } else {
-//                    Log.d(TAG, "Current data: null");
-//                }
-//            }
-//        });
-//    }
 
     // --------------------
     // UTILS

@@ -18,6 +18,7 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.google.gson.Gson;
 
@@ -152,10 +153,15 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
                 deliveryPrice.setText(getString(R.string.laundry_delivery_price, String.valueOf(mOrders.getDeliveryPrice())));
             }
             totalPrice.setText(getString(R.string.laundry_total_price, String.valueOf(mOrders.getFinalPrice())));
-            orderState.setText(Utils.getOrderStatus(mOrders.getOrderStatus()));
+
+            // Show state text for Users only
+            if(mOrders.getUid().equals(CurrentUserDataRepository.currentUserID)){
+                orderState.setText(Utils.getOrderStatus(mOrders.getOrderStatus()));
+                orderState.setVisibility(View.VISIBLE);
+            }
 
             // Show button to provider only
-            if(mOrders.getPid().equals(getCurrentUser().getUid())){
+            if(mOrders.getPid().equals(CurrentUserDataRepository.currentUserID)){
                 statusBtn.setVisibility(View.VISIBLE) ;
                 statusBtn.setText(getStateString(mOrders.getOrderStatus()));
                 // If order was delivered, set a green and un-clickable button
