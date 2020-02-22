@@ -116,6 +116,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
     @OnClick(R.id.order_state_chat_icon)
     public void onChatClick(){
         // Start Chat
+        ChatBottomSheet.newInstance("orderObject", new Gson().toJson(mOrders)).show(getActivity().getSupportFragmentManager(), "chat");
     }
 
     @OnClick (R.id.order_state_waiting_orders_btn)
