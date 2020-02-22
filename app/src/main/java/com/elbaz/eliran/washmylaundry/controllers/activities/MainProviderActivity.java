@@ -227,7 +227,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     @OnClick(R.id.provider_price_picker_text)
     public void onPriceTextClick(){
-        pricePickerDialog(getString(R.string.provider_price_rate_dialog), Integer.parseInt(priceEditText.getText().toString()), 3, 15);
+        pricePickerDialog(getString(R.string.provider_price_rate_dialog), Integer.parseInt(priceEditText.getText().toString().replaceAll("[€]", "")), 3, 15);
     }
 
     // Drawer item selection
