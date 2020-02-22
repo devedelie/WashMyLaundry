@@ -43,6 +43,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @BindView(R.id.activity_main_user_viewpager) ViewPager pager;
     @BindView(R.id.user_delivery_switch) Switch userDeliverySwitch;
     @BindView(R.id.delivery_switch_container) LinearLayout deliverySwitchContainer;
+    @BindView(R.id.information_container) LinearLayout informationContainer;
     //For Data
     private Context mContext;
     private View rootView;
@@ -155,15 +156,18 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
                 switch (item.getItemId()) {
                     case R.id.action_mapView:
                         pager.setCurrentItem(0);
+                        informationContainer.setVisibility(View.GONE);
                         deliverySwitchContainer.setVisibility(View.VISIBLE);
                         break;
                     case R.id.action_listView:
                         pager.setCurrentItem(1);
+                        informationContainer.setVisibility(View.GONE);
                         deliverySwitchContainer.setVisibility(View.VISIBLE);
                         break;
                     case R.id.action_orders:
                         pager.setCurrentItem(2);
-                        deliverySwitchContainer.setVisibility(View.INVISIBLE);
+                        deliverySwitchContainer.setVisibility(View.GONE);
+                        informationContainer.setVisibility(View.VISIBLE);
                         break;
                 }
                 return true;
