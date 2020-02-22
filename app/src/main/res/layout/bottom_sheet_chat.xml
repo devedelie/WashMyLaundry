@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="15dp"
-        android:layout_alignParentTop="true">
+        android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,7 +51,7 @@
     <LinearLayout
         android:id="@+id/chat_layout_recycler_view_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/top_title_bar"
         android:layout_above="@id/chat_layout_add_message_container">
@@ -76,9 +76,9 @@
         android:id="@+id/chat_layout_add_message_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/default_margin"
-        android:layout_marginBottom="45dp">
+        android:layout_above="@id/chat_layout_placeholder"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/default_margin">
         <!-- TEXT MESSAGE EDIT TEXT -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/chat_layout_message_edit_text"
@@ -92,11 +92,20 @@
         <!-- ADD MESSAGE BUTTON -->
         <Button
             android:id="@+id/chat_layout_send_button"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/send_btn" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chat_layout_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/default_margin"/>
+
 
 
 </RelativeLayout>
