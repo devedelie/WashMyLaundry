@@ -25,8 +25,8 @@
     <color name="color_finished_btn">#135CCF</color>
 
     <!-- Chat-->
-    <color name="sender_color">#ECB3FC</color>
-    <color name="receiver_color">#B5D8F5</color>
+    <color name="sender_color">#E59FF8</color>
+    <color name="receiver_color">#A4CFF3</color>
 
 
 </resources>
