@@ -27,7 +27,7 @@ public class Provider {
         this.isProvider = isProvider;
         this.maxBags = 3;
         this.pricePerKg = 5;
-        this.providerRating.add(5.0);
+//        this.providerRating.add(5.0);
     }
 
     public String getPid() { return pid; }
