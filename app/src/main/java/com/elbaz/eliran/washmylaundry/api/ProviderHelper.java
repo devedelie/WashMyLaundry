@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -48,16 +49,8 @@ public class ProviderHelper {
         return ProviderHelper.getProvidersCollection().document(uid).update("ordersList", orderId);
     }
 
-    public static Task<Void> updateProviderAddress(String uid, String address){
-        return ProviderHelper.getProvidersCollection().document(uid).update("providerAddress", address);
-    }
-
-    public static Task<Void> updateProviderZipCode(String uid, int zipCode){
-        return ProviderHelper.getProvidersCollection().document(uid).update("providerZipCode", zipCode);
-    }
-
-    public static Task<Void> updateProviderPhone(String uid, int phone){
-        return ProviderHelper.getProvidersCollection().document(uid).update("phoneNumber", phone);
+    public static Task<Void> updateProviderServiceCount(String uid){
+        return ProviderHelper.getProvidersCollection().document(uid).update("servicesCount", FieldValue.increment(1));
     }
 
     public static Task<Void> updateProviderAvailabilityStatus(String uid, boolean status){
@@ -72,10 +65,6 @@ public class ProviderHelper {
         return ProviderHelper.getProvidersCollection().document(uid).update("isIroning", status);
     }
 
-    public static Task<Void> updateProviderMachineType(String uid, String machineType){
-        return ProviderHelper.getProvidersCollection().document(uid).update("machineType", machineType);
-    }
-
     public static Task<Void> updateProviderWeightPerService(String uid, int maxWeightPerService){
         return ProviderHelper.getProvidersCollection().document(uid).update("maxWeightKg", maxWeightPerService);
     }
@@ -84,11 +73,4 @@ public class ProviderHelper {
         return ProviderHelper.getProvidersCollection().document(uid).update("pricePerKg", pricePerKg);
     }
 
-    public static Task<Void> updateProviderServiceLatCoordinates(String uid, double lat){
-        return ProviderHelper.getProvidersCollection().document(uid).update("providerLatCoordinates", lat);
-    }
-
-    public static Task<Void> updateProviderServiceLngCoordinates(String uid, double lat){
-        return ProviderHelper.getProvidersCollection().document(uid).update("providerLngCoordinates", lat);
-    }
 }

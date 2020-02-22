@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
+import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
@@ -125,7 +126,10 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
         int i = mOrders.getOrderStatus();
         if(i<4) {
             i++;
+            // Update order document
             OrdersHelper.updateOrderState(mOrders.getUniqueOrderId(), i);
+            // Update Provider document
+            if(i==4){ ProviderHelper.updateProviderServiceCount(CurrentUserDataRepository.currentUserID); }  // If Job was done, increment counter +1
             dismiss();
         }
     }
