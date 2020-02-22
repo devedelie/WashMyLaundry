@@ -22,6 +22,8 @@ import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,6 +38,7 @@ public class OrdersFragment extends BaseFragment {
     private MyOrdersAdapter mMyOrdersAdapter;
     private UserViewModel mUserViewModel;
     private List<Orders> mOrdersList= new ArrayList<>();
+    private List<Orders> mOrdersFilteredList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,6 +108,17 @@ public class OrdersFragment extends BaseFragment {
     //-----------------
     // Update UI with orders list
     private void updateUI(List<Orders> orders) {
+        // Sort orders (newest first)
+        if(mOrdersList != null && mOrdersList.size() > 0){
+            Collections.sort(mOrdersList, new Comparator<Orders>() {
+                @Override
+                public int compare(Orders orders, Orders t1) {
+                    int sort;
+                    sort = orders.getReservationDate().compareTo(t1.getReservationDate());
+                    return sort;
+                }
+            });
+        }
         // Notify changes
         mMyOrdersAdapter.notifyDataSetChanged();
     }
