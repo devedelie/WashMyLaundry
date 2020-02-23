@@ -52,7 +52,7 @@
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
                         android:background="@drawable/ic_w_star_icon"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:backgroundTint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:layout_weight="1"/>
@@ -62,7 +62,7 @@
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
                         android:background="@drawable/ic_w_star_icon"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:backgroundTint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:layout_weight="1"/>
@@ -72,7 +72,7 @@
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
                         android:background="@drawable/ic_w_star_icon"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:backgroundTint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:layout_weight="1"/>
@@ -82,7 +82,7 @@
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
                         android:background="@drawable/ic_w_star_icon"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:backgroundTint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:layout_weight="1"/>
@@ -92,7 +92,7 @@
                         android:layout_width="@dimen/starIcon_bottomsheet"
                         android:layout_height="@dimen/starIcon_bottomsheet"
                         android:background="@drawable/ic_w_star_icon"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         android:backgroundTint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:layout_weight="1"/>

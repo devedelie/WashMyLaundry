@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
@@ -52,13 +51,14 @@ public class Utils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    public static double rating (List<Double> rating ) {
-        double totalRatings=0;
-        for(int i =0; i < rating.size() ; i++){
-            totalRatings = rating.get(i);
-        }
+    public static double rating (double rating, int listSize ) {
+//        double totalRatings=0;
+//        for(int i =0; i < rating.size() ; i++){
+//            totalRatings = rating.get(i);
+//        }
         // Calculate rating average
-        double newRating = totalRatings / rating.size();
+        double newRating = rating / listSize;
+        Log.d(TAG, "rating: " + rating + " / " + listSize + " = " +newRating );
         return newRating;
     }
 

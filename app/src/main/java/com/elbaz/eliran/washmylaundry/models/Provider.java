@@ -114,6 +114,8 @@ public class Provider {
     public List<String> getReviewsList() { return reviewsList; }
 
     public void setReviewsList(List<String> reviewsList) { this.reviewsList = reviewsList; }
+
+
 }
 
 

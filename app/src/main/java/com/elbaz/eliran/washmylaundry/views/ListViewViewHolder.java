@@ -60,7 +60,7 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
             providerAddress.setText(provider.getProviderAddress());
             providerRate.setText(resources.getString(R.string.list_view_provider_rate, String.valueOf(provider.getPricePerKg())));
             providerMaxBags.setText(resources.getString(R.string.list_view_provider_max_bags, String.valueOf(provider.getMaxBags())));
-            calculateStarRating(provider);
+            if(provider.getProviderRating() != 0) calculateStarRating(provider);
             // Calculate distance
             providerDistance.setText(resources.getString(R.string.list_view_detail_distance,
                     String.valueOf(Utils.calculateDistance(CurrentUserDataRepository.getInstance().getCurrentUserLatLng().getValue(), new LatLng(provider.getProviderLatCoordinates(), provider.getProviderLngCoordinates())))));
@@ -72,7 +72,8 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
 
     private void calculateStarRating(Provider provider){
         try{
-            double ratingValue = Utils.rating(provider.getProviderRating()); // round the value of rating
+            double ratingValue = Utils.rating(provider.getProviderRating(), provider.getOrdersList().size()); // round the value of rating
+            Log.d(TAG, "calculateStarRating: " + ratingValue);
             if (ratingValue < 0.5 ) {
                 starImage1.setVisibility(View.INVISIBLE);
                 starImage2.setVisibility(View.INVISIBLE);
@@ -95,23 +96,25 @@ public class ListViewViewHolder extends RecyclerView.ViewHolder {
                 starImage1.setVisibility(View.VISIBLE);
                 starImage2.setVisibility(View.VISIBLE);
                 starImage3.setVisibility(View.VISIBLE);
-                starImage3.setVisibility(View.INVISIBLE);
-                starImage3.setVisibility(View.INVISIBLE);
+                starImage4.setVisibility(View.INVISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
             }else if(ratingValue > 3.5 && ratingValue < 4.5){
                 starImage1.setVisibility(View.VISIBLE);
                 starImage2.setVisibility(View.VISIBLE);
                 starImage3.setVisibility(View.VISIBLE);
-                starImage3.setVisibility(View.VISIBLE);
-                starImage3.setVisibility(View.INVISIBLE);
-            }else if(ratingValue > 4.5 && ratingValue <= 5){
+                starImage4.setVisibility(View.VISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 4.5 ){
+                Log.d(TAG, "calculateStarRating: YESSS");
                 starImage1.setVisibility(View.VISIBLE);
                 starImage2.setVisibility(View.VISIBLE);
                 starImage3.setVisibility(View.VISIBLE);
-                starImage3.setVisibility(View.VISIBLE);
-                starImage3.setVisibility(View.VISIBLE);
+                starImage4.setVisibility(View.VISIBLE);
+                starImage5.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             Log.d(TAG, "calculateStarRating: "+ e);
         }
     }
+
 }

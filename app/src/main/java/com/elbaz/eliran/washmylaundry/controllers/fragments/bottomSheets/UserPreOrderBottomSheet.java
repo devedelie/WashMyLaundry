@@ -24,6 +24,7 @@ import com.elbaz.eliran.washmylaundry.controllers.activities.ReservationActivity
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.elbaz.eliran.washmylaundry.repositories.UserDataRepository;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.gson.Gson;
 
@@ -47,10 +48,15 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
     @BindView(R.id.pre_order_ironing_switch) CheckBox ironingCheckBox;
     @BindView(R.id.pre_order_delivery_switch) CheckBox deliveryCheckBox;
     @BindView(R.id.bottom_menu_delivery_text_on_off) TextView deliveryLineText;
+    @BindView(R.id.provider_stars_1) ImageView starImage1;
+    @BindView(R.id.provider_stars_2) ImageView starImage2;
+    @BindView(R.id.provider_stars_3) ImageView starImage3;
+    @BindView(R.id.provider_stars_4) ImageView starImage4;
+    @BindView(R.id.provider_stars_5) ImageView starImage5;
 
     // For Data
     private Provider mProvider = new Provider();
-    private String jsonObject = "{'pid' : 'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType'}";
+    private String jsonObject = "{'pid' : 'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType' : providerRating}";
     // Data for Order
     private int bagsNumberInt =1; // Default bags number for order
     private boolean isIroningChecked, isDeliveryChecked;
@@ -171,6 +177,7 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
         providerDescription.setText(mProvider.getProviderDescription());
         bagsNumberText.setText(getString(R.string.max_bags_15kg, String.valueOf(mProvider.getMaxBags())));
         bagsNumber.setText(String.valueOf(bagsNumberInt));
+        calculateStarRating(mProvider);
     }
 
 
@@ -189,5 +196,53 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
         builder.show();
 
         return builder.create();
+    }
+
+
+    private void calculateStarRating(Provider provider){
+        try{
+            double ratingValue = Utils.rating(provider.getProviderRating(), provider.getOrdersList().size()); // round the value of rating
+            Log.d(TAG, "calculateStarRating: " + ratingValue);
+            if (ratingValue < 0.5 ) {
+                starImage1.setVisibility(View.INVISIBLE);
+                starImage2.setVisibility(View.INVISIBLE);
+                starImage3.setVisibility(View.INVISIBLE);
+                starImage4.setVisibility(View.INVISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 0.5 && ratingValue < 1.5){
+                starImage1.setVisibility(View.VISIBLE);
+                starImage2.setVisibility(View.INVISIBLE);
+                starImage3.setVisibility(View.INVISIBLE);
+                starImage4.setVisibility(View.INVISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 1.5 && ratingValue < 2.5){
+                starImage1.setVisibility(View.VISIBLE);
+                starImage2.setVisibility(View.VISIBLE);
+                starImage3.setVisibility(View.INVISIBLE);
+                starImage4.setVisibility(View.INVISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 2.5 && ratingValue < 3.5){
+                starImage1.setVisibility(View.VISIBLE);
+                starImage2.setVisibility(View.VISIBLE);
+                starImage3.setVisibility(View.VISIBLE);
+                starImage4.setVisibility(View.INVISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 3.5 && ratingValue < 4.5){
+                starImage1.setVisibility(View.VISIBLE);
+                starImage2.setVisibility(View.VISIBLE);
+                starImage3.setVisibility(View.VISIBLE);
+                starImage4.setVisibility(View.VISIBLE);
+                starImage5.setVisibility(View.INVISIBLE);
+            }else if(ratingValue > 4.5 ){
+                Log.d(TAG, "calculateStarRating: YESSS");
+                starImage1.setVisibility(View.VISIBLE);
+                starImage2.setVisibility(View.VISIBLE);
+                starImage3.setVisibility(View.VISIBLE);
+                starImage4.setVisibility(View.VISIBLE);
+                starImage5.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+            Log.d(TAG, "calculateStarRating: "+ e);
+        }
     }
 }
