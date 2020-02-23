@@ -220,7 +220,23 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         Log.d(TAG, "onPageSelected: " + position);
+        // setChecked the current BottomNavigation button while scrolling with ViewPager
         bottomNavigationView.getMenu().getItem(position).setChecked(true);
+        // Set the current bottom- view (Delivery Switch / information)
+        switch (position) {
+            case 0:
+                informationContainer.setVisibility(View.GONE);
+                deliverySwitchContainer.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                informationContainer.setVisibility(View.GONE);
+                deliverySwitchContainer.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                deliverySwitchContainer.setVisibility(View.GONE);
+                informationContainer.setVisibility(View.VISIBLE);
+                break;
+        }
     }
     @Override
     public void onPageSelected(int position) { }
