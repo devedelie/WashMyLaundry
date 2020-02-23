@@ -42,7 +42,7 @@ public class OrdersHelper {
 
     // --- DELETE ---
 
-    public static Task<Void> deleteOrerFromOrdersList(String uniqueOrderId){
+    public static Task<Void> deleteOrderFromOrdersList(String uniqueOrderId){
 
         return OrdersHelper.getOrdersCollection()
                 .document(uniqueOrderId)

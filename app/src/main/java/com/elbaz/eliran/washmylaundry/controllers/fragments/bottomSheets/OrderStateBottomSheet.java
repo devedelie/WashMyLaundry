@@ -142,7 +142,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
 
     @OnClick (R.id.cancel_order_btn)
     public void onCancelBtnClick(){
-        OrdersHelper.deleteOrerFromOrdersList(mOrders.getUniqueOrderId());
+        OrdersHelper.deleteOrderFromOrdersList(mOrders.getUniqueOrderId());
         ProviderHelper.updateAndDeleteOrderFromProviderOrdersList(mOrders.getPid(), mOrders.getUniqueOrderId());
         UserHelper.updateAndDeleteOrderFromUserOrdersList(mOrders.getUid(), mOrders.getUniqueOrderId());
         dismiss();
