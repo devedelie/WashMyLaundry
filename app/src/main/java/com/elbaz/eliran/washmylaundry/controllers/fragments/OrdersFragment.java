@@ -1,5 +1,6 @@
 package com.elbaz.eliran.washmylaundry.controllers.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
+import com.elbaz.eliran.washmylaundry.controllers.activities.RateOrderActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.OrderStateBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
@@ -97,8 +99,15 @@ public class OrdersFragment extends BaseFragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        // RecyclerView onClick action
-                        OrderStateBottomSheet.newInstance("orderObject", new Gson().toJson(mOrdersList.get(position))).show(getActivity().getSupportFragmentManager(), "OrderInvoice");
+                        // If the order is marked as finished (status ==4), check if rating was given
+                        if(mOrdersList.get(position).getOrderStatus() ==4  && !mOrdersList.get(position).isOrderIsRated()){
+                            Intent intent = new Intent(getActivity().getApplicationContext(), RateOrderActivity.class);
+                            intent.putExtra("orderObject", new Gson().toJson(mOrdersList.get(position)));
+                            startActivity(intent);
+                        }else {
+                            OrderStateBottomSheet.newInstance("orderObject", new Gson().toJson(mOrdersList.get(position))).show(getActivity().getSupportFragmentManager(), "OrderInvoice");
+                        }
+
                     }
                 });
     }
