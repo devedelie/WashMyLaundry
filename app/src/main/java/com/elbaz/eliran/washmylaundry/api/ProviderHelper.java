@@ -73,4 +73,12 @@ public class ProviderHelper {
         return ProviderHelper.getProvidersCollection().document(uid).update("pricePerKg", pricePerKg);
     }
 
+    public static Task<Void> updateAndDeleteOrderFromProviderOrdersList(String pid, String uniqueOrderId){
+        return ProviderHelper.getProvidersCollection().document(pid).update("ordersList",  FieldValue.arrayRemove(uniqueOrderId));
+    }
+
+
+
+
+
 }

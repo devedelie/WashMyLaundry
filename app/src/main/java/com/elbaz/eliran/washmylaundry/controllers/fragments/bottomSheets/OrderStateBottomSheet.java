@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
+import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
 import com.elbaz.eliran.washmylaundry.controllers.activities.ChatActivity;
 import com.elbaz.eliran.washmylaundry.models.Orders;
@@ -47,6 +48,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
     @BindView(R.id.order_state_ironing_container) LinearLayout ironingContainer;
     @BindView(R.id.order_state_delivery_container) LinearLayout deliveryContainer;
     @BindView(R.id.order_state_waiting_orders_btn) Button statusBtn;
+    @BindView(R.id.cancel_order_btn) Button cancelOrderBtn;
 
 
     // FOr Data
@@ -138,6 +140,14 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
         }
     }
 
+    @OnClick (R.id.cancel_order_btn)
+    public void onCancelBtnClick(){
+        OrdersHelper.deleteOrerFromOrdersList(mOrders.getUniqueOrderId());
+        ProviderHelper.updateAndDeleteOrderFromProviderOrdersList(mOrders.getPid(), mOrders.getUniqueOrderId());
+        UserHelper.updateAndDeleteOrderFromUserOrdersList(mOrders.getUid(), mOrders.getUniqueOrderId());
+        dismiss();
+    }
+
     //-------------------
     // UI
     //-------------------
@@ -162,10 +172,11 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
             }
             totalPrice.setText(getString(R.string.laundry_total_price, String.valueOf(mOrders.getFinalPrice())));
 
-            // Show state text for Users only
+            // Show state text & cancel option for Users only
             if(mOrders.getUid().equals(CurrentUserDataRepository.currentUserID)){
                 orderState.setText(Utils.getOrderStatus(mOrders.getOrderStatus()));
                 orderState.setVisibility(View.VISIBLE);
+                if(mOrders.getOrderStatus() == 1) cancelOrderBtn.setVisibility(View.VISIBLE);
             }
 
             // Show button to provider only

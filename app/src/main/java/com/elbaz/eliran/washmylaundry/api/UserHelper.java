@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -49,29 +50,10 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("ordersList", orderId);
     }
 
-    public static Task<Void> updateUserAddress(String uid, String address){
-        return UserHelper.getUsersCollection().document(uid).update("userAddress", address);
+    public static Task<Void> updateAndDeleteOrderFromUserOrdersList(String uid, String uniqueOrderId){
+        return UserHelper.getUsersCollection().document(uid).update("ordersList",  FieldValue.arrayRemove(uniqueOrderId));
     }
 
-    public static Task<Void> updateUserZipCode(String uid, int zipCode){
-        return UserHelper.getUsersCollection().document(uid).update("userZipCode", zipCode);
-    }
-
-    public static Task<Void> updateUserPhone(String uid, int phone){
-        return UserHelper.getUsersCollection().document(uid).update("phoneNumber", phone);
-    }
-
-    public static Task<Void> updateUserCoordinates(String uid, String userCoordinates){
-        return UserHelper.getUsersCollection().document(uid).update("userCoordinates", userCoordinates);
-    }
-
-    public static Task<Void> updateUserLatCoordinates(String uid, double lat){
-        return UserHelper.getUsersCollection().document(uid).update("userLatCoordinates", lat);
-    }
-
-    public static Task<Void> updateUserLngCoordinates(String uid, double lat){
-        return UserHelper.getUsersCollection().document(uid).update("userLngCoordinates", lat);
-    }
 
 
 }

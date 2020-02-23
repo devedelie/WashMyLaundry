@@ -31,21 +31,22 @@ public class OrdersHelper {
                 .set(orderDocumentToCreate);
     }
 
-    // --- GET ---
 
-    // Get current user orders list from all providers
-//    public static Task<CollectionReference> getUserOrdersList(String uid){
-//        return OrdersHelper.getOrdersCollection()
-//                .document()
-//                .collection(PERSONAL_ORDERS_COLLECTION)
-//                .whereEqualTo("uid", uid)
-//                .get();
-//    }
 
     // --- UPDATE ---
 
     public static Task<Void> updateOrderState(String uniqueOrderId, int orderStatus){
         return OrdersHelper.getOrdersCollection().document(uniqueOrderId).update("orderStatus", orderStatus);
+    }
+
+
+    // --- DELETE ---
+
+    public static Task<Void> deleteOrerFromOrdersList(String uniqueOrderId){
+
+        return OrdersHelper.getOrdersCollection()
+                .document(uniqueOrderId)
+                .delete();
     }
 
 

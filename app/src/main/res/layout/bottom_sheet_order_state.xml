@@ -280,6 +280,16 @@
         android:layout_marginStart="25dp"
         android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/cancel_order_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/gmail_btn_color"
+        android:text="Cancel Order"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"/>
+
 
     <!-- ORDER STATE BUTTONS CONTAINER -->
     <LinearLayout
