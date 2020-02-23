@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Import of TopBar-->
+    <include
+        layout="@layout/bottom_sheet_back_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/rate_order_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hi_user"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="5">
+        <TextView
+            android:id="@+id/rate_order_provider_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tell_us_how_was_your_order_with"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="4"/>
+        <ImageView
+            android:id="@+id/rate_order_provider_image"
+            android:layout_width="0dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_anon_user_48dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="25dp"/>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+
+        <!-- Provider rating -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="5"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp">
+            <ImageButton
+                android:id="@+id/provider_stars_1"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/ic_rating_star_border_accent_24dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/provider_stars_2"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/ic_rating_star_border_accent_24dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/provider_stars_3"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/ic_rating_star_border_accent_24dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/provider_stars_4"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/ic_rating_star_border_accent_24dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/provider_stars_5"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/ic_rating_star_border_accent_24dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <!-- Review-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp">
+            <EditText
+                android:id="@+id/rate_order_review_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/review_hint_text"
+                android:layout_weight="8"
+                android:imeOptions="actionNext"
+                android:nextFocusDown="@id/edit_provider_phone_text"
+                android:inputType="textCapSentences|textMultiLine"
+                android:gravity="top|start"
+                android:maxLength="500"
+                android:maxLines="6" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/rating_submit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

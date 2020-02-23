@@ -6,7 +6,7 @@ package com.elbaz.eliran.washmylaundry.models;
 public class Orders {
     private String uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, clientAddress;
     private int providerPhone, userPhone, orderStatus, orderBagsAmount;
-//    private boolean isProviderConfirmedOrder, isOrderReadyForDelivery, isOrderDelivered;
+    private boolean orderIsRated;
     private double taxAdded, deliveryPrice, ironingPrice, finalPrice, subtotalPrice;
     private String reservationDate, reservationDateFormatted, confirmationDate;
 //    private Timestamp reservationTimestamp, confirmationTimestamp;
@@ -166,6 +166,10 @@ public class Orders {
     public void setSubtotalPrice(double subtotalPrice) {
         this.subtotalPrice = subtotalPrice;
     }
+
+    public boolean isOrderIsRated() { return orderIsRated; }
+
+    public void setOrderIsRated(boolean orderIsRated) { this.orderIsRated = orderIsRated; }
 
     //    public Timestamp getReservationTimestamp() { return reservationTimestamp; }
 //

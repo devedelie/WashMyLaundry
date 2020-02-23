@@ -127,5 +127,8 @@
     <string name="chat_layout_write_message_edit_text">Write your message</string>
     <string name="send_btn">Send</string>
 
-
+    <!-- Rating Activity -->
+    <string name="review_hint_text">An excellent experience, I will definitely re-order his services again!</string>
+    <string name="hi_user">Hi %1$s</string>
+    <string name="tell_us_how_was_your_order_with">Tell us how was your order with: %1$s</string>
 </resources>

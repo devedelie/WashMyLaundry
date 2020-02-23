@@ -16,7 +16,7 @@ public class Provider {
     private double providerLatCoordinates, providerLngCoordinates;
     private List<String> ordersList;
     private List<String> reviewsList;
-    private List<Double> providerRating;
+    private double providerRating;
 
     public Provider(){ }
 
@@ -107,9 +107,9 @@ public class Provider {
 
     public void setOrdersList(List<String> ordersList) { this.ordersList = ordersList; }
 
-    public List<Double> getProviderRating() { return providerRating; }
+    public double getProviderRating() { return providerRating; }
 
-    public void setProviderRating(List<Double> providerRating) { this.providerRating = providerRating; }
+    public void setProviderRating(double providerRating) { this.providerRating = providerRating; }
 
     public List<String> getReviewsList() { return reviewsList; }
 
