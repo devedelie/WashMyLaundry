@@ -157,7 +157,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
                 ironingPrice.setText(getString(R.string.laundry_ironing_price, String.valueOf(mOrders.getIroningPrice())));
             }
             if(mOrders.getDeliveryPrice() != 0){
-                ironingContainer.setVisibility(View.VISIBLE);
+                deliveryContainer.setVisibility(View.VISIBLE);
                 deliveryPrice.setText(getString(R.string.laundry_delivery_price, String.valueOf(mOrders.getDeliveryPrice())));
             }
             totalPrice.setText(getString(R.string.laundry_total_price, String.valueOf(mOrders.getFinalPrice())));
