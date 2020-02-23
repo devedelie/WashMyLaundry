@@ -2,6 +2,7 @@ package com.elbaz.eliran.washmylaundry.controllers.activities;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +53,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.content.ContentValues.TAG;
+import static com.elbaz.eliran.washmylaundry.models.Constants.CHANNEL_ID;
 
 public class MainProviderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -78,6 +81,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     private List<Orders> allProviderOrders;
     private List<Orders> mRecentOrdersList;
     private MyOrdersAdapter mMyOrdersAdapter;
+    private SharedPreferences mSharedPreferences;
+    private int lastProviderOrdersCount , currentProviderOrdersCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +116,23 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         mProviderViewModel.getOrdersList().observe(this, new Observer<List<Orders>>() {
             @Override
             public void onChanged(List<Orders> orders) {
+                manageNotificationForNewOrders(orders);
                 updateUI(orders);
             }
         });
+    }
+
+    private void manageNotificationForNewOrders(List<Orders> orders) {
+        mSharedPreferences = getSharedPreferences("lastProviderOrdersCount", MODE_PRIVATE);
+        lastProviderOrdersCount= mSharedPreferences.getInt("lastProviderOrdersCount", 0);
+        Log.d(TAG, "manageNotificationForNewOrders:  last=" + lastProviderOrdersCount + " size:" +orders.size());
+        if(lastProviderOrdersCount < orders.size()){
+            Utils.createNotification(this, CHANNEL_ID, getString(R.string.new_order_received_title), getString(R.string.new_order_received_content) , "subject" );
+            SharedPreferences.Editor editor = getSharedPreferences("lastProviderOrdersCount", MODE_PRIVATE).edit();
+            editor.putInt("lastProviderOrdersCount", orders.size());
+            editor.apply();
+        }
+
     }
 
 
@@ -365,7 +384,6 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         });
         dialog.show();
     }
-
 
 }
 

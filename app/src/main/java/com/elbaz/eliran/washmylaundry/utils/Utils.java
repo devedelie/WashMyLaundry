@@ -1,15 +1,20 @@
 package com.elbaz.eliran.washmylaundry.utils;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.controllers.activities.ProviderOrdersActivity;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
@@ -108,14 +113,31 @@ public class Utils {
         return Math.round(distance[0]);
     }
 
-    public static void createNotification(Context context, String channel, String title, String content, String subject ){
-        Notification notification = new NotificationCompat.Builder(context, channel)
+    public static void createNotification(Context context, String channelId, String title, String content, String subject ) {
+        // Create an explicit intent for an Activity in your app
+        Intent intent = new Intent(context, ProviderOrdersActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+
+        //  Create a notificationManager in order to create notification channel
+        NotificationManager manager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        // If the version is >= from version O, then create a notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(channelId, "notification", NotificationManager.IMPORTANCE_DEFAULT);
+            manager.createNotificationChannel(channel);
+        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(title)
-                .setContentText(content)
+                .setContentText(subject)
                 .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(subject))
-                .build();
+                        .bigText(content))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
 
+        manager.notify(1, builder.build());
     }
 }

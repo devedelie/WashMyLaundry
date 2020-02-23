@@ -131,4 +131,8 @@
     <string name="review_hint_text">An excellent experience, I will definitely re-order his services again!</string>
     <string name="hi_user">Hi %1$s</string>
     <string name="tell_us_how_was_your_order_with">Tell us how was your order with: %1$s</string>
+
+    <!-- Notifications -->
+    <string name="new_order_received_title">You have a new order awaiting for approval</string>
+    <string name="new_order_received_content">Go to your orders list</string>
 </resources>
