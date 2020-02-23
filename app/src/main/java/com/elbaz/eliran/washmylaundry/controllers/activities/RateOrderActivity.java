@@ -132,7 +132,7 @@ public class RateOrderActivity extends BaseActivity {
         String review = reviewText.getText().toString();
         // Register/Update data into existing Document
         DocumentReference updateProviderDocument = ProviderHelper.getProviderDocument(mOrders.getPid());
-        updateProviderDocument.update("providerRating", FieldValue.increment(starsRate),"reviewsList", FieldValue.arrayUnion(review)).addOnSuccessListener(new OnSuccessListener<Void>() {
+        updateProviderDocument.update("providerRating", FieldValue.increment(starsRate),"reviewsList", FieldValue.arrayUnion(review), "orderIsRated" , true).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Submit review");
