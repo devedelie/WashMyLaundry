@@ -211,7 +211,6 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     }
 
     private void test() {
-
     }
 
     // ------------------
@@ -225,9 +224,6 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         // Set the current bottom- view (Delivery Switch / information)
         switch (position) {
             case 0:
-                informationContainer.setVisibility(View.GONE);
-                deliverySwitchContainer.setVisibility(View.VISIBLE);
-                break;
             case 1:
                 informationContainer.setVisibility(View.GONE);
                 deliverySwitchContainer.setVisibility(View.VISIBLE);
