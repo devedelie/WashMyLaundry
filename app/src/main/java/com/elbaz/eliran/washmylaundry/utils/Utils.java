@@ -1,10 +1,13 @@
 package com.elbaz.eliran.washmylaundry.utils;
 
+import android.app.Notification;
 import android.content.Context;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.google.android.gms.maps.model.LatLng;
@@ -103,5 +106,16 @@ public class Utils {
         }
         Log.d(TAG, "calculateDistance: Distance" + Math.round(distance[0]) );
         return Math.round(distance[0]);
+    }
+
+    public static void createNotification(Context context, String channel, String title, String content, String subject ){
+        Notification notification = new NotificationCompat.Builder(context, channel)
+                .setSmallIcon(R.drawable.ic_logo)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(subject))
+                .build();
+
     }
 }
