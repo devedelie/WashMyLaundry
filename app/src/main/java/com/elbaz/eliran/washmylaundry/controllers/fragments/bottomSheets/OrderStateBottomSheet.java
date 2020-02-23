@@ -18,6 +18,7 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseBottomSheet;
+import com.elbaz.eliran.washmylaundry.controllers.activities.ChatActivity;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
@@ -118,7 +119,10 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
     @OnClick(R.id.order_state_chat_icon)
     public void onChatClick(){
         // Start Chat
-        ChatBottomSheet.newInstance("orderObject", new Gson().toJson(mOrders)).show(getActivity().getSupportFragmentManager(), "chat");
+//        ChatBottomSheet.newInstance("orderObject", new Gson().toJson(mOrders)).show(getActivity().getSupportFragmentManager(), "chat");
+        Intent intent = new Intent(getActivity().getApplicationContext(), ChatActivity.class);
+        intent.putExtra("orderObject", new Gson().toJson(mOrders));
+        startActivity(intent);
     }
 
     @OnClick (R.id.order_state_waiting_orders_btn)

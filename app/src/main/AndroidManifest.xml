@@ -91,6 +91,15 @@
             android:screenOrientation="portrait">
 
         </activity>
+
+        <!-- ChatActivity -->
+        <activity
+            android:name=".controllers.activities.ChatActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+
+        </activity>
+
     </application>
 
 </manifest>
