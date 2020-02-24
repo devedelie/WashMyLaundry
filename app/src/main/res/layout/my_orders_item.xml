@@ -37,22 +37,20 @@
                 android:layout_marginBottom="3dp"
                 android:layout_gravity="top"
                 android:layout_marginStart="5dp"/>
-            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            <TextView
                 android:id="@+id/my_orders_recyclerView_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_orders_recyclerView_date"
                 android:layout_marginBottom="3dp"
-                app:fontName="Roboto_Medium"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"/>
-            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            <TextView
                 android:id="@+id/my_orders_recyclerView_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_order_recyclerView_price"
                 android:layout_marginBottom="3dp"
-                app:fontName="Roboto_Medium"
                 android:layout_gravity="bottom"
                 android:layout_marginStart="5dp"/>
         </LinearLayout>

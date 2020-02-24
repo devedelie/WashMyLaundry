@@ -28,7 +28,7 @@
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:layout_weight="0.2"/>
             <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                app:fontName="Roboto_Medium"
+                app:fontName="Roboto_Light"
                 android:id="@+id/chat_top_bar_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
         android:layout_above="@id/chat_layout_add_message_container">
         <!-- MESSAGE RECYCLER VIEW EMPTY -->
         <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-            app:fontName="Roboto_Medium"
+            app:fontName="Roboto_Light"
             android:id="@+id/chat_layout_text_view_recycler_view_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

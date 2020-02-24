@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:layout_weight="7">
 
                 <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
@@ -41,37 +41,45 @@
                     android:layout_height="wrap_content"
                     android:text="Username: "/>
 
-                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                    app:fontName="Roboto_Bold"
+                <TextView
                     android:id="@+id/id_details_email_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email: "/>
+                    android:text="Email: "
+                    android:layout_marginStart="5dp"
+                    android:drawableStart="@drawable/ic_email_black_24dp"
+                    android:drawablePadding="5dp"/>
 
-                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                    app:fontName="Roboto_Bold"
+                <TextView
                     android:id="@+id/id_details_phone_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone: "/>
+                    android:text="Phone: "
+                    android:layout_marginStart="5dp"
+                    android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                    android:drawablePadding="5dp"/>
 
-                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                    app:fontName="Roboto_Bold"
+                <TextView
                     android:id="@+id/id_details_address_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Address: "/>
+                    android:text="Address: "
+                    android:layout_marginStart="5dp"
+                    android:drawableStart="@drawable/ic_home_black_24dp"
+                    android:drawablePadding="5dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                        app:fontName="Roboto_Bold"
+                    <TextView
                         android:id="@+id/id_details_status_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status: " />
+                        android:text="Status: "
+                        android:layout_marginStart="5dp"
+                        android:drawableStart="@drawable/ic_flag_black_24dp"
+                        android:drawablePadding="5dp"/>
                     <ImageView
                         android:id="@+id/provider_availability_img"
                         android:layout_width="18dp"

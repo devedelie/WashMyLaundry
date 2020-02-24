@@ -321,7 +321,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         if(provider.getProviderAddress() == null){addressText.setText(R.string.provider_address_not_available);}
         else{addressText.setText(provider.getProviderAddress());}
         // Status //
-        if(provider.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green); statusSwitch.setChecked(true);}
+        if(provider.getIsAvailable()) {statusText.setText(R.string.provider_status_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_green); statusSwitch.setChecked(true); availabilityOnOffText.setText(getString(R.string.provider_availability_on));}
         else{statusText.setText(R.string.provider_status_not_available); statusIndicator.setImageResource(R.drawable.ic_button_icon_red); statusSwitch.setChecked(false);}
         // Delivery //
         if(provider.getIsDelivering()) {deliveryOnOffText.setText(R.string.provider_delivery_on);  deliverySwitch.setChecked(true);}
