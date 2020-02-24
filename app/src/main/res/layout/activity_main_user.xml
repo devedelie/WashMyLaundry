@@ -100,8 +100,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginStart="20dp"
                             android:layout_gravity="center_vertical" />
-                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                            app:fontName="Roboto_Light"
+                        <TextView
                             android:id="@+id/bottom_menu_delivery_text_on_off"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
