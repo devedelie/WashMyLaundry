@@ -31,7 +31,8 @@
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/ic_info_black_24dp"
                 android:tint="@color/colorPrimaryDark" />
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/bottom_menu_current_available_providers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -20,14 +20,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your Order With:"
-            android:textStyle="bold"
             android:textSize="25sp"
             android:gravity="center_horizontal"/>
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Medium"
             android:id="@+id/order_state_provider_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,11 +61,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="15dp">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Address:"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_user_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -84,11 +87,11 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp">
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Order Details"
-            android:textStyle="bold"
             android:textSize="18sp"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,13 +99,15 @@
             android:orientation="horizontal"
             android:weightSum="10"
             android:layout_marginTop="10dp">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_laundry_bags_amount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/reservation_laundry_bags_amount"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_laundry_bags_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -133,12 +138,14 @@
             android:orientation="horizontal"
             android:weightSum="10"
             android:layout_marginTop="10dp">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Subtotal"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_subtotal_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -154,12 +161,14 @@
             android:orientation="horizontal"
             android:weightSum="10"
             android:layout_marginTop="10dp">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Fees"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_laundry_fee_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -177,12 +186,14 @@
             android:weightSum="10"
             android:layout_marginTop="10dp"
             android:visibility="gone">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Ironing"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_ironing_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -205,7 +216,8 @@
                 android:layout_height="wrap_content"
                 android:text="Delivery"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_delivery_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -236,12 +248,14 @@
             android:orientation="horizontal"
             android:weightSum="10"
             android:layout_marginTop="10dp">
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Total"
                 android:layout_weight="8.5"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/order_state_total_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -337,7 +351,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginStart="15dp">
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Contact your provider"
@@ -364,7 +379,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginStart="15dp">
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Start chat"

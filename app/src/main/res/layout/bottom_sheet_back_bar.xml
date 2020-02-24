@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -26,7 +28,8 @@
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:layout_weight="0.2"/>
 
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/bottom_sheet_top_bar_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,8 +38,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="25dp"
-                android:layout_weight="0.8">
-            </TextView>
+                android:layout_weight="0.8"/>
 
         </LinearLayout>
 

@@ -21,10 +21,10 @@
         android:orientation="vertical">
 
         <!-- Personal Details Title-->
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
             android:focusable="true"

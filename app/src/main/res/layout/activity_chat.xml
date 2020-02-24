@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--Import of TopBar-->
     <LinearLayout
@@ -27,7 +27,8 @@
                 android:tint="@color/cardview_dark_background"
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:layout_weight="0.2"/>
-            <TextView
+            <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                app:fontName="Roboto_Medium"
                 android:id="@+id/chat_top_bar_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,8 +37,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="25dp"
-                android:layout_weight="0.8">
-            </TextView>
+                android:layout_weight="0.8"/>
         </LinearLayout>
 
         <View
@@ -56,7 +56,8 @@
         android:layout_below="@id/top_title_bar"
         android:layout_above="@id/chat_layout_add_message_container">
         <!-- MESSAGE RECYCLER VIEW EMPTY -->
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Medium"
             android:id="@+id/chat_layout_text_view_recycler_view_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

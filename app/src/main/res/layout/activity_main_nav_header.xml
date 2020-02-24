@@ -15,46 +15,48 @@
         android:orientation="vertical">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
-        android:layout_marginStart="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:padding="10dp"
+            android:layout_marginStart="10dp">
 
-        <!-- PROFILE IMAGE -->
-        <ImageView
-            android:id="@+id/navigation_header_image"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:srcCompat="@drawable/ic_anon_user_48dp"/>
+            <!-- PROFILE IMAGE -->
+            <ImageView
+                android:id="@+id/navigation_header_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/ic_anon_user_48dp"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/navigation_header_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="2dp"
-        android:text="Your Name"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Medium"
+                    android:id="@+id/navigation_header_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:text="Your Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/navigation_header_email"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Your Email@gmail.com"/>
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Medium"
+                    android:id="@+id/navigation_header_email"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Email@gmail.com"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

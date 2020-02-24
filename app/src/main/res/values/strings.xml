@@ -66,6 +66,11 @@
     <!-- MainProvider Edit-->
     <string name="provider_edit_about_me">About me: I live in Paris and work from home. I have plenty of free time and am looking for opportunities for extra monthly income.</string>
 
+    <!-- MainUserActivity -->
+    <string name="for_contacting_your_provider">For contacting your provider, please refer the contact options inside each card of your orders</string>
+    <string name="main_user_delivery_service">Delivery Service</string>
+    <string name="main_user_display_results_with_delivery_option">Display results with delivery option</string>
+
     <!--BottomNavigation-->
     <string name="tab_name_1">Map View</string>
     <string name="tab_name_2">List View</string>
@@ -137,4 +142,5 @@
     <!-- Notifications -->
     <string name="new_order_received_title">You have a new order awaiting for approval</string>
     <string name="new_order_received_content">Go to your orders list</string>
+
 </resources>

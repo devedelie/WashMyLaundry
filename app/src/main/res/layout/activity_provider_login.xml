@@ -25,14 +25,13 @@
             android:layout_marginStart="@dimen/default_large_margin" />
 
         <!-- TITLE -->
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/provider_login_title"
             android:textSize="35sp"
-            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"/>
-
 
 
         <!-- BUTTONS CONTAINER -->
@@ -150,7 +149,8 @@
         android:layout_marginBottom="12dp"
         android:layout_marginStart="20dp"
         android:padding="5dp">
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Need a Wash? Login Here"

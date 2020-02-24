@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!--TopBar-->
@@ -22,16 +23,15 @@
             android:layout_weight="0.2"
             android:layout_marginTop="5dp"
             android:layout_marginStart="10dp"/>
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Medium"
             android:id="@+id/provider_order_activity_bar_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17sp"
-            android:textStyle="bold"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_weight="0.8">
-        </TextView>
+            android:layout_weight="0.8"/>
     </LinearLayout>
 
     <FrameLayout android:layout_width="match_parent"
@@ -96,7 +96,8 @@
         android:orientation="vertical">
 
         <!-- MESSAGE RECYCLER VIEW EMPTY -->
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Medium"
             android:id="@+id/activity_provider_orders__text_view_recycler_view_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

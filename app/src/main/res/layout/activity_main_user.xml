@@ -56,11 +56,12 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:src="@drawable/ic_info_outline_black_24dp"/>
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:text="For contacting your provider, please refer the contact options inside each card of your orders"/>
+                        android:text="@string/for_contacting_your_provider"/>
                 </LinearLayout>
 
                 <!--Line Break-->
@@ -91,19 +92,20 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:layout_weight="7.5">
-                        <TextView
+                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                            app:fontName="Roboto_Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delivery Service"
+                            android:text="@string/main_user_delivery_service"
                             android:layout_marginBottom="5dp"
                             android:layout_marginStart="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:textStyle="bold"/>
-                        <TextView
+                            android:layout_gravity="center_vertical" />
+                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                            app:fontName="Roboto_Medium"
                             android:id="@+id/bottom_menu_delivery_text_on_off"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Display results with delivery option"
+                            android:text="@string/main_user_display_results_with_delivery_option"
                             android:layout_marginStart="20dp"
                             android:layout_gravity="center_vertical" />
                     </LinearLayout>

@@ -42,47 +42,6 @@
             android:layout_margin="10dip"
             android:textColor="@color/colorPrimaryDark"/>
 
-<!--        &lt;!&ndash; I AM Selection Container&ndash;&gt;-->
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:orientation="horizontal"-->
-<!--            android:gravity="center_horizontal"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:weightSum="1">-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/i_need_a_wash_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="I NEED A WASH"-->
-<!--                android:textColor="@color/colorPrimaryText"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginEnd="15dp"/>-->
-
-<!--            <Switch-->
-<!--                android:id="@+id/washer_switch"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:switchMinWidth="75dp"-->
-<!--                android:switchPadding="15sp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:trackTint="@color/cardview_dark_background"-->
-<!--                android:thumbTint="@color/colorAccent"-->
-<!--                android:layout_weight="0.33"/>-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/i_am_provider_text"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="I AM A PROVIDER"-->
-<!--                android:textColor="@color/colorPrimaryText"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:layout_marginStart="15dp"/>-->
-
-<!--        </LinearLayout>-->
-
         <!-- BUTTONS CONTAINER -->
         <LinearLayout
             android:id="@+id/all_login_buttons_layout"

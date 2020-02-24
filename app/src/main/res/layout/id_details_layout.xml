@@ -34,43 +34,43 @@
                 android:layout_marginStart="20dp"
                 android:layout_weight="7">
 
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Bold"
                     android:id="@+id/id_details_username_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Username: "/>
 
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Bold"
                     android:id="@+id/id_details_email_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Email: "/>
 
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Bold"
                     android:id="@+id/id_details_phone_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Phone: "/>
 
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Bold"
                     android:id="@+id/id_details_address_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:text="Address: "/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Bold"
                         android:id="@+id/id_details_status_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:text="Status: " />
                     <ImageView
                         android:id="@+id/provider_availability_img"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_my_orders"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +13,8 @@
         android:orientation="vertical">
 
         <!-- MESSAGE RECYCLER VIEW EMPTY -->
-        <TextView
+        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+            app:fontName="Roboto_Medium"
             android:id="@+id/my_orders_recycler_view_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
