@@ -205,7 +205,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             // ----- Availability Switch -------//
             if(mProvider.getProviderAddress() == null || mProvider.getProviderAddress().isEmpty()){
                 statusSwitch.setClickable(false);
-                alertDialogInformation("Address is Missing !", "You need to add an address before you can go available");
+                alertDialogInformation(getString(R.string.provider_missing_address_title), getString(R.string.provider_missing_address_content));
             }else {
                 statusSwitch.setClickable(true);
                 statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -261,7 +261,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 startActivity(intent);
                 break;
             case 1:
-                 // settings action
+                 // Profile action
+                onEditClick();
                 break;
             case 2:
                 signOutUserFromFirebase(); // logout action

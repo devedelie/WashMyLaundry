@@ -192,7 +192,7 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         switch (order){
             case 0:
                 // Your orders
-                test();
+                pager.setCurrentItem(2);
                 break;
             case 1:
                 // Edit Profile action
