@@ -51,6 +51,8 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<List<Provider>> mProvidersListMutableLiveData = new MutableLiveData<>();
 
     public MutableLiveData<List<Provider>> getProvidersList(){
+//        mProvidersListMutableLiveData = mUserDataRepository.getProvidersList();
+//        return mProvidersListMutableLiveData;
         return mUserDataRepository.getProvidersList();
     }
 
@@ -66,11 +68,14 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<List<Orders>> mOrdersList = new MutableLiveData<>();
 
     public MutableLiveData<List<Orders>> getOrdersList(){
+//        mOrdersList = mUserDataRepository.getOrdersList();
+//        return mOrdersList;
         return mUserDataRepository.getOrdersList();
     }
 
     public void setOrderList(String uid){
         mUserDataRepository.setOrderList(uid);
     }
+
 
 }
