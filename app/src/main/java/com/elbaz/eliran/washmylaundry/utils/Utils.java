@@ -60,13 +60,8 @@ public class Utils {
     }
 
     public static double rating (double rating, int listSize ) {
-//        double totalRatings=0;
-//        for(int i =0; i < rating.size() ; i++){
-//            totalRatings = rating.get(i);
-//        }
         // Calculate rating average
         double newRating = rating / listSize;
-        Log.d(TAG, "rating: " + rating + " / " + listSize + " = " +newRating );
         return newRating;
     }
 
@@ -101,15 +96,14 @@ public class Utils {
     }
 
     public static int calculateDistance(LatLng userLatLng, LatLng providerLatLng){
-        Log.d(TAG, "calculateDistance: " + userLatLng.latitude + " " + userLatLng.longitude+ " " + providerLatLng.latitude+ " " + providerLatLng.longitude);
+//        Log.d(TAG, "calculateDistance: " + userLatLng.latitude + " " + userLatLng.longitude+ " " + providerLatLng.latitude+ " " + providerLatLng.longitude);
         float[] distance = new float[1];
         try{
             if(providerLatLng.latitude !=0 && providerLatLng.longitude !=0 && userLatLng.latitude !=0 && userLatLng.longitude !=0){
                 Location.distanceBetween(userLatLng.latitude, userLatLng.longitude, providerLatLng.latitude, providerLatLng.longitude, distance); }
         }catch (Exception e){
-            Log.d(TAG, "calculateDistance Error: " +e);
         }
-        Log.d(TAG, "calculateDistance: Distance" + Math.round(distance[0]) );
+//        Log.d(TAG, "calculateDistance: Distance" + Math.round(distance[0]) );
         return Math.round(distance[0]);
     }
 
