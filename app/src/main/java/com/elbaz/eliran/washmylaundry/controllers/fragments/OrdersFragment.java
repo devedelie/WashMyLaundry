@@ -123,7 +123,7 @@ public class OrdersFragment extends BaseFragment {
                 @Override
                 public int compare(Orders orders, Orders t1) {
                     int sort;
-                    sort = orders.getReservationDate().compareTo(t1.getReservationDate());
+                    sort = t1.getReservationDate().compareTo(orders.getReservationDate());
                     return sort;
                 }
             });
