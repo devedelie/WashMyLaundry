@@ -143,4 +143,9 @@
     <string name="new_order_received_title">You have a new order awaiting for approval</string>
     <string name="new_order_received_content">Go to your orders list</string>
 
+
+    <!--Facebook Login-->
+    <string name="facebook_application_id">2528952484009671</string>
+    <string name="fb_login_protocol_scheme">fb2528952484009671</string>
+
 </resources>
