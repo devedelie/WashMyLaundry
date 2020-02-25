@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity{
                                 }else { // Else -- > Alert message to say that a user with the same email is registered as a USER -- > use another email
                                     Log.d(TAG, "onComplete: -> User exist in Firestore " +mListOfDocuments.size());
                                     signOutUserFromFirebaseOnly();
-                                    alertDialogAction(getString(R.string.connection_multiple_accounts_warning) , getString(R.string.connection_multiple_provider));
+                                    alertDialogAction(getString(R.string.connection_multiple_accounts_warning) , getString(R.string.connection_multiple_user));
                                 }
                             }
                         }
