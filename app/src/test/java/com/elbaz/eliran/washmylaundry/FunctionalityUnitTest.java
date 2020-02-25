@@ -1,10 +1,5 @@
 package com.elbaz.eliran.washmylaundry;
 
-import android.content.Context;
-
-import androidx.fragment.app.FragmentManager;
-
-import com.elbaz.eliran.washmylaundry.adapters.PageAdapter;
 import com.elbaz.eliran.washmylaundry.models.Constants;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 
@@ -23,8 +18,7 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class FunctionalityUnitTest {
-    Context mContext;
-    FragmentManager mFragmentManager;
+
 
     @Test
     public void todayDate_verifyFormat_isCorrect() throws Exception {
@@ -84,12 +78,4 @@ public class FunctionalityUnitTest {
         assertEquals(Utils.rating(95, 80), expectedStars, 0.5 ); // 1.11
     }
 
-
-    @Test
-    public void PageAdapter_TestNumberOfFragments_assertCorrectNumber () throws Exception{
-        // Create a new PageAdapter instance
-        PageAdapter pageAdapter = new PageAdapter(mContext, mFragmentManager );
-        // Check that the method returns 3 as the number of fragments to show
-        assertEquals(3, pageAdapter.getCount());
-    }
 }
