@@ -54,7 +54,7 @@ public class MapViewFragment extends BaseFragment implements OnMapReadyCallback,
     private TextView availableProvidersStatus;
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
-    private static final float DEFAULT_ZOOM = 16f ;
+    private static final float DEFAULT_ZOOM = 16.5f ;
     private GoogleMap mMap;
     private LatLng currentLocation;
     private UserViewModel mUserViewModel;
