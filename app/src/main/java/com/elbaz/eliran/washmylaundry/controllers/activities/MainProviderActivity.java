@@ -83,6 +83,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     private MyOrdersAdapter mMyOrdersAdapter;
     private SharedPreferences mSharedPreferences;
     private int lastProviderOrdersCount , currentProviderOrdersCount;
+    static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,11 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         configureDrawerLayoutAndNavigationView();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        active = true;
+    }
 
     @Override
     protected void onResume() {
@@ -384,6 +390,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             }
         });
         dialog.show();
+    }
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        active = false;
     }
 
 }

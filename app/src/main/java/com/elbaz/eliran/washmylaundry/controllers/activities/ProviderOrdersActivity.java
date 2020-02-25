@@ -1,5 +1,6 @@
 package com.elbaz.eliran.washmylaundry.controllers.activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
@@ -122,7 +123,13 @@ public class ProviderOrdersActivity extends BaseActivity {
 
     @OnClick(R.id.provider_order_activity_back_button)
     public void onBackBtnClick(){
-        finish();
+        if(MainProviderActivity.active){
+            finish();
+        } else {
+            Intent intent = new Intent(this, MainProviderActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.activity_provider_orders_waiting_orders_btn)
