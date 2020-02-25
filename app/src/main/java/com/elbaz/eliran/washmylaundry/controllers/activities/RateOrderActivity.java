@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Orders;
@@ -132,9 +133,11 @@ public class RateOrderActivity extends BaseActivity {
         String review = reviewText.getText().toString();
         // Register/Update data into existing Document
         DocumentReference updateProviderDocument = ProviderHelper.getProviderDocument(mOrders.getPid());
-        updateProviderDocument.update("providerRating", FieldValue.increment(starsRate),"reviewsList", FieldValue.arrayUnion(review), "orderIsRated" , true).addOnSuccessListener(new OnSuccessListener<Void>() {
+        updateProviderDocument.update("providerRating", FieldValue.increment(starsRate),"reviewsList", FieldValue.arrayUnion(review)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
+                DocumentReference updaeOrderDocument = OrdersHelper.getOrderDocument(mOrders.getUniqueOrderId());
+                updaeOrderDocument.update("orderIsRated" , true);
                 Log.d(TAG, "onSuccess: Submit review");
                 finish();
             }

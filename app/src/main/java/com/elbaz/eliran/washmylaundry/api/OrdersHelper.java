@@ -3,6 +3,7 @@ package com.elbaz.eliran.washmylaundry.api;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
@@ -16,6 +17,10 @@ public class OrdersHelper {
 
     public static CollectionReference getOrdersCollection(){
         return FirebaseFirestore.getInstance().collection(ORDERS_COLLECTION);
+    }
+
+    public static DocumentReference getOrderDocument(String uniqueId){
+        return OrdersHelper.getOrdersCollection().document(uniqueId);
     }
 
     // --- CREATE ---
