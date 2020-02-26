@@ -31,7 +31,6 @@ import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -214,8 +213,7 @@ public class ReservationActivity extends BaseActivity {
                 ProviderHelper.updateOrdersList(mProvider.getPid(), providerOrdersList).addOnFailureListener(onFailureListener());
 
                 // End the operation with a message
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG);
-                snackbar.show();
+                CurrentUserDataRepository.getInstance().setOrderSuccess(1);
                 finish();
             }
         });

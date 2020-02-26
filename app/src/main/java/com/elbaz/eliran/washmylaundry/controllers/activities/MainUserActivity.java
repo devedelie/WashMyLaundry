@@ -16,6 +16,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -26,9 +27,11 @@ import com.elbaz.eliran.washmylaundry.adapters.PageAdapter;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditUserBottomSheet;
 import com.elbaz.eliran.washmylaundry.models.User;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -46,7 +49,6 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     @BindView(R.id.information_container) LinearLayout informationContainer;
     //For Data
     private Context mContext;
-    private View rootView;
     public static User mUser;
     private UserViewModel mUserViewModel;
 
@@ -54,8 +56,6 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-        // Get RootView for snackBarMessage
-        rootView = getWindow().getDecorView().getRootView();
 
         configureViewModel();
         configureDrawerLayoutAndNavigationView();
@@ -89,6 +89,13 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
 
     private void configureDataObserver() {
         mUserViewModel.getCurrentUserData().observe(this, this::updateObjectWithData);
+        CurrentUserDataRepository.getInstance().getOrderSuccess().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        });
     }
 
     private void updateObjectWithData(User user) {

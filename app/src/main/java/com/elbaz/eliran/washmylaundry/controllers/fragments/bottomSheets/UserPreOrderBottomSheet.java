@@ -152,6 +152,7 @@ public class UserPreOrderBottomSheet extends BottomSheetDialogFragment {
             intent.putExtra("bagsNumber", bagsNumberInt);
             intent.putExtra("providerObject", new Gson().toJson(mProvider));
             startActivity(intent);
+            dismiss();
         }else{
             Log.d(TAG, "onContinueBtnClick: "); // invoke error dialog to set address before reservation
             displayMobileDataSettingsDialog(getActivity(), getActivity());

@@ -58,6 +58,19 @@ public class CurrentUserDataRepository {
     }
 
 
+    //-----------------------
+    // Order Success Observer
+    //-----------------------
+
+    private MutableLiveData<Integer> mOrderSuccess = new MutableLiveData<>();
+
+    public LiveData<Integer> getOrderSuccess(){
+        return mOrderSuccess;
+    }
+
+    public void setOrderSuccess(Integer integer){
+        integer++; this.mOrderSuccess.setValue(integer);
+    }
 
     // --------------------
     // REST REQUEST
