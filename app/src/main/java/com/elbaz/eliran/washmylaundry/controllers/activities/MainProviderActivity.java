@@ -151,7 +151,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 for(int i = 0 ; i < messages.size(); i++){
                     if(!messages.get(i).isMessageReceived()){
                         Log.d(TAG, "onChanged: Message RECEIVED");
-                        Utils.createNotification(MainProviderActivity.this, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
+                        Utils.createNotification(MainProviderActivity.this, ProviderOrdersActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
                         // Mark the message as received in Firestore
                         MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
 
@@ -170,7 +170,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         lastProviderOrdersCount= mSharedPreferences.getInt("lastProviderOrdersCount", 0);
         Log.d(TAG, "manageNotificationForNewOrders:  last=" + lastProviderOrdersCount + " size:" +orders.size());
         if(lastProviderOrdersCount < orders.size()){
-            Utils.createNotification(this, CHANNEL_ID, getString(R.string.new_order_received_title), getString(R.string.new_order_received_content) , "subject" );
+            Utils.createNotification(this, ProviderOrdersActivity.class, CHANNEL_ID, getString(R.string.new_order_received_title), getString(R.string.new_order_received_content) , "subject" );
             SharedPreferences.Editor editor = getSharedPreferences("lastProviderOrdersCount", MODE_PRIVATE).edit();
             editor.putInt("lastProviderOrdersCount", orders.size());
             editor.apply();

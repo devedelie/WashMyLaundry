@@ -2,6 +2,7 @@ package com.elbaz.eliran.washmylaundry.controllers.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.MessageHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
+import com.elbaz.eliran.washmylaundry.controllers.activities.MainUserActivity;
 import com.elbaz.eliran.washmylaundry.controllers.activities.RateOrderActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.OrderStateBottomSheet;
+import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
+import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.gson.Gson;
@@ -31,6 +37,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.ContentValues.TAG;
+import static com.elbaz.eliran.washmylaundry.models.Constants.CHANNEL_ID;
+
 /**
  * Created by Eliran Elbaz on 11-Feb-20.
  */
@@ -39,6 +48,7 @@ public class OrdersFragment extends BaseFragment {
     @BindView(R.id.my_orders_recycler_view_empty) TextView emptyListText;
     private MyOrdersAdapter mMyOrdersAdapter;
     private UserViewModel mUserViewModel;
+    private CurrentUserSharedViewModel mUserSharedViewModel;
     private List<Orders> mOrdersList= new ArrayList<>();
     private List<Orders> mOrdersFilteredList;
 
@@ -64,6 +74,39 @@ public class OrdersFragment extends BaseFragment {
                 mOrdersList.clear();
                 mOrdersList.addAll(orders);
                 updateUI(orders);
+                // Activate listeners for all existing chat channels (with UniqueOrderId)
+                for (int i = 0 ; i < orders.size() ; i++){
+                    activateChatListeners(orders.get(i).getUniqueOrderId());
+                }
+            }
+        });
+    }
+
+    // Activate chat listeners by chat channel
+    private void activateChatListeners(String chatChannel){
+        Log.d(TAG, "activateChatListeners: " + chatChannel);
+        mUserSharedViewModel.setMessagesList(chatChannel);
+        getMessagesFromListener(chatChannel);
+    }
+
+    private void getMessagesFromListener(String uniqueOrderId){
+        mUserSharedViewModel.getMessagesList().observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(List<Message> messages) {
+                // Receive message list and filter isReceived / isSeen
+                for(int i = 0 ; i < messages.size(); i++){
+                    if(!messages.get(i).isMessageReceived()){
+                        Log.d(TAG, "onChanged: Message RECEIVED");
+                        Utils.createNotification(getActivity().getApplicationContext(), MainUserActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
+                        // Mark the message as received in Firestore
+                        MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
+
+                    }
+                    if(!messages.get(i).isMessageSeen()){
+
+                        Log.d(TAG, "onChanged: Message SEEN");
+                    }
+                }
             }
         });
     }
@@ -76,6 +119,8 @@ public class OrdersFragment extends BaseFragment {
 
     private void configureViewModel() {
         mUserViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        mUserSharedViewModel = new ViewModelProvider(this).get(CurrentUserSharedViewModel.class);
+        mUserSharedViewModel.init();
     }
 
     @Override

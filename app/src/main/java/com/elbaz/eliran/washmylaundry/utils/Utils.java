@@ -14,7 +14,6 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.elbaz.eliran.washmylaundry.R;
-import com.elbaz.eliran.washmylaundry.controllers.activities.ProviderOrdersActivity;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
@@ -107,9 +106,9 @@ public class Utils {
         return Math.round(distance[0]);
     }
 
-    public static void createNotification(Context context, String channelId, String title, String content, String subject ) {
+    public static void createNotification(Context context, Class classForIntent,  String channelId, String title, String content, String subject ) {
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(context, ProviderOrdersActivity.class);
+        Intent intent = new Intent(context, classForIntent);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
