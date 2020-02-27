@@ -3,8 +3,8 @@ package com.elbaz.eliran.washmylaundry.api;
 import androidx.annotation.Nullable;
 
 import com.elbaz.eliran.washmylaundry.models.Message;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
 
 /**
@@ -26,16 +26,26 @@ public class MessageHelper {
     // --- UPDATE ---
 
 
-    public static Task<DocumentReference> createMessageForChat(String id, String name, @Nullable String imageUrl, String textMessage, String chat, boolean isProvider){
+    public static Task<Void> createMessageForChat(String id, String name, @Nullable String imageUrl, String textMessage, String chat, boolean isProvider){
 
+        // Create Message unique id with full date
+        String messageId = Utils.getDateForOrderId();
         // 1 - Create the Message object
-        Message message = new Message(id, name, imageUrl, textMessage, isProvider);
+        Message message = new Message(id, name, imageUrl, textMessage, isProvider, messageId);
 
         // 2 - Store Message to Firestore
         return ChatHelper.getChatCollection()
                 .document(chat)
                 .collection(COLLECTION_NAME)
-                .add(message);
+                .document(messageId)
+                .set(message);
     }
+
+    // --- UPDATE ---
+
+    public static Task<Void> updateMessageReceived(String uniqueOrderId, String dateCreatedId){
+        return ChatHelper.getChatCollection().document(uniqueOrderId).collection(COLLECTION_NAME).document(dateCreatedId).update("messageReceived", true);
+    }
+
 
 }
