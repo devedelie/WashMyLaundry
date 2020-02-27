@@ -151,7 +151,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 for(int i = 0 ; i < messages.size(); i++){
                     if(!messages.get(i).isMessageReceived()){
                         Log.d(TAG, "onChanged: Message RECEIVED");
-                        Utils.createNotification(MainProviderActivity.this, CHANNEL_ID, getString(R.string.title_new_message), getString(R.string.content_message_from, messages.get(i).getName(), messages.get(i).getMessageDateId()), messages.get(i).getMessage());
+                        Utils.createNotification(MainProviderActivity.this, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
                         // Mark the message as received in Firestore
                         MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
 

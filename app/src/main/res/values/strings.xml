@@ -142,8 +142,8 @@
     <!-- Notifications -->
     <string name="new_order_received_title">You have a new order awaiting for approval</string>
     <string name="new_order_received_content">Go to your orders list</string>
-    <string name="title_new_message">You have a new message</string>
-    <string name="content_message_from">From: %1$s, regarding your reservation number: %2$s </string>
+    <string name="title_new_message">A new message from: %1$s</string>
+    <string name="content_message_from">Message: %1$s </string>
 
 
     <!--Facebook Login-->

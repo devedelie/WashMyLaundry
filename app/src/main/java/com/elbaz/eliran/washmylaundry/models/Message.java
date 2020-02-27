@@ -37,6 +37,9 @@ public class Message {
     @Nullable
     public String getUrlImage() { return urlImage; }
     public boolean isProvider() { return isProvider; }
+    public boolean isMessageReceived() { return isMessageReceived; }
+    public boolean isMessageSeen() { return isMessageSeen; }
+    public String getMessageDateId() { return messageDateId; }
 
     // --- SETTERS ---
     public void setId(String id) { this.id = id; }
@@ -45,28 +48,7 @@ public class Message {
     public void setDateCreated(Date dateCreated) { this.dateCreated = dateCreated; }
     public void setUrlImage(@Nullable String urlImage) { this.urlImage = urlImage; }
     public void setProvider(boolean provider) { isProvider = provider; }
-
-    public boolean isMessageReceived() {
-        return isMessageReceived;
-    }
-
-    public void setMessageReceived(boolean messageReceived) {
-        isMessageReceived = messageReceived;
-    }
-
-    public boolean isMessageSeen() {
-        return isMessageSeen;
-    }
-
-    public void setMessageSeen(boolean messageSeen) {
-        isMessageSeen = messageSeen;
-    }
-
-    public String getMessageDateId() {
-        return messageDateId;
-    }
-
-    public void setMessageDateId(String messageDateId) {
-        this.messageDateId = messageDateId;
-    }
+    public void setMessageReceived(boolean messageReceived) { isMessageReceived = messageReceived; }
+    public void setMessageSeen(boolean messageSeen) { isMessageSeen = messageSeen; }
+    public void setMessageDateId(String messageDateId) { this.messageDateId = messageDateId; }
 }
