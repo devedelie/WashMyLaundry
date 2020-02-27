@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
+
+import java.util.List;
 
 /**
  * Created by Eliran Elbaz on 08-Feb-20.
@@ -36,19 +39,19 @@ public class CurrentUserSharedViewModel extends ViewModel {
         mCurrentUserDataRepository.setCurrentUserId();
     }
 
-//    //-------------------------
-//    // GET/SET User Object
-//    //-------------------------
-//
-//    private MutableLiveData<User> mUserMutableLiveData = new MutableLiveData<>();
-//
-//    public LiveData<User> getCurrentUserData(){
-//        return mCurrentUserDataRepository.getCurrentUserData();
-//    }
-//
-//    public void setCurrentUserData(){
-//        mCurrentUserDataRepository.setCurrentUserData();
-//    }
+    //-------------------------
+    // GET/SET User Chat
+    //-------------------------
+
+    private MutableLiveData<List<Message>> mMessagesList = new MutableLiveData<>();
+
+    public LiveData<List<Message>> getMessagesList(){
+        return mCurrentUserDataRepository.getMessageList();
+    }
+
+    public void setMessagesList(String chatChannel){
+        mCurrentUserDataRepository.setMessagesList(chatChannel);
+    }
 
 
 }

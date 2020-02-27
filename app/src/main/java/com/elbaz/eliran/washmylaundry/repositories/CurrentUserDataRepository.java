@@ -1,18 +1,32 @@
 package com.elbaz.eliran.washmylaundry.repositories;
 
+import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.elbaz.eliran.washmylaundry.api.ChatHelper;
+import com.elbaz.eliran.washmylaundry.models.Message;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Eliran Elbaz on 08-Feb-20.
  */
 public class CurrentUserDataRepository {
     private static CurrentUserDataRepository sInstance;
+    private List<Message> mMessages;
 
     // A static variable to be used as a reference instead of calling FirebaseAuth.getInstance().getCurrentUser();  multiple times
     public static String currentUserID;
@@ -70,6 +84,42 @@ public class CurrentUserDataRepository {
 
     public void setOrderSuccess(Integer integer){
         integer++; this.mOrderSuccess.setValue(integer);
+    }
+
+    //-----------------------
+    // Chat Listeners
+    //-----------------------
+
+    private MutableLiveData<List<Message>> mMessagesList = new MutableLiveData<>();
+
+    public LiveData<List<Message>> getMessageList(){
+        return mMessagesList;
+    }
+
+    public void setMessagesList(String chatChannel){
+        listenToChatChannels(chatChannel);
+    }
+
+    private void listenToChatChannels(String chatChannel){
+        ChatHelper.getChatCollection().document(chatChannel).collection("messages").whereEqualTo("messageReceived", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+                // -- Data received
+                mMessages = new ArrayList<>();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    mMessages.add(doc.toObject(Message.class));
+                }
+
+                mMessagesList.setValue(mMessages); // Set list in LiveData
+                Log.d(TAG, "listenToChatChannels" );
+
+            }
+        });
+
     }
 
     // --------------------
