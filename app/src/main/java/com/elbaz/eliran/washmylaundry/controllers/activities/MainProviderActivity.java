@@ -28,15 +28,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.MessageHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditProviderBottomSheet;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.OrderStateBottomSheet;
+import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.ItemClickSupport;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
+import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.elbaz.eliran.washmylaundry.viewmodel.ProviderViewModel;
 import com.elbaz.eliran.washmylaundry.views.MyOrdersAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,6 +80,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.providers_scheduled_orders_recycler_view) RecyclerView ordersRecyclerView;
     // Data
     private ProviderViewModel mProviderViewModel;
+    private CurrentUserSharedViewModel mUserSharedViewModel;
     private Provider mProvider;
     private List<Orders> allProviderOrders;
     private List<Orders> mRecentOrdersList;
@@ -124,6 +128,39 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             public void onChanged(List<Orders> orders) {
                 manageNotificationForNewOrders(orders);
                 updateUI(orders);
+                // Activate listeners for all existing chat channels (with UniqueOrderId)
+                for (int i = 0 ; i < orders.size() ; i++){
+                    activateChatListeners(orders.get(i).getUniqueOrderId());
+                }
+            }
+        });
+    }
+
+    // Activate chat listeners by chat channel
+    private void activateChatListeners(String chatChannel){
+        Log.d(TAG, "activateChatListeners: " + chatChannel);
+        mUserSharedViewModel.setMessagesList(chatChannel);
+        getMessagesFromListener(chatChannel);
+    }
+
+    private void getMessagesFromListener(String uniqueOrderId){
+        mUserSharedViewModel.getMessagesList().observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(List<Message> messages) {
+                // Receive message list and filter isReceived / isSeen
+                for(int i = 0 ; i < messages.size(); i++){
+                    if(!messages.get(i).isMessageReceived()){
+                        Log.d(TAG, "onChanged: Message RECEIVED");
+                        Utils.createNotification(MainProviderActivity.this, CHANNEL_ID, getString(R.string.title_new_message), getString(R.string.content_message_from, messages.get(i).getName(), messages.get(i).getMessageDateId()), messages.get(i).getMessage());
+                        // Mark the message as received in Firestore
+                        MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
+
+                    }
+                    if(!messages.get(i).isMessageSeen()){
+
+                        Log.d(TAG, "onChanged: Message SEEN");
+                    }
+                }
             }
         });
     }
@@ -153,6 +190,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
 
     private void configureViewModel() {
         mProviderViewModel = new ViewModelProvider(this).get(ProviderViewModel.class);
+        mUserSharedViewModel = new ViewModelProvider(this).get(CurrentUserSharedViewModel.class);
+        mUserSharedViewModel.init();
         mProviderViewModel.initProvider(); // To retrieve the data from the repository
         mProviderViewModel.setCurrentProviderData(); // Trigger the Document listener
         mProviderViewModel.setOrderList(CurrentUserDataRepository.currentUserID); // Trigger orders listener
