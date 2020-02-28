@@ -3,6 +3,7 @@ package com.elbaz.eliran.washmylaundry.views;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ public class MyOrdersViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.my_orders_recyclerView_price) TextView orderPrice;
     @BindView(R.id.my_orders_recyclerView_status) TextView orderStatus;
     @BindView(R.id.my_orders_status_text_container) CardView statusContainer;
+    @BindView(R.id.unseen_message_chat_icon) LinearLayout chatIcon;
 
     public MyOrdersViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -43,6 +45,12 @@ public class MyOrdersViewHolder extends RecyclerView.ViewHolder {
             orderPrice.setText(resources.getString(R.string.my_order_recyclerView_price, String.valueOf(orders.getFinalPrice())));
             orderStatus.setText(Utils.getOrderStatus(orders.getOrderStatus()));
             statusContainer.setCardBackgroundColor(resources.getColor(Utils.getOrderStatusColor(orders.getOrderStatus())));
+            // Display chat icon when there are unseen messages
+            if(orders.isContainUnseenMessages()){
+                chatIcon.setVisibility(View.VISIBLE);
+            }else {
+                chatIcon.setVisibility(View.INVISIBLE);
+            }
 
         }catch (Exception e){
             Log.d(TAG, "updateWorkmatesList: Error " + e);

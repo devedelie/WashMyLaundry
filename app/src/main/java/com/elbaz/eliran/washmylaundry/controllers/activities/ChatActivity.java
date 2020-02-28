@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.MessageHelper;
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
@@ -122,6 +123,8 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
                 MessageHelper.createMessageForChat(mOrders.getPid(), mOrders.getProviderName(), mOrders.getProviderImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId(), true).addOnFailureListener(this.onFailureListener());}
             else {MessageHelper.createMessageForChat(mOrders.getUid(), mOrders.getClientName(), mOrders.getClientImageUrl(), editTextMessage.getText().toString(), mOrders.getUniqueOrderId(), false).addOnFailureListener(this.onFailureListener());}
 
+            // Mark chat as activated in Order document, for channel listener
+            OrdersHelper.getOrdersCollection().document(mOrders.getUniqueOrderId()).update("chatActivated", true);
             // Reset text field
             this.editTextMessage.setText("");
         }

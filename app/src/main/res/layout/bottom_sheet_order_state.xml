@@ -342,7 +342,7 @@
                     app:fontName="Roboto_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contact your provider"
+                    android:text="Make a call"
                     android:layout_gravity="center"/>
                 <ImageView
                     android:id="@+id/order_state_call_icon"
@@ -370,13 +370,14 @@
                     app:fontName="Roboto_Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Start chat"
+                    android:text="Chat"
                     android:layout_gravity="center"/>
-                <ImageView
+                <ImageButton
                     android:id="@+id/order_state_chat_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_chat_black_24dp"
+                    android:background="@color/colorTextIcons"
                     android:layout_gravity="center"
                     android:layout_margin="15dp"/>
             </LinearLayout>

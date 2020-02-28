@@ -6,7 +6,7 @@ package com.elbaz.eliran.washmylaundry.models;
 public class Orders {
     private String uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, clientAddress;
     private int providerPhone, userPhone, orderStatus, orderBagsAmount;
-    private boolean orderIsRated;
+    private boolean orderIsRated, containUnseenMessages, isChatActivated;
     private double taxAdded, deliveryPrice, ironingPrice, finalPrice, subtotalPrice;
     private String reservationDate, reservationDateFormatted, confirmationDate;
 //    private Timestamp reservationTimestamp, confirmationTimestamp;
@@ -170,6 +170,22 @@ public class Orders {
     public boolean isOrderIsRated() { return orderIsRated; }
 
     public void setOrderIsRated(boolean orderIsRated) { this.orderIsRated = orderIsRated; }
+
+    public boolean isContainUnseenMessages() {
+        return containUnseenMessages;
+    }
+
+    public void setContainUnseenMessages(boolean containUnseenMessages) {
+        this.containUnseenMessages = containUnseenMessages;
+    }
+
+    public boolean isChatActivated() {
+        return isChatActivated;
+    }
+
+    public void setChatActivated(boolean chatActivated) {
+        isChatActivated = chatActivated;
+    }
 
     //    public Timestamp getReservationTimestamp() { return reservationTimestamp; }
 //

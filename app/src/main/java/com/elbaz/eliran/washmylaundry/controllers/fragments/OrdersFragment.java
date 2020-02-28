@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.MessageHelper;
+import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
 import com.elbaz.eliran.washmylaundry.controllers.activities.MainUserActivity;
 import com.elbaz.eliran.washmylaundry.controllers.activities.RateOrderActivity;
@@ -51,6 +52,7 @@ public class OrdersFragment extends BaseFragment {
     private CurrentUserSharedViewModel mUserSharedViewModel;
     private List<Orders> mOrdersList= new ArrayList<>();
     private List<Orders> mOrdersFilteredList;
+//    public static List<String> ordersWithUnseenMessages;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class OrdersFragment extends BaseFragment {
                 updateUI(orders);
                 // Activate listeners for all existing chat channels (with UniqueOrderId)
                 for (int i = 0 ; i < orders.size() ; i++){
+                    if(mOrdersList.get(i).isChatActivated())
                     activateChatListeners(orders.get(i).getUniqueOrderId());
                 }
             }
@@ -95,16 +98,20 @@ public class OrdersFragment extends BaseFragment {
             public void onChanged(List<Message> messages) {
                 // Receive message list and filter isReceived / isSeen
                 for(int i = 0 ; i < messages.size(); i++){
-                    if(!messages.get(i).isMessageReceived()){
-                        Log.d(TAG, "onChanged: Message RECEIVED");
-                        Utils.createNotification(getActivity().getApplicationContext(), MainUserActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
-                        // Mark the message as received in Firestore
-                        MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
-
+                    if(messages.get(i).isMessageReceived()){
+                       // do nothing
+                    }else {
+                        Log.d(TAG, "onChanged: Message RECEIVED  uniqueId:" + uniqueOrderId + "     " + messages.get(i).isMessageReceived() + "  " + messages.get(i).getName() + " size:  " + messages.size());
+                            // Show notification
+                            Utils.createNotification(getActivity().getApplicationContext(), MainUserActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
+                            // Mark Order document with value 'containNonReceivedMessages' as true
+                            MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
                     }
+                    
                     if(!messages.get(i).isMessageSeen()){
-
                         Log.d(TAG, "onChanged: Message SEEN");
+                        // Update a flag in order's document, that indicates there are unseen messages
+                        OrdersHelper.getOrdersCollection().document(uniqueOrderId).update("containUnseenMessages", true);
                     }
                 }
             }
@@ -168,7 +175,7 @@ public class OrdersFragment extends BaseFragment {
                 @Override
                 public int compare(Orders orders, Orders t1) {
                     int sort;
-                    sort = t1.getReservationDate().compareTo(orders.getReservationDate());
+                    sort = orders.getReservationDate().compareTo(t1.getReservationDate());
                     return sort;
                 }
             });
