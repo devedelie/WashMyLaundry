@@ -88,6 +88,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     private SharedPreferences mSharedPreferences;
     private int lastProviderOrdersCount , currentProviderOrdersCount;
     static boolean active = false;
+    private List<Orders> mOrdersList= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,11 +127,14 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
         mProviderViewModel.getOrdersList().observe(this, new Observer<List<Orders>>() {
             @Override
             public void onChanged(List<Orders> orders) {
+                mOrdersList.clear();
+                mOrdersList.addAll(orders);
                 manageNotificationForNewOrders(orders);
                 updateUI(orders);
                 // Activate listeners for all existing chat channels (with UniqueOrderId)
                 for (int i = 0 ; i < orders.size() ; i++){
-                    activateChatListeners(orders.get(i).getUniqueOrderId());
+                    if(mOrdersList.get(i).isChatActivated())
+                        activateChatListeners(orders.get(i).getUniqueOrderId());
                 }
             }
         });
