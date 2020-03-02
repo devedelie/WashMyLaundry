@@ -14,15 +14,26 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.emails.MailGunRetrofitClient;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static android.content.ContentValues.TAG;
+import static java.net.HttpURLConnection.HTTP_OK;
 
 /**
  * Created by Eliran Elbaz on 08-Feb-20.
@@ -132,5 +143,30 @@ public class Utils {
                 .setAutoCancel(true);
 
         manager.notify(1, builder.build());
+    }
+
+    public static void sendEmailWithRetrofit(String emailTo, String emailSubject, String emailMessage) {
+        String from = "chat@wml.com";
+        MailGunRetrofitClient.getInstance()
+                .getApi()
+                .sendEmail(from, emailTo, emailSubject, emailMessage)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.code() == HTTP_OK) {
+                            try {
+                                JSONObject obj = new JSONObject(response.body().string());
+                                Log.d(TAG, "onResponse: EmailRetrofit" + obj.getString("message") );
+                            } catch (JSONException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d(TAG, "onFailure: EmailRetrofit" + t.getMessage());
+                    }
+                });
     }
 }
