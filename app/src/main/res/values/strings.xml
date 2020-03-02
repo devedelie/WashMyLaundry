@@ -150,10 +150,12 @@
     <string name="fb_login_protocol_scheme">fb2528952484009671</string>
 
     <!--Email Sender-->
-    <string name="from_email">orders@wml.com</string>
+    <string name="from_order">orders@wml.com</string>
     <string name="from_chat">chat@wml.com</string>
     <string name="you_have_a_new_message_from_x">You have a new message from %1$s</string>
     <string name="x_message">Message: %1$s</string>
+    <string name="new_order_subject">Hi! You have a new order waiting for approval.</string>
+    <string name="new_order_message">%1$s made a new order and he\'s waiting for confirmation. \nPlease contact your client as soon as possible.\n \n \nBest regards \nWash My Laundry Team </string>
 
 
 

@@ -213,6 +213,8 @@ public class ReservationActivity extends BaseActivity {
                 UserHelper.updateOrdersList(mUser.getUid(), userOrdersList).addOnFailureListener(onFailureListener());
                 ProviderHelper.updateOrdersList(mProvider.getPid(), providerOrdersList).addOnFailureListener(onFailureListener());
 
+                // Sent email notification to Provider
+                Utils.sendEmailWithRetrofit(getString(R.string.from_order), mProvider.getProviderEmail(), getString(R.string.new_order_subject), getString(R.string.new_order_message, mUser.getUsername()) );
                 // End the operation with a message
                 CurrentUserDataRepository.getInstance().setOrderSuccess(1);
                 finish();
