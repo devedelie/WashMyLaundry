@@ -107,7 +107,7 @@ public class OrdersFragment extends BaseFragment {
                             // Mark Order document with value 'containNonReceivedMessages' as true
                             MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
                     }
-                    
+
                     if(!messages.get(i).isMessageSeen()){
                         Log.d(TAG, "onChanged: Message SEEN");
                         // Update a flag in order's document, that indicates there are unseen messages
