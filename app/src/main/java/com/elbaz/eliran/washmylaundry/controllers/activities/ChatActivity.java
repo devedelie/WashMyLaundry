@@ -143,7 +143,7 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Check if there are chat unseen chat messages (which the receiver-side did not receive)
+                // Check if there are unseen chat messages (which the receiver-side did not receive)
                 ChatHelper.getChatCollection().document(mOrders.getUniqueOrderId()).collection("messages").whereEqualTo("messageReceived", false).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
