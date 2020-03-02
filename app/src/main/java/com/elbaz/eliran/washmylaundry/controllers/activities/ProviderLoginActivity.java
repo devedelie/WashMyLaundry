@@ -205,10 +205,11 @@ public class ProviderLoginActivity extends BaseActivity {
                                     String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
                                     String username = getCurrentUser().getDisplayName();
                                     String uid = getCurrentUser().getUid();
+                                    String providerEmail = getCurrentUser().getEmail();
                                     boolean isProvider = true; // Provider Login Screen = true
                                     Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
                                     // Create a Provider document (inside Users collection)
-                                    ProviderHelper.createProvider(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    ProviderHelper.createProvider(uid, username, urlPicture, isProvider, providerEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             intentActivity(SplashScreen.class); // Call SplashScreen only when object was created in Firestore

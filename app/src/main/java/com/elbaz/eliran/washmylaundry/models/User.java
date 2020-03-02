@@ -12,7 +12,7 @@ public class User {
 
     private String uid, username, userAddress, district;
     @Nullable
-    private String urlPicture;
+    private String urlPicture, userEmail;
     private boolean isProvider;
     private int userZipCode, phoneNumber;
     private double userLatCoordinates, userLngCoordinates;
@@ -20,11 +20,12 @@ public class User {
 
     public User(){ }
 
-    public User(String uid, String username, @Nullable String urlPicture, boolean isProvider) {
+    public User(String uid, String username, @Nullable String urlPicture, boolean isProvider, @Nullable String userEmail) {
         this.uid = uid;
         this.username = username;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
+        this.userEmail = userEmail;
     }
 
     public String getUid() { return uid; }
@@ -72,5 +73,12 @@ public class User {
 
     public void setOrdersList(List<String> ordersList) { this.ordersList = ordersList; }
 
+    @Nullable
+    public String getUserEmail() {
+        return userEmail;
+    }
 
+    public void setUserEmail(@Nullable String userEmail) {
+        this.userEmail = userEmail;
+    }
 }

@@ -206,9 +206,10 @@ public class MainActivity extends BaseActivity{
                                     String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
                                     String username = getCurrentUser().getDisplayName();
                                     String uid = getCurrentUser().getUid();
+                                    String userEmail = getCurrentUser().getEmail();
                                     boolean isProvider = false; // User Login Screen = false
                                     Log.d(TAG, "onComplete: User doesn't exist in Firestore " + username + " " + uid + " " + isProvider);
-                                    UserHelper.createUser(uid, username, urlPicture, isProvider).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    UserHelper.createUser(uid, username, urlPicture, isProvider, userEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             intentActivity(SplashScreen.class); // Call SplashScreen only when object was created in Firestore

@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 public class Provider {
     private String pid, providerName, providerAddress, district, machineType, providerDescription;
     @Nullable
-    private String urlPicture;
+    private String urlPicture, providerEmail;
     private boolean isProvider, isAvailable, isDelivering, isIroning;
     private int userZipCode, phoneNumber, maxBags, pricePerKg, servicesCount;
     private double providerLatCoordinates, providerLngCoordinates;
@@ -20,13 +20,14 @@ public class Provider {
 
     public Provider(){ }
 
-    public Provider(String pid, String providerName, @Nullable String urlPicture, boolean isProvider) {
+    public Provider(String pid, String providerName, @Nullable String urlPicture, boolean isProvider, @Nullable String providerEmail) {
         this.pid = pid;
         this.providerName = providerName;
         this.urlPicture = urlPicture;
         this.isProvider = isProvider;
         this.maxBags = 3;
         this.pricePerKg = 5;
+        this.providerEmail = providerEmail;
 //        this.providerRating.add(5.0);
     }
 
@@ -115,7 +116,14 @@ public class Provider {
 
     public void setReviewsList(List<String> reviewsList) { this.reviewsList = reviewsList; }
 
+    @Nullable
+    public String getProviderEmail() {
+        return providerEmail;
+    }
 
+    public void setProviderEmail(@Nullable String providerEmail) {
+        this.providerEmail = providerEmail;
+    }
 }
 
 

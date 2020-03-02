@@ -26,9 +26,9 @@ public class OrdersHelper {
     // --- CREATE ---
 
     // Create an order by USER for a PROVIDER
-    public static Task<Void> createOrderDocument(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int clientPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted, String clientAddress, int orderBagsAmount, double subtotalPrice) {
+    public static Task<Void> createOrderDocument(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int clientPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted, String clientAddress, int orderBagsAmount, double subtotalPrice, String clientEmail, String providerEmail) {
         // Create Order object
-        Orders orderDocumentToCreate = new Orders(uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, providerPhone, clientPhone, orderStatus, taxAdded, deliveryPrice, ironingPrice, finalPrice, reservationDate, reservationDateFormatted, clientAddress, orderBagsAmount, subtotalPrice);
+        Orders orderDocumentToCreate = new Orders(uid, pid, uniqueOrderId, providerName, providerImageUrl, clientName, clientImageUrl, providerPhone, clientPhone, orderStatus, taxAdded, deliveryPrice, ironingPrice, finalPrice, reservationDate, reservationDateFormatted, clientAddress, orderBagsAmount, subtotalPrice, clientEmail, providerEmail);
 
         // Add a new Order Document to Firestore
         return OrdersHelper.getOrdersCollection()

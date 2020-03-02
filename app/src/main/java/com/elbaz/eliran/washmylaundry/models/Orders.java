@@ -1,5 +1,7 @@
 package com.elbaz.eliran.washmylaundry.models;
 
+import javax.annotation.Nullable;
+
 /**
  * Created by Eliran Elbaz on 08-Feb-20.
  */
@@ -9,11 +11,12 @@ public class Orders {
     private boolean orderIsRated, containUnseenMessages, isChatActivated;
     private double taxAdded, deliveryPrice, ironingPrice, finalPrice, subtotalPrice;
     private String reservationDate, reservationDateFormatted, confirmationDate;
+    @Nullable private String clientEmail, providerEmail;
 //    private Timestamp reservationTimestamp, confirmationTimestamp;
 
     public Orders() {}
 
-    public Orders(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int userPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted, String clientAddress, int orderBagsAmount, double subtotalPrice) {
+    public Orders(String uid, String pid, String uniqueOrderId, String providerName, String providerImageUrl, String clientName, String clientImageUrl, int providerPhone, int userPhone, int orderStatus, double taxAdded, double deliveryPrice, double ironingPrice, double finalPrice, String reservationDate, String reservationDateFormatted, String clientAddress, int orderBagsAmount, double subtotalPrice, @Nullable String clientEmail, @Nullable String providerEmail) {
         this.uid = uid;
         this.pid = pid;
         this.uniqueOrderId = uniqueOrderId;
@@ -33,6 +36,8 @@ public class Orders {
         this.clientAddress = clientAddress;
         this.orderBagsAmount = orderBagsAmount;
         this.subtotalPrice = subtotalPrice;
+        this.clientEmail = clientEmail;
+        this.providerEmail = providerEmail;
     }
 
     public String getUid() { return uid; }
@@ -185,6 +190,22 @@ public class Orders {
 
     public void setChatActivated(boolean chatActivated) {
         isChatActivated = chatActivated;
+    }
+
+    public String getClientEmail() {
+        return clientEmail;
+    }
+
+    public void setClientEmail(String clientEmail) {
+        this.clientEmail = clientEmail;
+    }
+
+    public String getProviderEmail() {
+        return providerEmail;
+    }
+
+    public void setProviderEmail(String providerEmail) {
+        this.providerEmail = providerEmail;
     }
 
     //    public Timestamp getReservationTimestamp() { return reservationTimestamp; }

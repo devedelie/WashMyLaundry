@@ -24,9 +24,9 @@ public class ProviderHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createProvider (String pid, String providerName, String urlPicture, boolean isProvider) {
+    public static Task<Void> createProvider (String pid, String providerName, String urlPicture, boolean isProvider, String providerEmail) {
         // Create Provider object
-        Provider providerToCreate = new Provider(pid, providerName, urlPicture, isProvider);
+        Provider providerToCreate = new Provider(pid, providerName, urlPicture, isProvider, providerEmail);
         // Add a new Provider Document to Firestore
         return ProviderHelper.getProvidersCollection()
                 .document(pid) // Setting uID for Document
