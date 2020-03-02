@@ -2,6 +2,7 @@ package com.elbaz.eliran.washmylaundry.controllers.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.elbaz.eliran.washmylaundry.R;
+import com.elbaz.eliran.washmylaundry.api.ChatHelper;
 import com.elbaz.eliran.washmylaundry.api.MessageHelper;
 import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
+import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.views.ChatAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -44,7 +49,7 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
     public static boolean isProvider;
 
     private Orders mOrders = new Orders();
-    private String jsonObject = "{'providerName' : 'userAddress' : 'clientName' : 'reservationDateFormatted' : 'phoneNumber' : 'orderStatus' : 'deliveryPrice' : 'ironingPrice' : 'finalPrice' : 'taxAdded' : 'providerRating' }";
+    private String jsonObject = "{'providerName' : 'userAddress' : 'clientName' : 'reservationDateFormatted' : 'phoneNumber' : 'orderStatus' : 'deliveryPrice' : 'ironingPrice' : 'finalPrice' : 'taxAdded' : 'providerRating' : 'clientEmail' : 'providerEmail' }";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -127,7 +132,30 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
             OrdersHelper.getOrdersCollection().document(mOrders.getUniqueOrderId()).update("chatActivated", true);
             // Reset text field
             this.editTextMessage.setText("");
+
+            // Start a Task to send an email, if the other side did not receive the message in chat (probably offline)
+            sendEmailNotification();
         }
+    }
+
+    private void sendEmailNotification() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Check if there are chat unseen chat messages (which the receiver-side did not receive)
+                ChatHelper.getChatCollection().document(mOrders.getUniqueOrderId()).collection("messages").whereEqualTo("messageReceived", false).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(queryDocumentSnapshots.size() >0){
+                            Log.d(TAG, "onSuccess: sendEMailNotification" + mOrders.getProviderEmail() + "  " + mOrders.getClientEmail());
+                            // There are unseen messages and we need to send email notification
+                            if(isProvider) {Utils.sendEmailWithRetrofit(mOrders.getClientEmail(), "You have a new message on WML", "X sent you a message on chat");}
+                            else {Utils.sendEmailWithRetrofit(mOrders.getProviderEmail(), "You have a new message on WML", "X sent you a message on chat");}
+                        }
+                    }
+                });
+            }
+        }, 2000); // Wait 2 seconds before executing the function
     }
 
     @OnClick(R.id.chat_back_button)
