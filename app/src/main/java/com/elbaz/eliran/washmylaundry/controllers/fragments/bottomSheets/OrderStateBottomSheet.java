@@ -53,7 +53,7 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
 
     // FOr Data
     private Orders mOrders = new Orders();
-    private String jsonObject = "{'providerName' : 'userAddress' : 'clientName' : 'reservationDateFormatted' : 'phoneNumber' : 'orderStatus' : 'deliveryPrice' : 'ironingPrice' : 'finalPrice' : 'taxAdded' }";
+    private String jsonObject = "{'providerName' : 'userAddress' : 'clientName' : 'reservationDateFormatted' : 'phoneNumber' : 'orderStatus' : 'deliveryPrice' : 'ironingPrice' : 'finalPrice' : 'taxAdded' : 'providerRating' : 'clientEmail' : 'providerEmail' }";
 
     public static OrderStateBottomSheet newInstance(String key, String orderJson) {
         Log.d(TAG, "newInstance BottomSheet OrderState: " + key + " " +orderJson);
