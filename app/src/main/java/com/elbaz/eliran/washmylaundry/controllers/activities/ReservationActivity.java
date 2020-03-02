@@ -21,6 +21,7 @@ import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.api.ProviderHelper;
 import com.elbaz.eliran.washmylaundry.api.UserHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
+import com.elbaz.eliran.washmylaundry.events.OrderSuccessfulEvent;
 import com.elbaz.eliran.washmylaundry.models.Provider;
 import com.elbaz.eliran.washmylaundry.models.User;
 import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
@@ -32,6 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -213,10 +216,10 @@ public class ReservationActivity extends BaseActivity {
                 UserHelper.updateOrdersList(mUser.getUid(), userOrdersList).addOnFailureListener(onFailureListener());
                 ProviderHelper.updateOrdersList(mProvider.getPid(), providerOrdersList).addOnFailureListener(onFailureListener());
 
-                // Sent email notification to Provider
+                // Send email notification to Provider
                 Utils.sendEmailWithRetrofit(getString(R.string.from_order), mProvider.getProviderEmail(), getString(R.string.new_order_subject), getString(R.string.new_order_message, mUser.getUsername()) );
-                // End the operation with a message
-                CurrentUserDataRepository.getInstance().setOrderSuccess(1);
+                // End the operation with event (SnackBar message)
+                EventBus.getDefault().post(new OrderSuccessfulEvent());
                 finish();
             }
         });

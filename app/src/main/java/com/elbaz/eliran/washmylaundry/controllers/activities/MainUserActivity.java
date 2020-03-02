@@ -16,7 +16,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -26,13 +25,17 @@ import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.adapters.PageAdapter;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.controllers.fragments.bottomSheets.EditUserBottomSheet;
+import com.elbaz.eliran.washmylaundry.events.OrderSuccessfulEvent;
 import com.elbaz.eliran.washmylaundry.models.User;
-import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.viewmodel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -70,12 +73,6 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        configureDataObserver();
-    }
-
     //-------------------
     // CONFIGURATIONS
     //-------------------
@@ -87,15 +84,26 @@ public class MainUserActivity extends BaseActivity implements NavigationView.OnN
         mUserViewModel.setOrderList(getCurrentUser().getUid());
     }
 
-    private void configureDataObserver() {
-        mUserViewModel.getCurrentUserData().observe(this, this::updateObjectWithData);
-        CurrentUserDataRepository.getInstance().getOrderSuccess().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG);
-                snackbar.show();
-            }
-        });
+    @Override
+    public void onStart() {
+        super.onStart();
+        try { // If not registered already, try to register EventBus
+            EventBus.getDefault().register(this);
+        }catch (Exception e){ }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this); // Unregister EventBus when Destroy
+    }
+
+    //This object can receive an OrderSuccessEvent
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(OrderSuccessfulEvent event){
+        Log.d(TAG, "onEvent: Success");
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.create_reservation_success), Snackbar.LENGTH_LONG); // Order has been successfully created
+        snackbar.show();
     }
 
     private void updateObjectWithData(User user) {
