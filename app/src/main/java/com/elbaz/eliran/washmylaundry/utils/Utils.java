@@ -145,8 +145,7 @@ public class Utils {
         manager.notify(1, builder.build());
     }
 
-    public static void sendEmailWithRetrofit(String emailTo, String emailSubject, String emailMessage) {
-        String from = "chat@wml.com";
+    public static void sendEmailWithRetrofit(String from, String emailTo, String emailSubject, String emailMessage) {
         MailGunRetrofitClient.getInstance()
                 .getApi()
                 .sendEmail(from, emailTo, emailSubject, emailMessage)

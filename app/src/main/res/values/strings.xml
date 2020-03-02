@@ -145,10 +145,15 @@
     <string name="title_new_message">A new message from: %1$s</string>
     <string name="content_message_from">Message: %1$s </string>
 
-
     <!--Facebook Login-->
     <string name="facebook_application_id">2528952484009671</string>
     <string name="fb_login_protocol_scheme">fb2528952484009671</string>
+
+    <!--Email Sender-->
+    <string name="from_email">orders@wml.com</string>
+    <string name="from_chat">chat@wml.com</string>
+    <string name="you_have_a_new_message_from_x">You have a new message from %1$s</string>
+    <string name="x_message">Message: %1$s</string>
 
 
 

@@ -130,15 +130,16 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
 
             // Mark chat as activated in Order document, for channel listener
             OrdersHelper.getOrdersCollection().document(mOrders.getUniqueOrderId()).update("chatActivated", true);
-            // Reset text field
-            this.editTextMessage.setText("");
 
             // Start a Task to send an email, if the other side did not receive the message in chat (probably offline)
-            sendEmailNotification();
+            sendEmailNotification(editTextMessage.getText().toString());
+
+            // Reset text field
+            this.editTextMessage.setText("");
         }
     }
 
-    private void sendEmailNotification() {
+    private void sendEmailNotification(String message) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -149,8 +150,8 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
                         if(queryDocumentSnapshots.size() >0){
                             Log.d(TAG, "onSuccess: sendEMailNotification" + mOrders.getProviderEmail() + "  " + mOrders.getClientEmail());
                             // There are unseen messages and we need to send email notification
-                            if(isProvider) {Utils.sendEmailWithRetrofit(mOrders.getClientEmail(), "You have a new message on WML", "X sent you a message on chat");}
-                            else {Utils.sendEmailWithRetrofit(mOrders.getProviderEmail(), "You have a new message on WML", "X sent you a message on chat");}
+                            if(isProvider) {Utils.sendEmailWithRetrofit(getString(R.string.from_chat), mOrders.getClientEmail(), getString(R.string.you_have_a_new_message_from_x, mOrders.getProviderName()), getString(R.string.x_message, message));}
+                            else {Utils.sendEmailWithRetrofit(getString(R.string.from_chat), mOrders.getProviderEmail(), getString(R.string.you_have_a_new_message_from_x, mOrders.getClientName()), getString(R.string.x_message, message));}
                         }
                     }
                 });
