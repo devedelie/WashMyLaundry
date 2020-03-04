@@ -156,6 +156,10 @@
     <string name="x_message">Message: %1$s</string>
     <string name="new_order_subject">Hi! You have a new order waiting for approval.</string>
     <string name="new_order_message">%1$s made a new order and he\'s waiting for confirmation. \nPlease contact your client as soon as possible.\n \n \nBest regards \nWash My Laundry Team </string>
+    <string name="order_accepted_email_subject">Your order was accepted!</string>
+    <string name="order_accepted_email_message">Hello %1$s,\n%2$s has confirmed your order and will contact you soon to arrange a pickup for you laundry. \n\n\nIf you have any question or problem, you can contact your provider through the app. \nBest regards, \nWashMyLaundry Team</string>
+    <string name="order_delivered_email_subject">Your order is ready for delivery!</string>
+    <string name="order_delivered_email_message">Hello %1$s,\n%2$s cleaned and packed your laundry for delivery. \nThe delivery guy will be at your place soon. \n\n\nIf you have any question or problem, you can contact your provider through the app. \nBest regards, \nWashMyLaundry Team</string>
 
 
 

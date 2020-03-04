@@ -129,13 +129,20 @@ public class OrderStateBottomSheet extends BaseBottomSheet {
 
     @OnClick (R.id.order_state_waiting_orders_btn)
     public void onStatusBtnClick(){
+        // This button is available only for Providers
         int i = mOrders.getOrderStatus();
         if(i<4) {
             i++;
-            // Update order document
+            // Update order document with the new state
             OrdersHelper.updateOrderState(mOrders.getUniqueOrderId(), i);
-            // Update Provider document
-            if(i==4){ ProviderHelper.updateProviderServiceCount(CurrentUserDataRepository.currentUserID); }  // If Job was done, increment counter +1
+            // Send an email to client after accepting his order (state == 2)
+            if(i==2) Utils.sendEmailWithRetrofit(getString(R.string.from_order), mOrders.getClientEmail(), getString(R.string.order_accepted_email_subject), getString(R.string.order_accepted_email_message, mOrders.getClientName(), mOrders.getProviderName()) );
+
+            // Update Provider document If Job is done (state == 4)
+            if(i==4){
+                ProviderHelper.updateProviderServiceCount(CurrentUserDataRepository.currentUserID); //  increment counter +1
+                Utils.sendEmailWithRetrofit(getString(R.string.from_order), mOrders.getClientEmail(), getString(R.string.order_delivered_email_subject), getString(R.string.order_delivered_email_message, mOrders.getClientName(), mOrders.getProviderName()) );
+            }
             dismiss();
         }
     }
