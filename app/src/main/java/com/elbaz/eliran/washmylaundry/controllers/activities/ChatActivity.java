@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +23,7 @@ import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
+import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.elbaz.eliran.washmylaundry.views.ChatAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +31,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,6 +50,7 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
     @BindView(R.id.chat_layout_message_edit_text) TextInputEditText editTextMessage;
     // FOR DATA
     private ChatAdapter mChatAdapter;
+    private CurrentUserSharedViewModel mUserSharedViewModel;
     @Nullable
     public static boolean isProvider;
 
@@ -62,6 +68,9 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
             Log.d(TAG, "onCreate Chat: " + mOrders.getProviderName());
         }
 
+        // Activate listeners for current chat channel (for indicating on firestore that the message was seen)
+        this.configureViewModel();
+        this.activateChatListeners(mOrders.getUniqueOrderId());
         this.checkCurrentUser();
         this.configureRecyclerView();
     }
@@ -86,6 +95,11 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
     //-------------------
     // CONFIGURATIONS
     //-------------------
+
+    private void configureViewModel() {
+        mUserSharedViewModel = new ViewModelProvider(this).get(CurrentUserSharedViewModel.class);
+        mUserSharedViewModel.init();
+    }
 
     private void checkCurrentUser() {
         if(mOrders.getPid().equals(getCurrentUser().getUid())) { isProvider= true; }
@@ -114,6 +128,28 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
                 .build();
     }
 
+    // Activate chat listeners by chat channel
+    private void activateChatListeners(String chatChannel){
+        Log.d(TAG, "activateChatListeners: " + chatChannel);
+        mUserSharedViewModel.setMessagesList(chatChannel);
+        getMessagesFromListener(chatChannel);
+    }
+
+    private void getMessagesFromListener(String uniqueOrderId){
+        mUserSharedViewModel.getMessagesList().observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(List<Message> messages) {
+                // Receive message list and filter isReceived / isSeen
+                for(int i = 0 ; i < messages.size(); i++){
+                    // Apply the action only if there are unreceived messages in the list, and only if the message userId is different than the current user
+                    if(!messages.get(i).isMessageReceived()&& !messages.get(i).getId().equals(getCurrentUser().getUid())){
+                        // Mark the chat document with value 'messageReceived' as true
+                        MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
+                    }
+                }
+            }
+        });
+    }
 
     // --------------------
     // ACTIONS
@@ -121,7 +157,7 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
 
     @OnClick(R.id.chat_layout_send_button)
     public void onClickSendMessage() {
-        //  Check if text field is not empty and current user properly downloaded from Firestore
+        //  Check if text field is not empty
         if (!TextUtils.isEmpty(editTextMessage.getText())){
             //  Create a new Message to Firestore (USER/PROVIDER)
             if(isProvider) {

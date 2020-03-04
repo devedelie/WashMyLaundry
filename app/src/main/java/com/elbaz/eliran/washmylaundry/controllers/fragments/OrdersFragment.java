@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.elbaz.eliran.washmylaundry.R;
 import com.elbaz.eliran.washmylaundry.api.MessageHelper;
-import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseFragment;
 import com.elbaz.eliran.washmylaundry.controllers.activities.MainUserActivity;
 import com.elbaz.eliran.washmylaundry.controllers.activities.RateOrderActivity;
@@ -98,21 +97,19 @@ public class OrdersFragment extends BaseFragment {
             public void onChanged(List<Message> messages) {
                 // Receive message list and filter isReceived / isSeen
                 for(int i = 0 ; i < messages.size(); i++){
-                    if(messages.get(i).isMessageReceived()){
-                       // do nothing
-                    }else {
-                        Log.d(TAG, "onChanged: Message RECEIVED  uniqueId:" + uniqueOrderId + "     " + messages.get(i).isMessageReceived() + "  " + messages.get(i).getName() + " size:  " + messages.size());
+                    // Apply the action only if there are unreceived messages in the list, and only if the message userId is different than the current user (to avoid self notification)
+                    if(!messages.get(i).isMessageReceived()&& !messages.get(i).getId().equals(getCurrentUser().getUid())){
                             // Show notification
                             Utils.createNotification(getActivity().getApplicationContext(), MainUserActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
                             // Mark Order document with value 'containNonReceivedMessages' as true
                             MessageHelper.updateMessageReceived(uniqueOrderId, messages.get(i).getMessageDateId());
                     }
 
-                    if(!messages.get(i).isMessageSeen()){
-                        Log.d(TAG, "onChanged: Message SEEN");
-                        // Update a flag in order's document, that indicates there are unseen messages
-                        OrdersHelper.getOrdersCollection().document(uniqueOrderId).update("containUnseenMessages", true);
-                    }
+//                    if(!messages.get(i).isMessageSeen()){
+//                        Log.d(TAG, "onChanged: Message SEEN");
+//                        // Update a flag in order's document, that indicates there are unseen messages
+//                        OrdersHelper.getOrdersCollection().document(uniqueOrderId).update("containUnseenMessages", true);
+//                    }
                 }
             }
         });

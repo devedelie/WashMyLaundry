@@ -153,7 +153,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             public void onChanged(List<Message> messages) {
                 // Receive message list and filter isReceived / isSeen
                 for(int i = 0 ; i < messages.size(); i++){
-                    if(!messages.get(i).isMessageReceived()){
+                    // Apply the action only if there are unreceived messages in the list, and only if the message userId is different than the current provider (to avoid self notification)
+                    if(!messages.get(i).isMessageReceived() && !messages.get(i).getId().equals(getCurrentUser().getUid())){
                         Log.d(TAG, "onChanged: Message RECEIVED");
                         Utils.createNotification(MainProviderActivity.this, ProviderOrdersActivity.class, CHANNEL_ID, getString(R.string.title_new_message, messages.get(i).getName()), getString(R.string.content_message_from, messages.get(i).getMessage()), messages.get(i).getMessage());
                         // Mark the message as received in Firestore
