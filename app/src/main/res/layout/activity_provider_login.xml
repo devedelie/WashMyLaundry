@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@drawable/ic_washing_machine_background_2">
+        android:background="@drawable/ic_provider_login_background">
 
         <!-- IMAGE VIEW LOGO -->
         <ImageView
