@@ -22,6 +22,7 @@ import com.elbaz.eliran.washmylaundry.api.OrdersHelper;
 import com.elbaz.eliran.washmylaundry.base.BaseActivity;
 import com.elbaz.eliran.washmylaundry.models.Message;
 import com.elbaz.eliran.washmylaundry.models.Orders;
+import com.elbaz.eliran.washmylaundry.repositories.CurrentUserDataRepository;
 import com.elbaz.eliran.washmylaundry.utils.Utils;
 import com.elbaz.eliran.washmylaundry.viewmodel.CurrentUserSharedViewModel;
 import com.elbaz.eliran.washmylaundry.views.ChatAdapter;
@@ -79,6 +80,13 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
     protected void onResume() {
         super.onResume();
         setTitle();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // Detach the listener, so the event callbacks stop getting called.
+        CurrentUserDataRepository.getInstance().stopListener();
     }
 
     @Override

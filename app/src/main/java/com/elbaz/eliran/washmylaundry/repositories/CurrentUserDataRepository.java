@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -27,6 +28,7 @@ import static android.content.ContentValues.TAG;
 public class CurrentUserDataRepository {
     private static CurrentUserDataRepository sInstance;
     private List<Message> mMessages;
+    private ListenerRegistration registration;
 
     // A static variable to be used as a reference instead of calling FirebaseAuth.getInstance().getCurrentUser();  multiple times
     public static String currentUserID;
@@ -87,7 +89,7 @@ public class CurrentUserDataRepository {
     }
 
     private void listenToChatChannels(String chatChannel){
-        ChatHelper.getChatCollection().document(chatChannel).collection("messages").whereEqualTo("messageReceived", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        registration = ChatHelper.getChatCollection().document(chatChannel).collection("messages").whereEqualTo("messageReceived", false).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
                 if (e != null) {
@@ -106,6 +108,10 @@ public class CurrentUserDataRepository {
             }
         });
 
+    }
+
+    public void stopListener(){
+        registration.remove();
     }
 
     // --------------------
