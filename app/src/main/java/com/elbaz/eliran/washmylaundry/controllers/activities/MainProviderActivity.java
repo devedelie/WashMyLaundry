@@ -71,6 +71,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     @BindView(R.id.provider_availability_on_off_text) TextView availabilityOnOffText;
     @BindView(R.id.provider_delivery_on_off_text) TextView deliveryOnOffText;
     @BindView(R.id.provider_ironing_on_off_text) TextView ironingOnOffText;
+    @BindView(R.id.provider_orders_in_progress_list) TextView ordersListText;
     @BindView(R.id.provider_availability_img) ImageView statusIndicator;
     @BindView(R.id.provider_status_switch) Switch statusSwitch;
     @BindView(R.id.provider_delivery_switch) Switch deliverySwitch;
@@ -331,8 +332,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
     // REST REQUEST
     // --------------------
 
-    private void updateProviderMaxWeight(int maxWeight){
-        ProviderHelper.updateProviderWeightPerService(CurrentUserDataRepository.currentUserID, maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+    private void updateProviderMaxBags(int maxWeight){
+        ProviderHelper.updateProviderMaxBagsPerService(CurrentUserDataRepository.currentUserID, maxWeight).addOnSuccessListener(this, new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Max Weight Saved");
@@ -398,6 +399,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
                 mRecentOrdersList.add(allProviderOrders.get(i));
             }
         }
+        // If > 0 --> Show Title
+        if(mRecentOrdersList.size()>0){ordersListText.setVisibility(View.VISIBLE);}
         // Sort orders (newest first)
         if(mRecentOrdersList != null && mRecentOrdersList.size() > 0){
             Collections.sort(mRecentOrdersList, new Comparator<Orders>() {
@@ -429,7 +432,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             public void onClick(View v) {
                 // Save value in Firestore
                 if(title.equals(getString(R.string.provider_price_rate_dialog))) updateProviderPrice(np.getValue());
-                if(title.equals(getString(R.string.provider_max_weight_dialog))) updateProviderMaxWeight(np.getValue());
+                if(title.equals(getString(R.string.provider_max_weight_dialog))) updateProviderMaxBags(np.getValue());
                 dialog.dismiss();
             }
         });

@@ -50,7 +50,9 @@
                     android:layout_marginEnd="10dp"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Medium"
+                        android:textColor="@color/places_autocomplete_prediction_primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -61,15 +63,12 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:weightSum="10">
-                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                            app:fontName="Roboto_Medium"
+                        <TextView
                             android:id="@+id/provider_availability_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/places_autocomplete_prediction_primary_text"
                             android:text="Offline/Online "
                             android:layout_weight="7"/>
                         <Switch
@@ -87,13 +86,21 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_gravity="center"/>
+
                 <!-- Delivery container-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Medium"
+                        android:textColor="@color/places_autocomplete_prediction_primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -105,15 +112,12 @@
                         android:orientation="horizontal"
                         android:layout_marginEnd="10dp"
                         android:weightSum="10">
-                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                            app:fontName="Roboto_Medium"
+                        <TextView
                             android:id="@+id/provider_delivery_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/places_autocomplete_prediction_primary_text"
                             android:text="I do Deliveries / I don't "
                             android:layout_weight="7"/>
                         <Switch
@@ -131,13 +135,21 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_gravity="center"/>
+
                 <!-- Ironing container-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:layout_marginBottom="10dp">
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Medium"
+                        android:textColor="@color/places_autocomplete_prediction_primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -149,15 +161,12 @@
                         android:orientation="horizontal"
                         android:layout_marginEnd="10dp"
                         android:weightSum="10">
-                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                            app:fontName="Roboto_Medium"
+                        <TextView
                             android:id="@+id/provider_ironing_on_off_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/places_autocomplete_prediction_primary_text"
                             android:text="I do Ironing / I don't"
                             android:layout_weight="7"/>
                         <Switch
@@ -175,13 +184,21 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_gravity="center"/>
+
             <!-- Max Laundry Weight container-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginBottom="2dp">
-                <TextView
+                <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                    app:fontName="Roboto_Medium"
+                    android:textColor="@color/places_autocomplete_prediction_primary_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -192,15 +209,12 @@
                     android:orientation="horizontal"
                     android:layout_marginEnd="10dp"
                     android:weightSum="10">
-                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                        app:fontName="Roboto_Medium"
+                    <TextView
                         android:id="@+id/provider_max_laundry_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/places_autocomplete_prediction_primary_text"
                         android:text="Max Bags Per Service(5Kg/bag)"
                         android:layout_weight="9"/>
                     <EditText
@@ -215,6 +229,12 @@
                 </LinearLayout>
             </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:layout_gravity="center"/>
+
 
                 <!-- Price container-->
                 <LinearLayout
@@ -222,7 +242,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginBottom="5dp">
-                    <TextView
+                    <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
+                        app:fontName="Roboto_Medium"
+                        android:textColor="@color/places_autocomplete_prediction_primary_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
@@ -233,15 +255,12 @@
                         android:orientation="horizontal"
                         android:layout_marginEnd="10dp"
                         android:weightSum="10">
-                        <com.elbaz.eliran.washmylaundry.views.TextViewFontAndStyle
-                            app:fontName="Roboto_Medium"
+                        <TextView
                             android:id="@+id/provider_price_text"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:textStyle="bold"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/places_autocomplete_prediction_primary_text"
                             android:text="Rate Value (EUR/Kg)"
                             android:layout_weight="9"/>
                         <EditText
@@ -257,11 +276,14 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/provider_orders_in_progress_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text="Orders in progress"
-                    android:layout_marginBottom="5dp"/>
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center"
+                    android:visibility="invisible"/>
 
                 <View
                     android:layout_width="match_parent"

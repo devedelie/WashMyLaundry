@@ -65,8 +65,8 @@ public class ProviderHelper {
         return ProviderHelper.getProvidersCollection().document(uid).update("isIroning", status);
     }
 
-    public static Task<Void> updateProviderWeightPerService(String uid, int maxWeightPerService){
-        return ProviderHelper.getProvidersCollection().document(uid).update("maxWeightKg", maxWeightPerService);
+    public static Task<Void> updateProviderMaxBagsPerService(String uid, int maxWeightPerService){
+        return ProviderHelper.getProvidersCollection().document(uid).update("maxBags", maxWeightPerService);
     }
 
     public static Task<Void> updateProviderPricePerKg(String uid, int pricePerKg){
