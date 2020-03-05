@@ -200,8 +200,13 @@ public class EditUserBottomSheet extends BaseBottomSheet {
 
     private void setUiElements() {
         topTitle.setText(setTitle());
-        if(mUser.getUserAddress() != null && !mUser.getUserAddress().isEmpty()) addressEditText.setText(mUser.getUserAddress());
-        if(mUser.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mUser.getPhoneNumber()));
-        if(mUser.getUsername() != null && !mUser.getUsername().isEmpty()) fullNameEditText.setText(mUser.getUsername());
+        try {
+            if(mUser.getUserAddress() != null && !mUser.getUserAddress().isEmpty()) addressEditText.setText(mUser.getUserAddress());
+            if(mUser.getPhoneNumber()!= 0 ) phoneEditText.setText(String.valueOf(mUser.getPhoneNumber()));
+            if(mUser.getUsername() != null && !mUser.getUsername().isEmpty()) fullNameEditText.setText(mUser.getUsername());
+        }catch (Exception e){
+            Log.d(TAG, "setUiElements: error");
+        }
+
     }
 }
