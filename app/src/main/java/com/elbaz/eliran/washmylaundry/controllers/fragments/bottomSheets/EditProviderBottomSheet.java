@@ -61,6 +61,7 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
     private double addressLng;
     private Provider mProvider = new Provider();
     private String jsonObject = "{'providerName' : 'providerAddress' : 'providerZipCode' : 'phoneNumber' : 'machineType'}";
+    public static boolean isFragmentVisible;
 
     public static EditProviderBottomSheet newInstance(String key, String providerJson) {
         Log.d(TAG, "newInstance BottomSheetEditProvider: " + key + " " +providerJson);
@@ -78,6 +79,7 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
         View view = inflater.inflate(this.getFragmentLayout(), container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
+        isFragmentVisible = true; //
         // Convert JSON to User object
         jsonObject = bundle.getString("providerObject");
         mProvider = new Gson().fromJson(jsonObject, Provider.class);
@@ -88,6 +90,11 @@ public class EditProviderBottomSheet extends BaseBottomSheet {
         return view;
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        isFragmentVisible =false;
+    }
 
     // --------------------
     // CONFIGURATIONS

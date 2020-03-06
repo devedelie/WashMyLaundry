@@ -256,7 +256,8 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             // ----- Availability Switch -------//
             if(mProvider.getProviderAddress() == null || mProvider.getProviderAddress().isEmpty()){
                 statusSwitch.setClickable(false);
-                alertDialogInformation(getString(R.string.provider_missing_address_title), getString(R.string.provider_missing_address_content));
+                // Display alert only when on mainProviderActivity (avoid when EditProviderBottomSheet is visible)
+                if(!EditProviderBottomSheet.isFragmentVisible )alertDialogInformation(getString(R.string.provider_missing_address_title), getString(R.string.provider_missing_address_content));
             }else {
                 statusSwitch.setClickable(true);
                 statusSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
