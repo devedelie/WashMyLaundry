@@ -400,7 +400,7 @@ public class MainProviderActivity extends BaseActivity implements NavigationView
             }
         }
         // If > 0 --> Show Title
-        if(mRecentOrdersList.size()>0){ordersListText.setVisibility(View.VISIBLE);}
+        if(mRecentOrdersList.size()>0){ordersListText.setVisibility(View.VISIBLE);} else {ordersListText.setVisibility(View.GONE);}
         // Sort orders (newest first)
         if(mRecentOrdersList != null && mRecentOrdersList.size() > 0){
             Collections.sort(mRecentOrdersList, new Comparator<Orders>() {
