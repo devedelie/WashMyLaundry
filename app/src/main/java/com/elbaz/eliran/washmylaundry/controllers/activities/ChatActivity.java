@@ -69,8 +69,8 @@ public class ChatActivity extends BaseActivity implements ChatAdapter.Listener{
             Log.d(TAG, "onCreate Chat: " + mOrders.getProviderName());
         }
 
-        // Activate listeners for current chat channel (for indicating on firestore that the message was seen)
         this.configureViewModel();
+        // Activate listeners for current chat channel (to indicate on firestore that the message was seen)
         this.activateChatListeners(mOrders.getUniqueOrderId());
         this.checkCurrentUser();
         this.configureRecyclerView();
